@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <link type="text/css" rel="stylesheet" href="/main.css"/>
+  </head>
+  <body>
+
+    <h1>Downloadable Files</h1>
+
+    <table>
+      <thead>
+        <th>File</th>
+        <th>Size (bytes)</th>
+        <th>Upload date (UTC)</th>
+      </thead>
+      <tbody>
+        {% for blob in blobs %}
+        <tr>
+          <td><a href="/files/{{ blob.key }}">{{ blob.filename }}</a></td>
+          <td>{{ blob.size }}</td>
+          <td>{{ blob.creation.ctime }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>
