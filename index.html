@@ -6,6 +6,16 @@
 
     <h1>Downloadable Files</h1>
 
+    {% if admin %}
+    <form action="{{ upload_url }}" method="POST" enctype="multipart/form-data">
+      <p>
+        Upload New File:  
+        <input type="file" name="file">
+        <input type="submit" name="submit" value="Upload"> 
+      </p>
+    </form>
+    {% endif %}
+
     <table>
       <thead>
         <th>File</th>
@@ -18,6 +28,13 @@
           <td><a href="/files/{{ blob.key }}">{{ blob.filename }}</a></td>
           <td>{{ blob.size }}</td>
           <td>{{ blob.creation.ctime }}</td>
+          {% if admin %}
+          <td>
+            <form method="post" action="/admin/delete/{{ blob.key }}">
+              <input type="submit" name="delete" value="Delete"/>
+            </form>
+          </td>
+          {% endif %}
         </tr>
         {% endfor %}
       </tbody>
