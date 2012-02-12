@@ -7,3 +7,14 @@ th, td {
 h1 {
     border-bottom: 1px solid black;
 }
+
+p.important {
+   color: red;
+   background-color: yellow;
+   border: 2px solid red;
+   margin: 0.5ex;
+   padding: 0.5ex;
+   text-align: center;
+   position: center;
+   width: 75%;
+}
