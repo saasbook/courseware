@@ -81,11 +81,11 @@ RSpec::Matchers.define :have_xml_element do |expected,options={}|
         matching_elts.any? { |e| e.attributes[@attribute_name] }
       elsif @count && @count > 0
         if counted_element && counted_element == 'element' 
-          document.elements[expected.to_s].elements.size == @count ? true : false
+          document.elements[expected.to_s].elements.size == @count
         elsif counted_element
-          document.elements[expected.to_s].elements[counted_element].size == @count ? true : false
+          document.elements[expected.to_s].elements[counted_element].size == @count
         else
-          document.elements[expected.to_s].size == @count ? true : false 
+          document.elements[expected.to_s].size == @count
         end
       else          
         document.elements[expected.to_s]
@@ -127,11 +127,11 @@ RSpec::Matchers.define :have_xml_element do |expected,options={}|
   end
   
   def counted_element
-    count_proxy.element
+   @count_proxy.element
   end
   
   def counted_element_name
-    count_proxy.element_name
+   @count_proxy.element_name
   end
 
   def compare_values(target,source)
