@@ -1,0 +1,2 @@
+require 'lib/hw2edxml'
+Hw2Edxml.new.run!
