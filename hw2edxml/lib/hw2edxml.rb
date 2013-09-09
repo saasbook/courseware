@@ -1,7 +1,6 @@
 require 'yaml'
-require 'github-markup'
-
 require 'hw2edxml/xml_writer'
+require 'hw2edxml/chunker'
 
 class Hw2Edxml
   attr_accessor :config
