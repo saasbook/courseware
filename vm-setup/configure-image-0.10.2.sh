@@ -1,6 +1,6 @@
 #!/bin/bash
 # Note: you will be prompted to enter the password several times through the script
-# run with . setup_part_1.sh
+# run with . configure-image-0.10.2.sh
 
 # This script is designed for Ubuntu 11.10
 
