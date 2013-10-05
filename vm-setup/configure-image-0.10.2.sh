@@ -11,7 +11,7 @@ sudo apt-get install -y dkms     # For installing VirtualBox guest additions
 # Install RVM and ruby 1.9.3 note: may take a while to compile ruby
 sudo apt-get install -y curl
 \curl -L https://get.rvm.io | bash -s stable --ruby=1.9.3
-source /home/ubuntu/.rvm/scripts/rvm
+source ~/.rvm/scripts/rvm
 
 
 # Install sqlite3 dev
