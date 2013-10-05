@@ -122,12 +122,12 @@ rm -rf magit-1.1.1/ magit-1.1.1.tar.gz
 cd /usr/share/emacs
 sudo mkdir includes
 cd includes
-sudo wget http://svn.ruby-lang.org/cgi-bin/viewvc.cgi/trunk/misc/ruby-mode.el
-sudo wget http://svn.ruby-lang.org/cgi-bin/viewvc.cgi/trunk/misc/ruby-electric.el
+sudo wget http://svn.ruby-lang.org/repos/ruby/trunk/misc/ruby-mode.el
+sudo wget http://svn.ruby-lang.org/repos/ruby/trunk/misc/ruby-electric.el
 cd ~/
 echo "" >> .emacs
 echo "; directory to put various el files into" >> .emacs
-echo "; (add-to-list 'load-path \"/usr/share/emacs/includes\")" >> .emacs
+echo "(add-to-list 'load-path \"/usr/share/emacs/includes\")" >> .emacs
 echo "" >> .emacs
 echo "(global-font-lock-mode 1)" >> .emacs
 echo "(setq font-lock-maximum-decoration t)" >> .emacs
