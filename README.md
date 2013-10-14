@@ -18,3 +18,20 @@ Google graciously donates hosting for the VM image on a high-replication
 AppEngine instance.  The app's README explains how to administer it and
 upload new images there.
 
+Installation Instructions
+=========================
+
+```sh
+# Install git if you don't already have it installed 
+sudo apt-get install git 
+
+# Create a folder to clone the courseware source code 
+cd ~ && mkdir CS169
+git clone https://github.com/saasbook/courseware.git
+cd courseware
+
+# Run the script to install all the courseware needed for the class 
+cd vm-setup
+chmod +x configure-image-0.10.2.sh
+./configure-image-0.10.2.sh
+```
