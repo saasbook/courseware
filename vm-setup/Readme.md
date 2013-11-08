@@ -7,6 +7,8 @@ with all homework of CS-169.1x including submission to grader.
 VM creation details
 ===================
 
+Created based on
+
 http://beta.saasbook.info/bookware-vm-instructions
 
 Under the section
@@ -31,7 +33,9 @@ I did so the way I did.
 - Deleted script and log
 - Added Chromium icon to Launcher
 - Created rottenpotatoes from scratch for testing and to have available as per
-  screencast. Downloaded and extracted from here when creating final VM zip.
+  screencast.
+- Created final image as above only with new script and downloading previously
+  created rottenpotatoes. May wish to create smaller image without Ubuntu updates.
 
 
 Rottenpotatoes creation details
