@@ -18,3 +18,5 @@ Google graciously donates hosting for the VM image on a high-replication
 AppEngine instance.  The app's README explains how to administer it and
 upload new images there.
 
+Added a new setup script for Ubuntu 12.04 and updated skeletons in new
+folder hw-skeletons. Details in those folders. - Michael Smith
