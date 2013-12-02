@@ -56,10 +56,6 @@ rvm rvmrc warning ignore allGemfiles
 # Install sqlite3 dev
 sudo-pw apt-get -y install sqlite3 libsqlite3-dev
 
-# Install required libs and optional feedvalidator for typo homework
-sudo-pw apt-get -y install libxml2-dev libxslt-dev
-sudo-pw apt-get -y install python-feedvalidator
-
 # Install nodejs
 sudo-pw add-apt-repository ppa:chris-lea/node.js
 sudo-pw apt-get update
