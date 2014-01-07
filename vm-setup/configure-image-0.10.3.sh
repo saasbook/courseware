@@ -204,8 +204,8 @@ set -v
 
 ## GEMS
 
-# install rails 3.2.15
-gem install rails -v 3.2.15
+# install rails 3.2.16
+gem install rails -v 3.2.16
 
 # sqlite 3 gem
 gem install sqlite3-ruby
