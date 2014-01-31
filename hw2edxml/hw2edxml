@@ -1,2 +1,3 @@
-require 'lib/hw2edxml'
+#!/usr/bin/env ruby
+require File.dirname(__FILE__) + '/lib/hw2edxml'
 Hw2Edxml.new.run!
