@@ -43,7 +43,7 @@ echo "source ~/.profile" >> ~/.bash_profile
 # Install RVM and ruby 1.9.3 note: may take a while to compile ruby
 sudo-pw apt-get install -y curl
 set +v
-\curl -L https://get.rvm.io | bash -s stable --ruby=1.9.3
+curl -L https://get.rvm.io | bash -s stable --ruby=1.9.3
 source ~/.rvm/scripts/rvm
 
 # reload profile to set paths for gem and rvm commands
@@ -208,23 +208,25 @@ set -v
 gem install rails -v 3.2.16
 
 # sqlite 3 gem
-gem install sqlite3-ruby
+gem install sqlite3
 
-# other gems
+# other gems: for testing and debugging....
 gem install cucumber -v 1.3.8
 gem install cucumber-rails -v 1.3.1
-#gem install cucumber-rails-training-wheels
+gem install cucumber-rails-training-wheels
 gem install rspec
+gem install rspec-rails
 gem install autotest
 gem install spork
 gem install metric_fu
 gem install debugger
 gem install timecop -v 0.6.3
 gem install chronic -v 0.9.1
+# for app development...
 gem install omniauth
 gem install omniauth-twitter
 gem install nokogiri
-gem install ruby-tmdb -v 0.2.1
+gem install themoviedb -v 0.0.17
 gem install ruby-graphviz
 gem install reek
 gem install flog
