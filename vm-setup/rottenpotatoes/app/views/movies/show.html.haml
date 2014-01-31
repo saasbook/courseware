@@ -1,0 +1,19 @@
+-# in app/views/movies/show.html.haml
+
+%h1 Details about #{@movie.title}
+
+%ul#details
+  %li
+    Rating:
+    = @movie.rating
+  %li
+    Released on:
+    = @movie.release_date.strftime("%B %d, %Y")
+
+%h3 Description:
+
+%p#description= @movie.description
+
+= link_to 'Edit info', edit_movie_path(@movie)
+= button_to 'Delete', movie_path(@movie), :method => :delete, :confirm => 'Are you sure?'
+= link_to 'Back to movie list', movies_path
