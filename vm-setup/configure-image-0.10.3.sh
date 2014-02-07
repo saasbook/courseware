@@ -244,3 +244,5 @@ exec 2>&4 4>&-
 
 # turn off echo
 set +v
+
+source /home/vagrant/.rvm/scripts/rvm
