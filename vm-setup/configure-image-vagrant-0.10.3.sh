@@ -11,6 +11,9 @@ sudo apt-get install -y dkms     # For installing VirtualBox guest additions
 # remove un-needed packages as recommended by above output
 sudo apt-get -y autoremove
 
+# for add-apt-repository
+sudo apt-get install -y apt-file python-software-properties software-properties-common
+
 # add profile to bash_profile as recommended by rvm
 touch ~/.bash_profile
 echo "source ~/.profile" >> ~/.bash_profile
@@ -18,7 +21,7 @@ echo "source ~/.profile" >> ~/.bash_profile
 # Install RVM and ruby 1.9.3 note: may take a while to compile ruby
 sudo apt-get install -y curl
 
-curl -L https://get.rvm.io | bash -s stable --ruby=1.9.3
+curl -kL https://get.rvm.io | bash -s stable --ruby=1.9.3
 source ~/.rvm/scripts/rvm
 
 # reload profile to set paths for gem and rvm commands
@@ -41,7 +44,7 @@ sudo apt-get install -y nodejs
 
 # Install jslint
 cd ~/
-curl -LO http://www.javascriptlint.com/download/jsl-0.3.0-src.tar.gz
+curl -kLO http://www.javascriptlint.com/download/jsl-0.3.0-src.tar.gz
 tar -zxvf jsl-0.3.0-src.tar.gz
 cd jsl-0.3.0/src/
 make -f Makefile.ref
