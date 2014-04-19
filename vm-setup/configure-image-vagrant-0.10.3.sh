@@ -190,8 +190,10 @@ echo "        	))" >> .emacs
 
 ## GEMS
 # some ruby docs require explicit coding to be set
+
+gem install -f rdoc -v 4.0.1
 export RDOCOPT="--encoding=UTF-8"
-sudo gem update -f rdoc
+
 # install rails 3.2.16
 gem install rails -v 3.2.16
 
@@ -225,9 +227,10 @@ rvm 1.9.3 do gem install jquery-rails
 gem install fakeweb
 
 # wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
-# using heroku's auto-installer generated errors
+# using heroku's auto-installer generated errors.  seems to be a problem with the script specifying http instead https in the heroku.list file
 # NOTE: you will need to run `source /home/vagrant/.rvm/scripts/rvm` or similar (see the output from the script) to have access to your gems etc.
-# add heroku repository to apt$
+
+# add heroku repository to apt
 echo "deb https://toolbelt.heroku.com/ubuntu ./" | sudo tee /etc/apt/sources.list.d/heroku.list
 
 # install heroku's release key for package verification$
