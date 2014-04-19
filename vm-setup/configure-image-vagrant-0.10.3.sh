@@ -8,6 +8,11 @@ cd /home/vagrant/
 sudo apt-get update
 sudo apt-get install -y dkms     # For installing VirtualBox guest additions
 
+# Fix for language encoding issues later on
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
+
 # remove un-needed packages as recommended by above output
 sudo apt-get -y autoremove
 
@@ -184,7 +189,9 @@ echo "        	))" >> .emacs
 
 
 ## GEMS
-
+# some ruby docs require explicit coding to be set
+export RDOCOPT="--encoding=UTF-8"
+sudo gem update -f rdoc
 # install rails 3.2.16
 gem install rails -v 3.2.16
 
@@ -217,6 +224,17 @@ rvm 1.9.3 do gem install jquery-rails
 
 gem install fakeweb
 
-wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
-
+# wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+# using heroku's auto-installer generated errors
 # NOTE: you will need to run `source /home/vagrant/.rvm/scripts/rvm` or similar (see the output from the script) to have access to your gems etc.
+# add heroku repository to apt$
+echo "deb https://toolbelt.heroku.com/ubuntu ./" | sudo tee /etc/apt/sources.list.d/heroku.list
+
+# install heroku's release key for package verification$
+wget -O- https://toolbelt.heroku.com/apt/release.key | sudo apt-key add -
+
+# update your sources$
+sudo apt-get update
+
+# install the toolbelt$
+sudo apt-get install -y heroku-toolbelt
