@@ -29,7 +29,8 @@ echo "source /home/vagrant/.profile" >> /home/vagrant/.bash_profile
 # Install RVM and ruby 1.9.3 note: may take a while to compile ruby
 sudo apt-get install -y curl
 
-curl -kL https://get.rvm.io | bash -s stable --ruby=1.9.3
+#curl -kL https://get.rvm.io | bash -s stable --ruby=1.9.3
+curl -ksSL https://get.rvm.io | bash -s stable --ruby=1.9.3
 
 # path needs to be corrected.  Current candidate: /usr/local/rvm/scripts/rvm
 ln -s /usr/local/rvm /home/vagrant/.rvm
