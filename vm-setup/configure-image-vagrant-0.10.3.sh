@@ -4,7 +4,7 @@
 # run with a Vagrantfile
 
 # Start configuration
-cd ~/
+cd /home/vagrant/
 sudo apt-get update
 sudo apt-get install -y dkms     # For installing VirtualBox guest additions
 
@@ -18,8 +18,8 @@ sudo apt-get install -y apt-file python-software-properties software-properties-
 sudo apt-get install -y unzip
 
 # add profile to bash_profile as recommended by rvm
-touch ~/.bash_profile
-echo "source ~/.profile" >> ~/.bash_profile
+touch /home/vagrant/.bash_profile
+echo "source /home/vagrant/.profile" >> /home/vagrant/.bash_profile
 
 # Install RVM and ruby 1.9.3 note: may take a while to compile ruby
 sudo apt-get install -y curl
@@ -27,10 +27,12 @@ sudo apt-get install -y curl
 curl -kL https://get.rvm.io | bash -s stable --ruby=1.9.3
 
 # path needs to be corrected.  Current candidate: /usr/local/rvm/scripts/rvm
-source ~/.rvm/scripts/rvm
+ln -s /usr/local/rvm /home/vagrant/.rvm
+
+source /home/vagrant/.rvm/scripts/rvm
 
 # reload profile to set paths for gem and rvm commands
-source ~/.bash_profile
+source /home/vagrant/.bash_profile
 
 # remove warning when having ruby version in Gemfile so Heroku uses correct version
 rvm rvmrc warning ignore allGemfiles
@@ -48,15 +50,15 @@ sudo apt-get update
 sudo apt-get install -y nodejs
 
 # Install jslint
-cd ~/
+cd /home/vagrant/
 curl -kLO http://www.javascriptlint.com/download/jsl-0.3.0-src.tar.gz
 tar -zxvf jsl-0.3.0-src.tar.gz
 cd jsl-0.3.0/src/
 make -f Makefile.ref
-cd ~/
+cd /home/vagrant/
 sudo cp jsl-0.3.0/src/Linux_All_DBG.OBJ/jsl /usr/local/bin
 sudo rm jsl-0.3.0-src.tar.gz
-sudo rm -rf ~/jsl-0.3.0
+sudo rm -rf /home/vagrant/jsl-0.3.0
 
 # Install other programs
 sudo apt-get install -y git
@@ -131,11 +133,11 @@ wget http://www.vim.org/scripts/download_script.php?src_id=16429
 mv d* rails.zip
 unzip rails.zip
 rm -rf rails.zip
-# to allow :help rails, start up vim and type :helptags ~/.vim/doc
+# to allow :help rails, start up vim and type :helptags /home/vagrant/.vim/doc
 
 
 # Install emacs and add some basic config/plugins
-cd ~/
+cd /home/vagrant/
 sudo apt-get install -y emacs
 
 wget https://github.com/downloads/magit/magit/magit-1.1.1.tar.gz
@@ -144,14 +146,14 @@ cd magit-1.1.1/
 make
 sudo make install
 echo "(require 'magit)" >> .emacs
-cd ~/
+cd /home/vagrant/
 rm -rf magit-1.1.1/ magit-1.1.1.tar.gz
 cd /usr/share/emacs
 sudo mkdir includes
 cd includes
 sudo wget http://svn.ruby-lang.org/cgi-bin/viewvc.cgi/trunk/misc/ruby-mode.el
 sudo wget http://svn.ruby-lang.org/cgi-bin/viewvc.cgi/trunk/misc/ruby-electric.el
-cd ~/
+cd /home/vagrant/
 echo "" >> .emacs
 echo "; directory to put various el files into" >> .emacs
 echo "; (add-to-list 'load-path \"/usr/share/emacs/includes\")" >> .emacs
