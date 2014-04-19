@@ -1,7 +1,7 @@
 #!/bin/bash
 # This script is designed for Ubuntu 12.04
 # Should mostly work on 11.10 except Heroku install but not tested
-# run with . <filename>.sh
+# run with a Vagrantfile
 
 # Start configuration
 cd ~/
@@ -14,6 +14,9 @@ sudo apt-get -y autoremove
 # for add-apt-repository
 sudo apt-get install -y apt-file python-software-properties software-properties-common
 
+# unzip required for later steps
+sudo apt-get install -y unzip
+
 # add profile to bash_profile as recommended by rvm
 touch ~/.bash_profile
 echo "source ~/.profile" >> ~/.bash_profile
@@ -22,6 +25,8 @@ echo "source ~/.profile" >> ~/.bash_profile
 sudo apt-get install -y curl
 
 curl -kL https://get.rvm.io | bash -s stable --ruby=1.9.3
+
+# path needs to be corrected.  Current candidate: /usr/local/rvm/scripts/rvm
 source ~/.rvm/scripts/rvm
 
 # reload profile to set paths for gem and rvm commands
@@ -144,7 +149,7 @@ rm -rf magit-1.1.1/ magit-1.1.1.tar.gz
 cd /usr/share/emacs
 sudo mkdir includes
 cd includes
-sudo-p wget http://svn.ruby-lang.org/cgi-bin/viewvc.cgi/trunk/misc/ruby-mode.el
+sudo wget http://svn.ruby-lang.org/cgi-bin/viewvc.cgi/trunk/misc/ruby-mode.el
 sudo wget http://svn.ruby-lang.org/cgi-bin/viewvc.cgi/trunk/misc/ruby-electric.el
 cd ~/
 echo "" >> .emacs
