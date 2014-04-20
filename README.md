@@ -13,6 +13,9 @@ Version numbers in the VM names track the earliest version of the
 work; using that VM with earlier-numbered versions of the book may not
 give the results the book describes.
 
+[Vagrant](http://www.vagrantup.com/downloads.html) support files are also included
+in case students want to try this automated build method.
+
 `appspot` contains an AppEngine app deployed to saasbook.appspot.com.
 Google graciously donates hosting for the VM image on a high-replication
 AppEngine instance.  The app's README explains how to administer it and
