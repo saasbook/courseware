@@ -2,20 +2,13 @@
 # Simple autograder setup.sh run by Vagrant
 
 apt-get install -y curl
-
 \curl -L https://get.rvm.io | bash -s stable  --ruby=1.9.3
-
 #rvm command output says to do this.
 usermod -a -G rvm vagrant
 #rvm command output says to do this too.
 source /etc/profile.d/rvm.sh
 rvm requirements
 rvm reload
-
-#rvm rubygems specific version?
-
-wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
-
 # remove warning when having ruby version in Gemfile so Heroku uses correct version
 rvm rvmrc warning ignore allGemfiles
 
@@ -30,24 +23,9 @@ add-apt-repository ppa:chris-lea/node.js
 apt-get update
 apt-get -qq install -y nodejs
 
-# Install jslint
-cd ~/
-curl -LO http://www.javascriptlint.com/download/jsl-0.3.0-src.tar.gz
-tar -zxf jsl-0.3.0-src.tar.gz
-cd jsl-0.3.0/src/
-make -s -f Makefile.ref
-cd ~/
-cp jsl-0.3.0/src/Linux_All_DBG.OBJ/jsl /usr/local/bin
-rm jsl-0.3.0-src.tar.gz
-rm -rf ~/jsl-0.3.0
+wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+gem install rails '3.2.15'
 
-# Install other programs
-apt-get install -qq git
-apt-get -qq install graphviz
-apt-get -qq install libpq-dev
-
-#gem install cucumber
-#gem install rspec
 # top-level dir is specified in Vagrantfile as config.vm.synced_folder
 cd /courseware/vm-setup/rottenpotatoes
 #bundle update --source debugger # should update the Gemfile.lock
@@ -78,4 +56,5 @@ echo "
   'source ~/.profile', or reopen Terminals.
 
 * Install finished. Do 'vagrant ssh' to get into this box, 'vagrant halt' to stop it.
+
 "

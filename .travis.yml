@@ -1,0 +1,9 @@
+before_install:
+  - apt-get install virtualbox
+  - apt-get install vagrant
+bundler_args: ''
+script:
+  - vagrant box add hashicorp/precise32
+  - vagrant up
+  - vagrant halt
+  - vagrant destroy
