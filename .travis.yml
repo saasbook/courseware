@@ -1,8 +1,9 @@
 before_install:
-  - sudo apt-get install virtualbox-4.2
-#  - sudo apt-get install linux-headers-$(uname -r)
-#  - sudo dpkg-reconfigure virtualbox-dkms
-  - sudo apt-get install -r vagrant
+  - sudo apt-get install virtualbox
+  - sudo apt-get install build-essential linux-headers-`uname -r`
+  - sudo dpkg-reconfigure virtualbox-dkms
+  - sudo apt-get remove virtualbox && sudo apt-get install virtualbox
+  - sudo apt-get install vagrant
 
 bundler_args: ''
 script:
