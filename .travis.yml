@@ -1,9 +1,11 @@
 before_install:
   - sudo apt-get install virtualbox
   - sudo apt-get install vagrant
+  - sudo apt-get install linux-headers-$(uname -r)
+  - sudo dpkg-reconfigure virtualbox-dkms
 bundler_args: ''
 script:
-  - vagrant box add hashicorp/precise32
-  - vagrant up
-  - vagrant halt
-  - vagrant destroy
+  - sudo vagrant box add hashicorp/precise32
+  - sudo vagrant up
+  - sudo vagrant halt
+  - sudo vagrant destroy
