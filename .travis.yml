@@ -1,6 +1,6 @@
 before_install:
   - sudo apt-get install virtualbox
-  - sudo apt-get install build-essential linux-headers-`uname -r`
+  - sudo apt-get install build-essential linux-headers-3.8.0-32-generic
   - sudo dpkg-reconfigure virtualbox-dkms
   - sudo apt-get remove virtualbox && sudo apt-get install virtualbox
   - sudo apt-get install vagrant
