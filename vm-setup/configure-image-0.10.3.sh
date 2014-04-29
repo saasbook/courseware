@@ -245,4 +245,4 @@ exec 2>&4 4>&-
 # turn off echo
 set +v
 
-# NOTE: you will need to run `source /home/vagrant/.rvm/scripts/rvm` or similar (see the output from the script) to have access to your gems etc.
+# NOTE: you will need to run `source ~/.rvm/scripts/rvm` or similar (see the output from the script) to have access to your gems etc.
