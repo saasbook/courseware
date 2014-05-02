@@ -18,6 +18,21 @@ apt-get -qq install sqlite3 libsqlite3-dev
 apt-get -qq install libxml2-dev libxslt-dev
 apt-get -qq install python-feedvalidator
 
+# Install postgesql dev
+export LANGUAGE="en_US.UTF-8"
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+sudo apt-get install -y libpq-dev
+sudo apt-get install -y postgresql
+
+# need to edit /etc/postgresql/9.1/main/pg_hba.conf
+# needs work to handle variable white space
+sudo sed -i -e 's/local\s\+all\s\+postgres\s\+peer/local all postgres peer map=basic/g' /etc/postgresql/9.1/main/pg_hba.conf
+# need to edit /etc/postgresql/9.1/main/pg_ident.conf
+echo "basic vagrant postgres" | sudo tee -a /etc/postgresql/9.1/main/pg_ident.conf
+sudo /etc/init.d/postgresql restart
+
+
 # Install nodejs
 add-apt-repository ppa:chris-lea/node.js
 apt-get update
