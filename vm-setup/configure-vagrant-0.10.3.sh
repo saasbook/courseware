@@ -18,6 +18,9 @@ apt-get -qq install sqlite3 libsqlite3-dev
 apt-get -qq install libxml2-dev libxslt-dev
 apt-get -qq install python-feedvalidator
 
+# Install unzip for students to easily extract hw-skeletons
+apt-get -qq install unzip
+
 # Install postgesql dev
 export LANGUAGE="en_US.UTF-8"
 export LANG="en_US.UTF-8"
