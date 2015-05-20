@@ -42,6 +42,8 @@ echo "source ~/.profile" >> ~/.bash_profile
 
 # Install RVM and ruby 1.9.3 note: may take a while to compile ruby
 sudo-pw apt-get install -y curl
+# Get mpapis' pubkey per https://rvm.io/rvm/security
+gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 set +v
 curl -L https://get.rvm.io | bash -s stable --ruby=1.9.3
 source ~/.rvm/scripts/rvm
@@ -244,3 +246,5 @@ exec 2>&4 4>&-
 
 # turn off echo
 set +v
+
+# NOTE: you will need to run `source ~/.rvm/scripts/rvm` or similar (see the output from the script) to have access to your gems etc.
