@@ -1,13 +1,23 @@
 require 'yaml'
 require_relative 'hw2edxml/xml_writer'
+require_relative 'hw2edxml/chunk'
 require_relative 'hw2edxml/chunker'
 
 class Hw2Edxml
-  attr_accessor :config, :chunks
+  
+  @@config = {} # :nodoc:
+  
+  # Autograder configuration info read from .yml file (hash with symbolized keys)
+  def self.config
+    @@config
+  end
+  # List of components that make up the homework
+  attr_reader :chunks
+
   def run!
     begin
-      @config = read_config 'autograder/config.yml'
-      @chunks = Chunker.new 'public/README.md'
+      @@config = read_config 'autograder/config.yml'
+      @chunks = Chunker.new('public/README.md').chunks
     rescue Errno::ENOENT => e
       die_with "File not found: " + e.message +
         "\nMake sure you're running from the root directory of a homework assignment."
@@ -17,25 +27,30 @@ class Hw2Edxml
   end
   
   def initialize
-    @config = {}
-    @chunks = {}
+    @chunks = []
   end
 
 
   private
 
   def generate_xml_files!
-    chunks.each_pair do |problem_name, problem_html|
+    write_toplevel_files!
+    chunks.each do |chunk|
+      problem_name = chunk.file_path
       begin
         File.open("#{problem_name}.xml", "w") do |f|
-          f.write XmlWriter.new(problem_name, config[problem_name], problem_html)
+          f.write chunk.to_edxml
         end
       rescue RuntimeError => e
         die_with "Writing #{problem_name}.xml: " + e.message
       end
     end
   end
-  
+
+  def write_toplevel_files!
+    
+  end
+
   def check_for_missing_keys!
     missing_from_config = chunks.keys - config.keys
     unless missing_from_config.empty?
