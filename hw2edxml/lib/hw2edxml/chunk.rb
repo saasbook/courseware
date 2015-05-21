@@ -1,8 +1,10 @@
 require 'rexml/document'
-require_relative 'autograder_chunk'
 
 class Hw2Edxml
   class Chunk
+    require_relative 'autograder_chunk'
+    require_relative 'vertical_chunk'
+
     # Encapsulates a chunk of content that will become part of a Vertical.
     
     # +type+ may be one of +:autograder+, +:ruql+, or +:html+
@@ -17,6 +19,9 @@ class Hw2Edxml
     # The display name, usually from +data-display-name+ attribute
     attr_accessor :display_name
 
+    # One or more child chunks (recursive data structure)
+    attr_accessor :chunks
+
     # A randomly-generated ID string used as edX object identifier
     def id
       @id ||= Chunk.random_id
@@ -28,7 +33,7 @@ class Hw2Edxml
       @raw_data = raw_data
       @display_name = display_name
       @output = ''
-      @xml = Builder::XmlMarkup.new(:target => @output)
+      @xml = Builder::XmlMarkup.new(:target => @output, :indent => 2)
     end
 
     def type
@@ -37,7 +42,7 @@ class Hw2Edxml
     
     # Return file path relative to current directory
     def file_path
-      
+      "studio/#{type}/#{id}.xml"
     end
 
     protected
@@ -55,13 +60,14 @@ class Hw2Edxml
       Array.new(4) { sprintf("%08x", rand(2**32)) }.join('')
     end
 
-  end
+    public
 
-  # Chunk type that starts a new page
-  class VerticalChunk < Chunk
-    def initialize(elt)
-      super(elt.to_s, elt.text)
+    def write_self!
+      File.open(file_path, "w") do |f|
+        f.write self.to_edxml
+      end
     end
+
   end
 
   class HtmlChunk < Chunk
@@ -71,11 +77,18 @@ class Hw2Edxml
     def append_content(elt)
       @raw_data << elt.to_s
     end
+    def to_edxml
+      @raw_data
+    end
   end
 
   class RuqlChunk < Chunk
     def initialize(elt)
       super(elt.texts.join(''), Chunk.name_for(elt))
+    end
+    def type ; :problem ; end
+    def to_edxml
+      "(RuQL support pending)"
     end
   end
 

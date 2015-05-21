@@ -13,8 +13,10 @@ class Hw2Edxml::AutograderChunk < Hw2Edxml::Chunk
     @grader_payload = elt.attribute('data-grader-payload').to_s
     @points = elt.attribute('data-points').to_s
     @queue_name = Hw2Edxml.config[:queue_name]
-    super(elt.to_s, Hw2Edxml::Chunk.name_for(elt))
+    super(elt.elements.map(&:to_s).join(''), Hw2Edxml::Chunk.name_for(elt))
   end
+
+  def type ; :problem ; end
 
   def to_edxml
     @xml.problem do
@@ -25,6 +27,7 @@ class Hw2Edxml::AutograderChunk < Hw2Edxml::Chunk
     end
     @output
   end
+
 
   def autograder_form
     form = ''
