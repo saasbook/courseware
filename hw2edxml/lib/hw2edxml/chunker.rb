@@ -1,6 +1,5 @@
 require 'redcarpet'
 require 'rexml/document'
-require 'debugger'
 
 class Hw2Edxml
   class Chunker

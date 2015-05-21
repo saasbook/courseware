@@ -1,7 +1,12 @@
 Auto-generate "edXML" pages for ESaaS homeworks
 ===============================================
 
-This tool generates a homework assignment "module" for an edX course.
+This tool generates a homework assignment "module" for an edX course,
+using the structure defined for such homeworks.
+
+From the root directory of a homework assignment, run the script with no arguments.
+It looks for `public/README.md` (and `config/autograders.yml` if any of the
+components in the homework call for an external autograder).
 
 Each major unit in an edX course is a `chapter`.  A chapter is composed
 of `sequential` elements.  A sequential is the unit of content that,
@@ -14,9 +19,8 @@ page, and may contain one or more content elements such as HTML text,
 inline multiple-choice questions, or forms for submitting to an external
 autograder.
 
-This script takes a single toplevel README.md (markdown) or HTML5 file and
-converts it as follows.  Markdown files are first converted to HTML5; if
-starting from HTML5, only the contents of the `<body>` element are processed.
+This script takes a single toplevel README.md (markdown) file and
+converts it as follows.
 
 Each toplevel heading (`<h1>`-equivalent) becomes a vertical.
 
@@ -35,16 +39,9 @@ homework; see below.
 * any markup not enclosed in one of the above `<div>` types is collected
 into an `<html>` static page element.
 
-The result will therefore be a single sequential containing one or more
-verticals, with each vertical containing some mix of HTML, inline (RuQL)
-problems, and external-autograder problems.  The output is therefore a
-directory structure whose toplevel is a sequential.
+The result will be a `studio/` directory containing subdirectories
+`sequential`, `problem`, `vertical`, `html`.  Copy the contents of each
+of these subdirectories into the corresponding subdirectories in a
+course exported from Studio.  There will be a single Sequential so a
+single new module in your left-hand navbar.
 
-From the root level of the homework (the one containing the
-subdirectories `public`, `solutions`, and `autograder`), run:
-
-    `hw2edxml .`
-
-The script will expect to find `public/README.md` for the overall
-structure of the homework, and `config/autograders.yml` if any of the
-components in the homework call for an external autograder.

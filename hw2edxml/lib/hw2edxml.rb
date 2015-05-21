@@ -47,9 +47,23 @@ class Hw2Edxml
   end
 
   def generate_xml_files!
+    write_sequential!
     chunks.each do |chunk|
       chunk.write_self!
     end
+  end
+
+  def write_sequential!
+    output = ''
+    sequential_id = Chunk.random_id
+    verticals = chunks.select { |c| c.type == :vertical }
+    xml = Builder::XmlMarkup.new(:target => output, :indent => 2)
+    xml.sequential(:display_name => verticals[0].display_name) do
+      verticals.each do |v|
+        xml.vertical :url_name => v.id
+      end
+    end
+    File.open("studio/sequential/#{sequential_id}.xml", "w") { |f| f.puts output }
   end
 
   def read_config(file)
