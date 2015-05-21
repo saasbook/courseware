@@ -26,7 +26,7 @@ Each toplevel heading (`<h1>`-equivalent) becomes a vertical.
 
 Within a vertical (that is, between two `<h1>`s):
 
-* an element with `<pre class="ruql" data-display-name="Foobar">` is passed
+* an element with `<script language="ruql" data-display-name="Foobar">` is passed
 to the RuQL edXML generator and the results are packaged as an edXML
 `<problem>` element whose student-visible title will be the value of the
 `data-display-name` attribute.

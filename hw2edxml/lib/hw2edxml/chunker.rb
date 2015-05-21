@@ -6,11 +6,8 @@ class Hw2Edxml
     attr_reader :chunks
     def initialize(filename)
       markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, :fenced_code_blocks => true, :tables => true)
-      orig_md = File.read filename
-      html = markdown.render(orig_md)
-      wrapped_html = '<!DOCTYPE html><html><body>' << html << '</body></html>'
-      File.open("/tmp/tmp.html", "w") { |f| f.puts wrapped_html }
-      @doc = REXML::Document.new(wrapped_html)
+      html = markdown.render(File.read filename)
+      @doc = REXML::Document.new('<!DOCTYPE html><html><body>' << html << '</body></html>')
       @elements = []
       validate_html
       @chunks = extract_chunks
@@ -25,8 +22,7 @@ class Hw2Edxml
       raise(ArgumentError, 'first element must be <h1>') unless vertical?(@elements.first)
     end
 
-    #def ruql?(elt) ;  elt.name =~ /^script$/i && elt.attribute('language').to_s =~ /ruql/i ; end
-    def ruql?(elt) ;  elt.name =~ /^pre$/i && elt.attribute('class').to_s =~ /ruql/i ; end
+    def ruql?(elt) ;  elt.name =~ /^script$/i && elt.attribute('language').to_s =~ /ruql/i ; end
     def autograder?(elt) ; elt.name =~ /^div$/i && elt.attribute('class').to_s =~ /autograder/i ; end
     def vertical?(elt) ; elt.name =~ /^h1$/i ; end
 
