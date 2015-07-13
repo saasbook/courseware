@@ -6,6 +6,7 @@ sudo apt-get install heroku-toolbelt
 # install the correct version of ruby
 rvm install ruby-2.2.2
 rvm use --default ruby-2.2.2
+cd .
 
 # install all the needed gems
 gem install bundler:1.10.4
@@ -281,7 +282,5 @@ DEPENDENCIES
 
 BUNDLED WITH
    1.10.4" > Gemfile.lock
-
-cd .
 
 bundle install
