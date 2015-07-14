@@ -1,16 +1,6 @@
 set +v
 
-# install heroku
-sudo apt-get install heroku-toolbelt
-
-# install the correct version of ruby
-rvm install ruby-2.2.2
-rvm use --default ruby-2.2.2
-cd .
-
-# install all the needed gems
-gem install bundler:1.10.4
-
+# Generate Gemfile and Gemfile.lock
 echo "source 'https://rubygems.org'
 
 ruby '2.2.2'
@@ -282,5 +272,16 @@ DEPENDENCIES
 
 BUNDLED WITH
    1.10.4" > Gemfile.lock
+
+# install heroku
+sudo apt-get install heroku-toolbelt
+
+# install the correct version of ruby
+rvm install ruby-2.2.2
+rvm use --default ruby-2.2.2
+cd .
+
+# install all the needed gems
+gem install bundler:1.10.4
 
 bundle install
