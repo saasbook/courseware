@@ -1,3 +1,6 @@
+# NOTICE: PLEASE RUN THIS SCRIPT ON CLOUD9 USING THE FOLLOWING COMMAND
+# xxx@xxx: ~/workspace $ bash --login configure-cloud9-x.x.x.sh
+
 set +v
 
 # Generate Gemfile and Gemfile.lock
@@ -278,8 +281,7 @@ sudo apt-get install heroku-toolbelt
 
 # install the correct version of ruby
 rvm install ruby-2.2.2
-rvm use --default ruby-2.2.2
-cd .
+rvm use ruby-2.2.2
 
 # install all the needed gems
 gem install bundler:1.10.4
