@@ -1,4 +1,12 @@
-Created a new script for Ubuntu 12.04 LTS and VM based on the 0.10.2 script
+The `vm-setup` directory contains both a `Gemfile` that lists virtually all
+the gems used in the ESaaS assignments, and a Cloud9 setup script that
+uses the resulting `Gemfile.lock` to batch-install these on Cloud9.
+
+The setup script will also work on a "bare" Ubuntu 14.04 on which rvm 
+has been installed with Ruby 2.2:
+`curl -sSL https://get.rvm.io | bash -s stable --ruby=2.2.2`
+
+We still have the script for Ubuntu 12.04 LTS and VM based on the 0.10.2 script
 and VM instructions located at the below address. Also, created a version
 of rottenpotatoes for the VM from scratch as per book. This has been tested
 with all homework of CS-169.1x including submission to grader.
