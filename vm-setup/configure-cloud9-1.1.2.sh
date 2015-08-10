@@ -3,73 +3,6 @@
 
 set +v
 
-# Generate Gemfile and Gemfile.lock
-echo "source 'https://rubygems.org'
-
-ruby '2.2.2'
-
-# Armando's requests
-gem 'autotest-rails' 
-gem 'jasmine-rails' 
-gem 'jasmine-jquery-rails' 
-gem 'factory_girl' 
-gem 'cucumber-rails-training-wheels'          # basic web steps like "I should see..." 
-gem 'timecop' 
-gem 'cucumber-timecop', :require => false   # for testing code that relies on time of day 
-gem 'poltergeist'#used for headless-browser and js 
-
-# Juan's Requests
-gem 'sinatra', '>= 1.4'
-gem 'sinatra-flash', '0.3.0'
-
-# Sid's Requests
-gem 'rails', '4.2.1'
-gem 'sqlite3'
-gem 'sass-rails', '5.0.3'
-gem 'uglifier', '2.7.1'
-gem 'coffee-rails', '4.1.0'
-gem 'jquery-rails'
-gem 'turbolinks'
-gem 'jbuilder', '~> 2.0'
-gem 'sdoc', '~> 0.4.0', group: :doc
-gem 'arel', '6.0.0'
-gem 'protected_attributes', '1.1.0'
-gem 'rspec-core', '3.3.1'
-gem 'rspec-expectations', '3.3.0'
-gem 'rspec-mocks', '3.3.1'
-gem 'sass', '3.4.15'
-gem 'web-console', '2.1.3'
-
-group :production do
-  gem 'pg'
-end
-
-# Merge Juan and Sid's Requests
-group :development, :test do
-  gem 'cucumber-rails', '1.4.2'
-  gem 'cucumber-sinatra', '0.5.0'
-  gem 'capybara', '2.4.4'
-
-  gem 'rspec', '3.3.0'
-  gem 'rspec-autotest', '1.0.0'
-  gem 'rspec-rails', '3.3.2'
-
-  gem 'rack-test', '0.6.3'
-  gem 'rack_session_access', '0.1.1'
-
-  gem 'byebug', '5.0.0'
-  gem 'launchy', '2.4.3'
-  gem 'rerun', '0.10.0'
-
-  gem 'simplecov', '0.10.0'
-  gem 'webmock', '1.21.0'
-  gem 'ZenTest', '4.11.0'
-
-  gem 'database_cleaner', '1.4.1'
-  gem 'haml'
-  gem 'spring'
-end" > Gemfile
-
 # install heroku
 sudo apt-get install heroku-toolbelt
 
@@ -77,9 +10,115 @@ sudo apt-get install heroku-toolbelt
 rvm install ruby-2.2.2
 rvm use ruby-2.2.2
 
-# install all the needed gems
-gem install bundler:1.10.4
-gem install cucumber:1.3.8
-gem install cucumber:2.0.0
-
-bundle install
+# install gems. Do not modify this list directly -- see Gemfile
+#  in this repo for instructions!
+gem install --no-rdoc --no-ri ZenTest:4.11.0
+gem install --no-rdoc --no-ri actionmailer:4.2.1
+gem install --no-rdoc --no-ri actionpack:4.2.1
+gem install --no-rdoc --no-ri actionview:4.2.1
+gem install --no-rdoc --no-ri activejob:4.2.1
+gem install --no-rdoc --no-ri activemodel:4.2.1
+gem install --no-rdoc --no-ri activerecord:4.2.1
+gem install --no-rdoc --no-ri activesupport:4.2.1
+gem install --no-rdoc --no-ri addressable:2.3.8
+gem install --no-rdoc --no-ri arel:6.0.0
+gem install --no-rdoc --no-ri autotest-rails:4.2.1
+gem install --no-rdoc --no-ri binding_of_caller:0.7.2
+gem install --no-rdoc --no-ri builder:3.2.2
+gem install --no-rdoc --no-ri byebug:5.0.0
+gem install --no-rdoc --no-ri capybara:2.4.4
+gem install --no-rdoc --no-ri celluloid:0.16.1
+gem install --no-rdoc --no-ri chronic:0.10.2
+gem install --no-rdoc --no-ri cliver:0.3.2
+gem install --no-rdoc --no-ri coffee-rails:4.1.0
+gem install --no-rdoc --no-ri coffee-script:2.4.1
+gem install --no-rdoc --no-ri coffee-script-source:1.9.1.1
+gem install --no-rdoc --no-ri columnize:0.9.0
+gem install --no-rdoc --no-ri crack:0.4.2
+gem install --no-rdoc --no-ri cucumber:1.3.20
+gem install --no-rdoc --no-ri cucumber-rails:1.4.2
+gem install --no-rdoc --no-ri cucumber-rails-training-wheels:1.0.0
+gem install --no-rdoc --no-ri cucumber-sinatra:0.5.0
+gem install --no-rdoc --no-ri cucumber-timecop:0.0.5
+gem install --no-rdoc --no-ri database_cleaner:1.4.1
+gem install --no-rdoc --no-ri debug_inspector:0.0.2
+gem install --no-rdoc --no-ri diff-lcs:1.2.5
+gem install --no-rdoc --no-ri docile:1.1.5
+gem install --no-rdoc --no-ri erubis:2.7.0
+gem install --no-rdoc --no-ri execjs:2.5.2
+gem install --no-rdoc --no-ri extlib:0.9.16
+gem install --no-rdoc --no-ri factory_girl:4.5.0
+gem install --no-rdoc --no-ri ffi:1.9.10
+gem install --no-rdoc --no-ri gherkin:2.12.2
+gem install --no-rdoc --no-ri globalid:0.3.6
+gem install --no-rdoc --no-ri haml:4.0.7
+gem install --no-rdoc --no-ri highline:1.7.3
+gem install --no-rdoc --no-ri hitimes:1.2.2
+gem install --no-rdoc --no-ri i18n:0.7.0
+gem install --no-rdoc --no-ri jasmine-core:2.3.4
+gem install --no-rdoc --no-ri jasmine-jquery-rails:2.0.3
+gem install --no-rdoc --no-ri jasmine-rails:0.11.0
+gem install --no-rdoc --no-ri jbuilder:2.3.1
+gem install --no-rdoc --no-ri jquery-rails:4.0.4
+gem install --no-rdoc --no-ri json:1.8.3
+gem install --no-rdoc --no-ri launchy:2.4.3
+gem install --no-rdoc --no-ri listen:2.10.1
+gem install --no-rdoc --no-ri loofah:2.0.2
+gem install --no-rdoc --no-ri mail:2.6.3
+gem install --no-rdoc --no-ri mime-types:2.6.1
+gem install --no-rdoc --no-ri mini_portile:0.6.2
+gem install --no-rdoc --no-ri minitest:5.8.0
+gem install --no-rdoc --no-ri multi_json:1.11.2
+gem install --no-rdoc --no-ri multi_test:0.1.2
+gem install --no-rdoc --no-ri nokogiri:1.6.6.2
+gem install --no-rdoc --no-ri pg:0.18.2
+gem install --no-rdoc --no-ri phantomjs:1.9.8.0
+gem install --no-rdoc --no-ri poltergeist:1.6.0
+gem install --no-rdoc --no-ri protected_attributes:1.1.0
+gem install --no-rdoc --no-ri rack:1.6.4
+gem install --no-rdoc --no-ri rack-protection:1.5.3
+gem install --no-rdoc --no-ri rack-test:0.6.3
+gem install --no-rdoc --no-ri rack_session_access:0.1.1
+gem install --no-rdoc --no-ri rails:4.2.1
+gem install --no-rdoc --no-ri rails-deprecated_sanitizer:1.0.3
+gem install --no-rdoc --no-ri rails-dom-testing:1.0.6
+gem install --no-rdoc --no-ri rails-html-sanitizer:1.0.2
+gem install --no-rdoc --no-ri railties:4.2.1
+gem install --no-rdoc --no-ri rake:10.4.2
+gem install --no-rdoc --no-ri rb-fsevent:0.9.5
+gem install --no-rdoc --no-ri rb-inotify:0.9.5
+gem install --no-rdoc --no-ri rdoc:4.2.0
+gem install --no-rdoc --no-ri rerun:0.10.0
+gem install --no-rdoc --no-ri rspec:3.3.0
+gem install --no-rdoc --no-ri rspec-autotest:1.0.0
+gem install --no-rdoc --no-ri rspec-core:3.3.1
+gem install --no-rdoc --no-ri rspec-expectations:3.3.0
+gem install --no-rdoc --no-ri rspec-mocks:3.3.1
+gem install --no-rdoc --no-ri rspec-rails:3.3.2
+gem install --no-rdoc --no-ri rspec-support:3.3.0
+gem install --no-rdoc --no-ri safe_yaml:1.0.4
+gem install --no-rdoc --no-ri sass:3.4.15
+gem install --no-rdoc --no-ri sass-rails:5.0.3
+gem install --no-rdoc --no-ri sdoc:0.4.1
+gem install --no-rdoc --no-ri simplecov:0.10.0
+gem install --no-rdoc --no-ri simplecov-html:0.10.0
+gem install --no-rdoc --no-ri sinatra:1.4.6
+gem install --no-rdoc --no-ri sinatra-flash:0.3.0
+gem install --no-rdoc --no-ri spring:1.3.6
+gem install --no-rdoc --no-ri sprockets:3.2.0
+gem install --no-rdoc --no-ri sprockets-rails:2.3.2
+gem install --no-rdoc --no-ri sqlite3:1.3.10
+gem install --no-rdoc --no-ri templater:1.0.0
+gem install --no-rdoc --no-ri thor:0.19.1
+gem install --no-rdoc --no-ri thread_safe:0.3.5
+gem install --no-rdoc --no-ri tilt:1.4.1
+gem install --no-rdoc --no-ri timecop:0.8.0
+gem install --no-rdoc --no-ri timers:4.0.1
+gem install --no-rdoc --no-ri turbolinks:2.5.3
+gem install --no-rdoc --no-ri tzinfo:1.2.2
+gem install --no-rdoc --no-ri uglifier:2.7.1
+gem install --no-rdoc --no-ri web-console:2.1.3
+gem install --no-rdoc --no-ri webmock:1.21.0
+gem install --no-rdoc --no-ri websocket-driver:0.6.2
+gem install --no-rdoc --no-ri websocket-extensions:0.1.2
+gem install --no-rdoc --no-ri xpath:2.0.0
