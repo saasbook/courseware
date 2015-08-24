@@ -1,5 +1,4 @@
-# NOTICE: PLEASE RUN THIS SCRIPT ON CLOUD9 USING THE FOLLOWING COMMAND
-# xxx@xxx: ~/workspace $ bash --login configure-cloud9-1.1.2.sh
+# Please pipe this script to a "bash --login" shell
 
 set +v
 
@@ -7,6 +6,7 @@ set +v
 sudo apt-get install heroku-toolbelt
 
 # install the correct version of ruby
+echo yes | rvm remove all
 rvm install ruby-2.2.2
 rvm use ruby-2.2.2
 
