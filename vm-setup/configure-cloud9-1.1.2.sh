@@ -10,6 +10,7 @@ echo yes | rvm remove all
 rvm install ruby-2.2.2
 rvm use ruby-2.2.2
 
+/bin/bash <<EOF
 # install gems. Do not modify this list directly -- see Gemfile
 #  in this repo for instructions!
 gem install --no-rdoc --no-ri ZenTest:4.11.0
@@ -122,3 +123,4 @@ gem install --no-rdoc --no-ri webmock:1.21.0
 gem install --no-rdoc --no-ri websocket-driver:0.6.2
 gem install --no-rdoc --no-ri websocket-extensions:0.1.2
 gem install --no-rdoc --no-ri xpath:2.0.0
+EOF
