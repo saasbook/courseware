@@ -7,19 +7,12 @@ EdX
 This repo contains information useful to instructors (and arguably
 students) using the [ESaaS](http://www.saasbook.info) course materials.
 
-`vm-setup` contains instructions on setting up an environment in which
-to do the work.  Our recommended approach is to use
-[Cloud9](http://c9.io), for which we provide instructions, but we also
-provide scripts designed to start from a clean
-Ubuntu image (see comments inside script for which Ubuntu distro) and
-install all the courseware needed for the class.  This can be used,
-e.g., on a clean install of Ubuntu on your personal computer, or on
-Amazon EC2 or another cloud computer.
+The recommended setup is to [use Cloud9](https://github.com/saasbook/courseware/wiki/Setting-up-Cloud9).  We no longer support
+prebuilt virtual machine images.  The [wiki](https://github.com/saasbook/courseware/wiki) has other setup options, but
+not all are thoroughly tested, and none are officially supported.
 
-We no longer
-distribute prepopulated VM images.
-
-The Wiki contains information on each of the autogradable homeworks,
+The Wiki also contains information on each of the autogradable homeworks,
 which are public repos named `saasbook/hw-*`.  (The corresponding
 private `saasbook/hw-*-ci` repos contain the autograder files and
-reference solutions for each homework.)
+reference solutions for each homework.)  The `-ci` repos are generally
+off limits except to [registered SaaS instructors](https://www.saasbook.info/instructors).
