@@ -7,7 +7,7 @@ sudo apt-get install heroku-toolbelt
 
 # install the correct version of ruby
 echo yes | rvm remove all
-rvm install $RUBY
+rvm install ruby-$RUBY
 # reload rvm so it can modify environment of running shell script
 . /usr/local/rvm/scripts/rvm
 rvm use $RUBY
