@@ -11,6 +11,7 @@ rvm install ruby-$RUBY
 # reload rvm so it can modify environment of running shell script
 . /usr/local/rvm/scripts/rvm
 rvm use $RUBY
+echo rvm use $RUBY >> $HOME/.profile
 
 /bin/bash <<EOF
 # install gems. Do not modify this list directly -- see Gemfile
@@ -126,6 +127,3 @@ gem install --no-rdoc --no-ri websocket-driver:0.6.2
 gem install --no-rdoc --no-ri websocket-extensions:0.1.2
 gem install --no-rdoc --no-ri xpath:2.0.0
 EOF
-# finally, switch command line env to the rvm where we just installed gems
-echo rvm use $RUBY >> $HOME/.profile
-rvm use $RUBY
