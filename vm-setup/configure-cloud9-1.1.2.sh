@@ -1,5 +1,5 @@
 # Please pipe this script to a "bash --login" shell
-
+RUBY=2.2.2
 set +v
 
 # install heroku
@@ -7,8 +7,10 @@ sudo apt-get install heroku-toolbelt
 
 # install the correct version of ruby
 echo yes | rvm remove all
-rvm install ruby-2.2.2
-rvm use ruby-2.2.2
+rvm install $RUBY
+# reload rvm so it can modify environment of running shell script
+. /usr/local/rvm/scripts/rvm
+rvm use $RUBY
 
 /bin/bash <<EOF
 # install gems. Do not modify this list directly -- see Gemfile
@@ -124,3 +126,6 @@ gem install --no-rdoc --no-ri websocket-driver:0.6.2
 gem install --no-rdoc --no-ri websocket-extensions:0.1.2
 gem install --no-rdoc --no-ri xpath:2.0.0
 EOF
+# finally, switch command line env to the rvm where we just installed gems
+echo rvm use $RUBY >> $HOME/.profile
+rvm use $RUBY
