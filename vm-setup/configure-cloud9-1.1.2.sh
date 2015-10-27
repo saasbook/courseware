@@ -2,6 +2,8 @@
 RUBY=2.2.2
 set +v
 
+# to get /usr/share/dict/words
+sudo apt-get install --reinstall wamerican
 # install heroku
 sudo apt-get install heroku-toolbelt
 
