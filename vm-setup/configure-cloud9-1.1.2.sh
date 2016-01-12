@@ -3,7 +3,7 @@ RUBY=2.2.2
 set +v
 
 # to get /usr/share/dict/words
-sudo apt-get install wamerican
+# sudo apt-get install wamerican  # armandofox: commented out since it seems to be causing pain for some people
 # install heroku
 sudo apt-get install heroku-toolbelt
 
