@@ -7,6 +7,8 @@ set +v
 # install heroku
 sudo apt-get install heroku-toolbelt
 
+# install PhantomJS for running JavaScript tests headless
+npm install phantomjs-prebuilt
 # install the correct version of ruby
 echo yes | rvm remove all
 rvm install ruby-$RUBY
@@ -61,7 +63,7 @@ gem install --no-rdoc --no-ri haml:4.0.7
 gem install --no-rdoc --no-ri highline:1.7.3
 gem install --no-rdoc --no-ri hitimes:1.2.2
 gem install --no-rdoc --no-ri i18n:0.7.0
-gem install --no-rdoc --no-ri jasmine-core:2.3.4
+gem install --no-rdoc --no-ri jasmine-core:2.4.1
 gem install --no-rdoc --no-ri jasmine-jquery-rails:2.0.3
 gem install --no-rdoc --no-ri jasmine-rails:0.11.0
 gem install --no-rdoc --no-ri jbuilder:2.3.1
