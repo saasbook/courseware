@@ -1,5 +1,5 @@
 # Please pipe this script to a "bash --login" shell
-RUBY=2.2.2
+RUBY=2.3.0
 set +v
 
 # to get /usr/share/dict/words
