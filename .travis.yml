@@ -1,0 +1,14 @@
+before_install:
+  - sudo apt-get install virtualbox
+  - sudo apt-get install build-essential linux-headers-3.8.0-32-generic
+  - sudo dpkg-reconfigure virtualbox-dkms
+  - sudo apt-get remove virtualbox && sudo apt-get install virtualbox
+  - sudo apt-get install vagrant
+
+bundler_args: ''
+script:
+  - which vagrant
+  - vagrant box add hashicorp/precise32
+  - vagrant up
+  - vagrant halt
+  - vagrant destroy
