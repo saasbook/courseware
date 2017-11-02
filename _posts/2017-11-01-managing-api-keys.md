@@ -10,7 +10,7 @@ specified once for the whole app (for example, an API key for the app to
 access another microservice), and sensitive app-level data (for example,
 a password or other secret that needs to be stored for each user).  
 This recipe describes how to store configuration-level secret data; a
-separate post builds on this one to store app-level secret data.
+[separate post]({{ site.baseurl }}{% post_url 2017-11-01-storing-sensitive-data %}) builds on this one to store app-level secret data.
 
 # Prerequisites
 
