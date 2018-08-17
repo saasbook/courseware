@@ -1,5 +1,5 @@
 # Please pipe this script to a "bash --login" shell
-RUBY=2.4.4
+RUBY=2.4.0
 set +v
 
 # install the correct version of ruby
