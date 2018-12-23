@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Storing sensitive data"
-category: rails
+category: devops
 date: 2017-11-01 17:29:52
 ---
 

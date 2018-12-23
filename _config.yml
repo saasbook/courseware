@@ -19,7 +19,11 @@ codeurl: 'https://github.com/armandofox/audience1st'
 
 # Default categories (in order) to appear in the navigation
 sections: [
-    ['rails', 'ESaaS - Rails']
+    ['rails', 'Rails - General'],
+    ['devops', 'Dev/Ops'],
+    ['rspec', 'TDD/RSpec'],
+    ['cucumber', 'BDD/Cucumber/Capybara'],
+    ['frontend', 'HTML5+CSS, JavaScript+React']
 ]
 
 # Keep as an empty string if served up at the root. If served up at a specific

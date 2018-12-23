@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Managing API keys"
-category: rails
+category: devops
 date: 2017-11-01 17:29:30
 ---
 
