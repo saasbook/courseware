@@ -3,16 +3,39 @@ layout: default
 title: "Jekyll Docs Template"
 ---
 
-### Get Started
+# Contributing to SaaSbook Recipes
 
-Start by [creating a new post](http://jekyllrb.com/docs/posts/) one of the categories listed in `_config.yml`. It will appear in the navigation on the left once recompiled. Or use the supplied script to make creating pages easier:
+1. Make sure you have [Jekyll installed](https://jekyllrb.com/docs/)
 
-```bash
-ruby bin/jekyll-page "Some Page Title" ref
+2. Fork the repo `github.com/saasbook/courseware`
+
+3. Change to the `gh-pages` branch
+
+4. Create a new Markdown (`.md`) file in the `_posts` subdirectory containing your
+recipe.  The frontmatter (first 6 lines) **must** look like this:
+
+```yaml
+---
+layout: page
+title: "Name of your recipe"
+category: rails
+---
 ```
 
-#### Don't Forget
+For `category` you should use whichever existing category on the
+Recipes page is most appropriate.  Contact the repo owner if you feel
+a new category must be created.
 
-- Add your own content to this page (i.e. `index.md`) and change the `title`
-- Change `title` and `subtitle` defined in `config.yml` for your site
-- Set the `baseurl` in `_config.yml` for your repo if deploying to GitHub pages
+5. If the post refers to other posts, be sure you follow Jekyll's
+instructions for creating internal links -- don't hardcode absolute
+URLs.
+
+6. As instructed [here](https://jekyllrb.com/docs/), run `bundle exec
+jekyll serve` or `bundle exec jekyll build` to rebuild the site and
+ensure your content renders properly.
+
+7. Commit your changes on a branch other than `gh-pages` and then do a
+pull request to the `gh-pages` branch on the upstream repo.
+
+[More Jekyll docs](http://jekyllrb.com/docs/posts/)
+
