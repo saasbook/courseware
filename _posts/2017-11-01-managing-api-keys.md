@@ -69,6 +69,7 @@ This will create the ASCII-armored encrypted file
 Note that the security of this file relies on having chosen a good
 symmetric-encryption key.
 
+
 # Make sure developers on the team can generate the secrets file
 
 Of course, the `config/application.yml` file is now needed for your app to
