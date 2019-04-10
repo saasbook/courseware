@@ -16,9 +16,13 @@ secrets).
 
 2. Correctly run both RSpec specs and Cucumber scenarios, and merge the
 coverage results (by default, you'd only see coverage data for whichever
-set of tests is run last)
+set of tests is run last).  **NOTE:** The below file uses 
+Cucumber options that cause the test run to fail if there are
+undefined steps as well as if there are failing steps.  This setting
+is appropriate for a production repo.
 
-3. Push the merged coverage results to CodeClimate
+3. Push the merged coverage results to CodeClimate, allowing the use
+of a CodeClimate coverage badge for the repo.
 
 # Prerequisites
 

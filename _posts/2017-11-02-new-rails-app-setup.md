@@ -19,6 +19,8 @@ is first introduced.
 
 ## Set up the app
 
+If you're doing this as a team, _one_ person should do this 
+
 1.  Run `rails -v` to ensure you're running the desired version of
   Rails.  If not, run `gem install rails -v` _x.x.x_ with _x.x.x_ set to the version you want; 4.2.9 for example.
 

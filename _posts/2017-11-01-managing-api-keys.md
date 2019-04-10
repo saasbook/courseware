@@ -57,9 +57,11 @@ the secrets file. You can then encrypt the file like so (this example
 uses GPG and the bash shell):
 
 ```bash
-export KEY=your-secret-key-value gpg --passphrase "$KEY" \
+export KEY=your-secret-key-value
+gpg --passphrase "$KEY" \
   --encrypt  --symmetric --armor \
-  --output config/application.yml.asc config/application.yml
+  --output config/application.yml.asc \
+  config/application.yml
 ```
 
 This will create the ASCII-armored encrypted file
