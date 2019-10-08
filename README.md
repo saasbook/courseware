@@ -1,6 +1,8 @@
 Courseware for Engineering Software as a Service
 ================================================
 
+**[NOTICE: End of life for AWS/Azure-based autograders](https://github.com/saasbook/courseware/wiki/NOTICE:-End-of-life-for-legacy-autograders)**
+
 a/k/a UC Berkeley CS 169 Software Engineering, a/k/a CS 169.1x/169.2x on
 EdX
 
