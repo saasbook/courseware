@@ -1,0 +1,2188 @@
+[
+  {
+    "module":"1.2: Software Development Processes: Plan and Document",
+    "questions":[
+      {
+        "text":"For which of the following might Plan-and-Document approaches be a poor fit",
+        "answer":[
+          {
+            "answer_text":"User-facing app for an experimental rideshare service",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"Embedded software for medical device",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Financial reporting app for a startup",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"None of the above",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"Since the app is experimental, it will likely be going through change all the time, which is better suited for Agile"
+      }
+    ]
+  },
+  {
+    "module":"1.3: Software Development Processes: The Agile Manifesto",
+    "questions":[
+      {
+        "text":"A major difference between Agile and P&D methodologies is that\u2026",
+        "answer":[
+          {
+            "answer_text":"Agile visits every phase of the software lifecycle during every iteration ",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"Agile does not use requirements",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Agile does not measure progress against an overall plan",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"You can build SaaS apps using Agile, but not with Plan-and-Document",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"You can build an app using either, but it is true that SaaS apps fit better with Agile instead of P&D"
+      }
+    ]
+  },
+  {
+    "module":"1.4: Software Quality Assurance: Testing",
+    "questions":[
+      {
+        "text":"In general, which statement regarding the relationship between bug fix costs and enhancement costs is most accurate?",
+        "answer":[
+          {
+            "answer_text":"$(Bug Fixing) = ~2-3x $(Enhancing)",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"$(Enhancing) = ~2-3x $(Bug Fixing)",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"$(Bug Fixing) = $(Enhancing)",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"Bug fixing is much more expensive than enhancement, which is why preservation of legacy code is important!"
+      }
+    ]
+  },
+  {
+    "module":"1.5: Productivity: Conciseness, Synthesis, Reuse, and Tools",
+    "questions":[
+      {
+        "text":"If we are going for \u201cClarity via conciseness\u201d, then:",
+        "answer":[
+          {
+            "answer_text":"The first version is preferable",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"The second version is preferable",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Either version is equally good.",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"When writing code, err on the side of writing something that is simple to implement and simple for co-workers to implement. It\u2019s good for code to be compact, but if it gets so compact that it requires extra work to decipher, then it may be too concise at the cost of clarity."
+      }
+    ]
+  },
+  {
+    "module":"1.6: SaaS and Service Oriented Architecture",
+    "questions":[
+      {
+        "text":"The inability of one service to directly access another service's data is a characteristic of:",
+        "answer":[
+          {
+            "answer_text":"Service-oriented architecture",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"The Rails framework",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Object-oriented programming",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Agile development",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"The trademark of service oriented architecture is that services are self contained, and how it works is a black box to the user or data being submitted to it. As a result, the service should not be able to directly access another service in an SOA setting, as that would imply that the service accessing the other service\u2019s data directly knows its inner workings."
+      }
+    ]
+  },
+  {
+    "module":"1.7: Deploying SaaS: Cloud Computing",
+    "questions":[
+      {
+        "text":"Which statement about private data centers vs. public utility computing (such as AWS) is true?",
+        "answer":[
+          {
+            "answer_text":"Private data centers may be the only option for apps subject to government regulation ",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"Private data centers are not shared by multiple companies / competitors",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Private data centers are inherently more secure than public utility computing",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Private data centers could match the cost of public utility computing if they just used the same type of hardware and software",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"Private data centers are often shared by multiple customers, but they cannot match the cost of public utility computing simply because of how much fewer customers there are for private data centers. Often times, the staff and utility used for both public and private data centers are the same, so there\u2019s nothing inherently more secure about a data center being private."
+      }
+    ]
+  },
+  {
+    "module":"1.8: Deploying SaaS: Browsers and Mobile",
+    "questions":[
+
+    ]
+  },
+  {
+    "module":"1.9: Beautiful vs. Legacy Code",
+    "questions":[
+      {
+        "text":"Which are TRUE regarding refactoring?",
+        "answer":[
+          {
+            "answer_text":"It often results in changes to the test suite ",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"It usually results in fewer total lines of code",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"It should not cause existing tests to fail",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"It addresses explicit (vs. implicit) customer requirements",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"Refactoring code may often result in more lines, especially if debugging or writing more comprehensible code is involved. Refactoring sometimes addresses customer requirements, but that is not the only reason for it. Refactoring usually results in changes that are propagated and reflected by updates to the testing suite."
+      }
+    ]
+  },
+  {
+    "module":"1.10: How to Have a Bad Experience In This Course",
+    "questions":[
+
+    ]
+  },
+  {
+    "module":"2.1: Learning to Learn Languages and Frameworks",
+    "questions":[
+
+    ]
+  },
+  {
+    "module":"2.2: Pair Programming",
+    "questions":[
+      {
+        "text":"Which statement best describes how pair programming should be done?",
+        "answer":[
+          {
+            "answer_text":"Driver and observer should choose roles and stick to them throughout one pairing session",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"The driver works on task at hand, the observer comments and thinks about next tasks",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Promiscuous pairing is valuable because it will alleviate the shortage of programmers",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"It\u2019s important that both participants are exposed to both roles, and therefore, get to understand the code from both angles. Relegating duties entirely to one person is less conducive to helping programmers develop a comprehensive understanding of the code."
+      }
+    ]
+  },
+  {
+    "module":"2.3: Introducing Ruby, an Object-Oriented Language",
+    "questions":[
+      {
+        "text":"Which ones are correct:\n(a) my_account.@balance\n(b) my_account.balance\n(c) my_account.balance()",
+        "answer":[
+          {
+            "answer_text":"(b) and (c)",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"All Three",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Only (b)",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"(a) and (b)",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"In Ruby, the @ symbol is used to specify a field within the definition of a class. However, when it comes to dereferencing a field of an object of that class, we use dot notation, not the @ symbol. The reason both b and c are correct is that, as you may recall, everything in Ruby is an object."
+      }
+    ]
+  },
+  {
+    "module":"2.4: Ruby Idioms: Poetry Mode and Blocks",
+    "questions":[
+      {
+        "text":"Which string will NOT appear in the result?",
+        "answer":[
+          {
+            "answer_text":"naan",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"ananab",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"anana",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"The above code won't run due to syntax errors",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"Feel free to run this code segment in a Ruby compiler to see the output. The \"map\" function is similar to an iterator for a sequential object. The \"select\" clause filters out the strings not matching the regular expression pattern."
+      }
+    ]
+  },
+  {
+    "module":"2.6: Gems and Bundler: Library Management in Ruby",
+    "questions":[
+      {
+        "text":"Which of the library-management files in a Rails app should be versioned?",
+        "answer":[
+          {
+            "answer_text":"Both Gemfile and Gemfile.lock",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"Only Gemfile",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Only Gemfile.lock",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Neither Gemfile nor Gemfile.lock",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"When deciding what files should be recorded in version control, keep in mind that the top priority is to reduce variability as much as possible. The Gemfile lists the required dependencies, but the Gemfile.lock specifies the specific versions of each dependency that is in use. Therefore, to avoid version conflicts, committing both the Gemfile and Gemfile.lock is recommended."
+      }
+    ]
+  },
+  {
+    "module":"3.1: The Web's Client\u2013Server Architecture",
+    "questions":[
+      {
+        "text":"Choose the terms that make a true statement: A ____ can create and modify cookies; the ____ is responsible for including the correct cookie with each request.",
+        "answer":[
+          {
+            "answer_text":"SaaS app; browser",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"Browser; SaaS app",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"HTTP request; browser",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"SaaS app; HTTP response",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"The SaaS app has the responsibility of creating cookies that correspond to running user sessions which hold on to persisted information. The browser checks cookies to verify whether certain requests and operations are allowed."
+      }
+    ]
+  },
+  {
+    "module":"3.2: SaaS Communication Uses HTTP Routes",
+    "questions":[
+      {
+        "text":"Which statement is true about the two HTTP requests:\nGET /foo/bar\nPOST /foo/bar",
+        "answer":[
+          {
+            "answer_text":"They are distinguishable and may have different behaviors",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"They are indistinguishable to a SaaS app",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"They are distinguishable and must have different behaviors",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"A given app can handle one or the other, but not both",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"The are distinguishable because of the different HTTP request types (GET vs. POST), and they don\u2019t have to have different behaviors, because a method can be defined to accept and handle routes that might have different request types."
+      }
+    ]
+  },
+  {
+    "module":"3.4: From Web Sites to Microservices: Service-Oriented Architecture",
+    "questions":[
+      {
+        "text":"Match the terms: (a) presentation tier, (b) logic tier, (c) persistence tier",
+        "answer":[
+          {
+            "answer_text":"(a) Apache web server (b) Rack+Rails (c) database",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"(a) Firefox (b) Apache web server (c) PostgreSQL",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"(a) Microsoft Internet Information Server (b) Rack+Rails (c) Apache web server",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"(a) Firefox (b) Microsoft Internet Information Server (c) MySQL",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"Recall that the presentation tier refers to the front end layer that presents the user interface, the logic tier contains the core capabilities, and the data tier is for storage."
+      }
+    ]
+  },
+  {
+    "module":"3.5: RESTful APIs: Everything is a Resource",
+    "questions":[
+      {
+        "text":"In the (fictitious) API documentation for `GET /books/:book_id?format=long` which arguments are required?",
+        "answer":[
+          {
+            "answer_text":"book_id is required, but can\u2019t tell if format is required without looking at API docs",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"book_id and format are both required",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"book_id is required, format is optional",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Both are optional",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Can\u2019t say anything about either one without looking at the API docs",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"We can tell book_id is necessary because the route would be incomplete without it. However, there\u2019s no way to tell whether format is needed based on the route format alone."
+      }
+    ]
+  },
+  {
+    "module":"3.6: RESTful URIs, Operations, and JSON",
+    "questions":[
+      {
+        "text":"Below are possible routes for manipulating Movie resources. The R, I, and C stand for Read, Insert, and Create (recall the CRUDI acronym detailing basic functions for persistent storage)\n\t- R: GET /movies/253\n\t- I: GET /movies?name=hidden+figures\n\t- C: POST /movies\nWhile the \"Read\" and \"Insert\" routes have an ID of some form (253, hidden figures), why does the \"Create\" route  have an ID?",
+        "answer":[
+          {
+            "answer_text":"It will be carried in POST request body, along with data about the new movie",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"The movie hasn\u2019t been created yet, so it doesn\u2019t have an ID",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"The route is incomplete: it should be something like \u201cPOST /movies/:movie_id\u201d",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"Often times, the information that accompanies the POST request is sent as a JSON file (we will discuss this further in later sections) instead of being placed in the URI itself. This improves readability of the URI, and sending data as a JSON is typically easier than being written into a URI."
+      }
+    ]
+  },
+  {
+    "module":"4.1: The Model\u2013View\u2013Controller (MVC) Architecture",
+    "questions":[
+      {
+        "text":"Which statement is NOT true about the Model--View--Controller (MVC) architectural pattern?",
+        "answer":[
+          {
+            "answer_text":"All MVC apps have both a \"client\" part (e.g. Web browser) and a \"cloud\" part (e.g. Rails app on cloud).",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"In SaaS apps on the Web, controller actions and view contents are transmitted using HTTP.",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Model-View-Controller is just one of several possible ways to structure a SaaS app.",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Peer-to-peer apps (vs. client-server apps) can be structured as Model-View-Controller.",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"The Model View Controller design pattern is more concerned with how to divide program logic into three categories, and is less concerned with where the code is actually placed (i.e. the client and cloud)"
+      }
+    ]
+  },
+  {
+    "module":"4.2: Rails Models: Databases and Active Record",
+    "questions":[
+      {
+        "text":"Which statement is NOT true about the Model in Model--View--Controller:",
+        "answer":[
+          {
+            "answer_text":"The CRUD actions only apply to models backed by a database that supports ActiveRecord.",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"Part of the Model's job is to convert between in-memory and stored representations of objects.",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Although model data is displayed by the View, a Model's direct interaction is with Controllers.",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Although DataMapper doesn't use relational databases, it's a valid way to implement a Model.",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"Recall that the MVC design pattern focuses on dividing program logic, and is not as concerned with the technical disparities within the implementations themselves, such as differences among languages and platforms. Therefore, the database doesn\u2019t necessarily need to support ActiveRecord."
+      }
+    ]
+  },
+  {
+    "module":"4.4: Routes, Controllers, and Views",
+    "questions":[
+      {
+        "text":"Which statement is NOT true regarding Rails RESTful routes and the resources to which they refer?",
+        "answer":[
+          {
+            "answer_text":"The route always contains one or more 'wildcard' parameters such as :id to identify the particular resource instance used in the operation.",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"A resource may be existing content or a request to modify something.",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"In an MVC app, every route must eventually trigger a controller action.",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"One common set of RESTful actions is the CRUD actions on models.",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"A route does not necessarily need to have a parameter in general. For instance, for a Movies application, a \u201cGET /movies\u201d route could be a valid request, with no parameters, that retrieves an exhaustive list of all movies."
+      }
+    ]
+  },
+  {
+    "module":"4.6: Forms",
+    "questions":[
+      {
+        "text":"Which of these would be valid Haml for generating the form that, when submitted, would call the Create New Movie action?",
+        "answer":[
+          {
+            "answer_text":"All of the above",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"= form_tag movies_path do ... end",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"%form{:action => movies_path, :method => :post}",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"%form{:action => 'movies', :method => 'post'}",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"All that is required by the browser is a <form> tag with an action attribute whose value is the submission URI and whose method attribute names the HTTP method (GET or POST) for submitting the form. All three versions of the code above would generate a tag with these attributes and values."
+      }
+    ]
+  },
+  {
+    "module":"4.8: Debugging: When Things Go Wrong",
+    "questions":[
+      {
+        "text":"If you use puts or printf to print debugging messages in a production app:",
+        "answer":[
+          {
+            "answer_text":"Your app will continue, but the messages will be lost forever",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"Your app will raise an exception and grind to a halt",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Your app will continue, and the messages will go into the log file",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"The SaaS gods will strike you down in a fit of rage",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"The built in \u201cputs\u201d, similar to \u201cprint\u201d in Python and \u201cprintln\u201d in Java, shows messages in the standard output. However, when an app is running in production, there is no viewable standard output, so \u201cputs\u201d outputs will not be recorded."
+      }
+    ]
+  },
+  {
+    "module":"5.1: DRYing Out MVC: Partials, Validations and Filters",
+    "questions":[
+      {
+        "text":"Which Ruby language features support the DRYness enabled by validations and filters:\n(a) higher-order functions\n(b) closures\n(c) metaprogramming",
+        "answer":[
+          {
+            "answer_text":"(a), (b) and (c)",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"Only (a)",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Only (a) and (b)",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Only (a) and (c)",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"Metaprogramming comes into play in that we can provide the name of a validation method as a symbol or string and have Rails resolve and call the actual method at runtime. In validations where we provide an inline lambda-expression, as in validates_presence_of :rating, :if => { self.release_date.year > @ratings_history_date }, higher-order functions are used (we are essentially passing an anonymous function with :if) along with closures (the values of variables such as @ratings_history in the lambda-expression will be the values in scope in the place where the lambda-expression is first defined, even though that place is far away from where it will be called)."
+      }
+    ]
+  },
+  {
+    "module":"5.3: Single Sign-On and Third-Party Authentication",
+    "questions":[
+      {
+        "text":"Which is true about third-party authentication between a requester and a provider?",
+        "answer":[
+          {
+            "answer_text":"Once completed, the requester can do anything you can do on the provider",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"If your credentials on the requester are compromised, your credentials on the provider are also compromised",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"If the provider revokes access, the requester no longer has any of your info",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Access can be time-limited to expire on a pre-set date",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"Most third-party authentication schemes support expiration, to limit the damage in case the requester is compromised."
+      }
+    ]
+  },
+  {
+    "module":"5.4: Associations and Foreign Keys",
+    "questions":[
+      {
+        "text":"Which statement is false regarding Cartesian products as a way of representing relationships?",
+        "answer":[
+          {
+            "answer_text":"You can only filter based on on primary or foreign key (id) columns",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"You can represent one-to-one relationships as well as one-to-many relationships",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"You can represent many-to-many relationships",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"The size of the full Cartesian product is independent of the join criteria",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"You can filter on any columns you wish. However, because Rails and other frameworks use filtered Cartesian products specifically as a way to model relationships between model entities, Rails only uses the primary and foreign keys of model tables as filter criteria for joins."
+      }
+    ]
+  },
+  {
+    "module":"5.5: Through-Associations",
+    "questions":[
+      {
+        "text":"Which of these, if any, is NOT a correct way of saving a new association, given m is an existing movie:",
+        "answer":[
+          {
+            "answer_text":"All will work",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"Review.create!(:movie_id=>m.id, :potatoes=>5)",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"r = m.reviews.build(:potatoes => 5)\nr.save!",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"m.reviews << Review.new(:potatoes=>5)\nm.save!",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"The invariant is that the movie_id attribute must be filled in when the review is created. All the choices accomplish this. The first option does it by explicitly setting the attribute value on create. The second uses the build method, which is provided by the Associations module as a way to create a new instance of an owned object that has the owning object's primary key already filled in as the foreign key; Rails can deduce the foreign key column name (movie_id) and the ID of the owning object because the owning object is the receiver of build. Similarly, when associations are used, << is redefined to \"fill in\" the foreign key on the newly-created owned object before it is added to the \"collection\" owned by the owning object. As an aside, note that in the third case, saving an owning object has the side effect of saving its owned objects---even if the owning object itself isn't changed by adding more owned objects to it (as is the case here)."
+      }
+    ]
+  },
+  {
+    "module":"5.6: RESTful Routes for Associations",
+    "questions":[
+      {
+        "text":"If we also have moviegoer has_many reviews, can we use moviegoer_review_path() as a helper?",
+        "answer":[
+          {
+            "answer_text":"Yes, but we must declare reviews as a nested resource of moviegoers in routes.rb",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"Yes, it should work as-is because of convention over configuration",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"No, because there can be only one RESTful route to any particular resource",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"No, because having more than one through-association involving Reviews would lead to ambiguity",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"This will work, but we need to be explicit about what we want in routes.rb. The reason is that the concept of the association is separate from the concept of how to construct routes for it: in some cases we might want a route that gets us to a review by \"traversing\" the movie that owns it, in other cases we might want to get to a review by \"traversing\" the moviegoer that wrote it, but in either case the underlying association is the same--what's different is how we choose to represent it in a route."
+      }
+    ]
+  },
+  {
+    "module":"5.7: Composing Queries with Reusable Scopes",
+    "questions":[
+      {
+        "text":"Where do database queries happen?",
+        "answer":[
+          {
+            "answer_text":"Lines 6-7 only",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"Line 3 only",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Line 3 AND lines 6-7",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Depends on return value of for_kids",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"The first time a value is consumed is somewhere in lines 6-7 in the view, so that's where the query happens. (Technically we could narrow it down further by investigating the implementation of each on the association proxy object represented by @m; you can't tell without looking at the Rails source code if the first value is consumed immediately inside the each, which would imply the query happens at line 6, or if the first value is only 'consumed' when yield has to provide it, which would imply the query happens at line 7.)"
+      }
+    ]
+  },
+  {
+    "module":"5.8: Other Types of Code",
+    "questions":[
+
+    ]
+  },
+  {
+    "module":"6.1: JavaScript: The Big Picture",
+    "questions":[
+      {
+        "text":"Client-side JavaScript code can interact with HTML page elements because this functionality:\na. is part of the JavaScript language\nb. is part of the browser\nc. is provided by the JSAPI",
+        "answer":[
+          {
+            "answer_text":"(b) and (c)",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"(a) only",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"(a) and (b) only",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"only (a), (b) and (c)",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"The browser has the functionality of manipulating and displaying HTML page elements; the JSAPI exposes the data structures and functions that implement this functionality to JavaScript."
+      }
+    ]
+  },
+  {
+    "module":"6.2: Introducing ECMAScript",
+    "questions":[
+      {
+        "text":"Which is NOT true about functions in JavaScript?",
+        "answer":[
+          {
+            "answer_text":"They can execute concurrently with other functions",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"They can be anonymous",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"They always return a value, even if that value might be undefined",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"They can be passed a function as an argument",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"JavaScript is single-threaded so functions execute one at a time. All the other statements are true."
+      }
+    ]
+  },
+  {
+    "module":"6.3: Classes, Functions and Constructors",
+    "questions":[
+      {
+        "text":"Which call will evaluate to 9?",
+        "answer":[
+          {
+            "answer_text":"var p=Square; (new p(3)).area()",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"Square(3).area",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Square(3).area()",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"(new Square(3)).area",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"This works because \u201cp\u201d just refers to the same function object as \u201cSquare\u201d, so we can call this 'constructor-style' function using \u201cnew\u201d and then call the 'instance method' \u201carea()\u201d on it."
+      }
+    ]
+  },
+  {
+    "module":"6.4: The Document Object Model (DOM) and jQuery",
+    "questions":[
+      {
+        "text":"When using JavaScript for client-side form validation, which is NOT true?",
+        "answer":[
+          {
+            "answer_text":"The server doesn't have to repeat validations already performed by JavaScript",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"JavaScript code can inspect DOM element attributes to see what the user typed",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"JavaScript code can prevent the \"Submit\" button from submitting the form",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Some validations may be impractical to perform on client so must be done on server",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"As described in the answers"
+      }
+    ]
+  },
+  {
+    "module":"6.5: The DOM and Accessibility",
+    "questions":[
+
+    ]
+  },
+  {
+    "module":"6.6: Events and Callbacks",
+    "questions":[
+      {
+        "text":"If this form is loaded in a non-JS-aware browser:",
+        "answer":[
+          {
+            "answer_text":"The form will be submitted, but without inputs being checked",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"Browser will complain about malformed HTML when page is loaded (server should respect browser version and not send JavaScript)",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Browser will complain, but only when form's Submit button clicked",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Nothing will happen when submit button is clicked (form won't be submitted)",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"The JavaScript-specific content will simply be ignored, in this case the specification of a handler for the form's submit event, and the form will behave just as if JavaScript didn't exist."
+      }
+    ]
+  },
+  {
+    "module":"6.7: AJAX: Asynchronous JavaScript And XML",
+    "questions":[
+      {
+        "text":"Which is FALSE concerning AJAX/XHR vs. non-AJAX interactions?",
+        "answer":[
+          {
+            "answer_text":"If the server fails to respond to an XHR request, the browser's UI will freeze",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"AJAX requests can be handled with their own separate controller actions",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"In general, the server must rely on explicit hint (like headers) to detect XHR",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"The response to an AJAX request can be any content type (not just HTML)",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"Although JavaScript is single-threaded, XHR is asynchronous--it returns as soon as the XHR request is queued to send--so it will not block the UI. However, the callback that would be triggered by the server response will never get called if the server doesn't send back any data, so from the user's point of view, it will appear that she took some action but nothing happened."
+      }
+    ]
+  },
+  {
+    "module":"6.8: Testing JavaScript and AJAX",
+    "questions":[
+      {
+        "text":"Which are always true of Jasmine's it() method:\na. it can take a named function as its 2nd argument\nb. it can take an anonymous function as its 2nd argument\nc. it executes asynchronously",
+        "answer":[
+          {
+            "answer_text":"(a) and (b)",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"(a) and (c)",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"(b) and (c)",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"All are true",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"Since functions are first-class in JavaScript, there is no syntactic distinction between providing an anonymous function or the name of an existing function. Since JavaScript is single-threaded, all code including Jasmine tests execute synchronously."
+      }
+    ]
+  },
+  {
+    "module":"6.10: Single-Page Apps and JSON APIs",
+    "questions":[
+      {
+        "text":"Which, if any, of the following statements are TRUE regarding JSON objects in Rails apps?",
+        "answer":[
+          {
+            "answer_text":"None of the above are true",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"A JSON object's properties must exactly match the corresponding ActiveRecord model",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"In an association such as Movie has-many Reviews, the owned objects must be returned in 1 or more separate JSON object",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"JSON objects can only be consumed by a JavaScript-capable client",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"The default behavior of to_json for ActiveRecord models is to construct an object whose properties exactly match the model attributes, but you can always add your own extra fields to the object and/or override the definition of to_json. You could override to_json for your model and explicitly include all the owned objects nested in the owning object. Every major language has JSON parsing libraries. While JSON is particularly easy for a JavaScript client (such as code running a browser) to consume, non-JavaScript code can easily consume JSON objects by using a parsing library."
+      }
+    ]
+  },
+  {
+    "module":"7.1: Behavior-Driven Design and User Stories",
+    "questions":[
+      {
+        "text":"User Story 1:\nSee which of my friends are going to a show\n- As a theatergoer\n- So that I can enjoy the show with my friends\n- I want to see which of my Facebook friends are attending a given show\n\nUser Story 2:\nShow patron\u2019s Facebook friends\n- As a box office manager\n- So that I can induce a patron to buy a ticket\n- I want to show her which of her Facebook friends are going to a given show",
+        "answer":[
+          {
+            "answer_text":"This should be left as 2 stories because the functionality and user experience may be different, & both may be important.",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"This should be consolidated into a single user story from the patron\u2019s point of view",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"This should be consolidated into a single user story from the manager\u2019s point of view",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"The goal of user stories is for customers and developers to agree on what is important. If there are stories that might seem similar, but address value from two different points of view, it is better to leave the stories separate to reflect what the customer wants for their business. Ultimately, it\u2019s not up to developers to merge these stories without discussing with the customer."
+      }
+    ]
+  },
+  {
+    "module":"7.2: SMART User Stories",
+    "questions":[
+      {
+        "text":"Which Rottenpotatoes feature below is least smart?",
+        "answer":[
+          {
+            "answer_text":"Given I have a free movie pass, I want to redeem it for an eligible movie before it expires",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"As a user, I want to search for a movie by title",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"When adding a movie, 99% of Add Movie pages should appear within 3 seconds",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"As a customer, I want to see the top 10 movies sold, listed by price, so that I can buy the cheapest one first.",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"Any of the answers are potentially defensible as not living up to the SMART requirements. The reason the given answer was selected is because it doesn\u2019t clarify what \u201celigible\u201d actually means, and is not specific in general. However, all these stories have room for improvement. We leave it up to you to think about what those improvements might be?"
+      }
+    ]
+  },
+  {
+    "module":"7.3: Lo-Fi User Interface Sketches and Storyboards",
+    "questions":[
+      {
+        "text":"Which of the following, if any, are usually not part of designing and implementing a typical user story?",
+        "answer":[
+          {
+            "answer_text":"All of the above are usually involved in designing and implementing a user story.",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"Front end code (HTML, views, JavaScript)",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Back end code (Rails)",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Tests (integration, acceptance, unit)",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"A story should not be marked as finished unless there are tests. Front end code and back end code are crucial to delivering the presentation and functionality of a user story, so all three are necessary to implementing a user story."
+      }
+    ]
+  },
+  {
+    "module":"7.4: Points and Velocity",
+    "questions":[
+      {
+        "text":"For the last 3 iterations, Team Blue\u2019s average velocity is 8, Team Gold\u2019s is 4. Which, if any, comparison between the Blue and Gold teams is valid?",
+        "answer":[
+          {
+            "answer_text":"None of the above",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"Blue has more developers than Gold",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Blue is twice as productive as Gold",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Blue has completed more stories than Gold",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"Recall that average velocity is a concept that is contained within the team. Comparing velocities between one team and another doesn\u2019t make sense. A Velocity of a 4 for one team provides no detail about what a velocity of 4 for another team would be."
+      }
+    ]
+  },
+  {
+    "module":"7.5: Agile cost estimation",
+    "questions":[
+      {
+        "text":"Which expression statement regarding cost estimation is true?",
+        "answer":[
+          {
+            "answer_text":"The cost bid is for PL time and materials that covers number of weeks in the estimate",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"As practitioners of Agile Development, PL does not use contracts",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"As practitioners of pair programming, PL estimates cost for 1 pair, which it assigns to complete project",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"As studies show 84%-90% of projects are on-time and on-budget, plan and document managers promise customers a set of features for an agreed upon cost by an agreed upon date.",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"As described in answer choices. Incorrect answers are all false."
+      }
+    ]
+  },
+  {
+    "module":"7.6: Cucumber: From User Stories to Acceptance Tests",
+    "questions":[
+      {
+        "text":"Which is FALSE about Cucumber and Capybara?",
+        "answer":[
+          {
+            "answer_text":"Step definitions are in Ruby, and are similar to method calls, while steps are in English and are similar to method definitions",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"A Feature has one or more Scenarios, which are composed typically of 3 to 8 Steps",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Steps use Given for current state, When for actions, and Then for consequences of actions ",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Cucumber matches step definitions to scenario steps using regexes, and Capybara pretends to be user that interacts with SaaS app accordingly",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"The statement is almost correct, except step definitions are  more similar to method definitions (not calls), while steps are more similar to method calls (not definitions)"
+      }
+    ]
+  },
+  {
+    "module":"7.8: Explicit vs. Implicit and Imperative vs. Declarative Scenarios",
+    "questions":[
+      {
+        "text":"Which is TRUE about implicit vs. explicit and declarative vs. imperative scenarios?",
+        "answer":[
+          {
+            "answer_text":"Explicit requirements are usually defined with imperative scenarios and implicit requirements are usually defined with declarative scenarios",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Explicit scenarios usually capture integration tests",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Declarative scenarios aim to capture implementation as well as behavior",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"All are false",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"Explicit scenarios usually capture acceptance tests that reflect user stories discussed with the customer. Declarative scenarios are more focused on behavior, not implementation. The remaining answer choice flips the definitions of explicit and  implicit requirements (explicit requirements are defined with declarative scenarios, implicit with imperative scenarios."
+      }
+    ]
+  },
+  {
+    "module":"7.9: The Plan-And-Document Perspective on Documentation",
+    "questions":[
+      {
+        "text":"Which expression statement regarding P&D requirements and cost estimation is false?",
+        "answer":[
+          {
+            "answer_text":"Agile has no equivalent to ensuring requirements, such as traceability",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"The closest to the P&D schedule and monitoring tasks are agile points and velocity",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"The closest to the P&D software requirements specification (SRS) document is Agile User Stories",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Actually, 1, 2, and 3 are all true; none are false.",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"Agile enforces and establishes requirements through customer meetings."
+      }
+    ]
+  },
+  {
+    "module":"8.1: FIRST, TDD, and Red\u2013Green\u2013Refactor",
+    "questions":[
+      {
+        "text":"Which kinds of code can be tested Repeatably and Independently?\ni. Code that relies on randomness (e.g. shuffling a deck of cards)\nii. Code that relies on time of day (e.g. run backups every Sunday at midnight)",
+        "answer":[
+          {
+            "answer_text":"Both",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"Only (i)",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Only (ii)",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Neither",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"With randomness, we can test repeatably by using a random number seed that fixes the order of random numbers from a generator. For the time of day, we can use an approach called \u201cstubbing\u201d that can help us define a mock context that allows code to run."
+      }
+    ]
+  },
+  {
+    "module":"8.2: Anatomy of a Test Case: Arrange, Act, Assert",
+    "questions":[
+      {
+        "text":"Which of these, if any, is not a valid expectation?",
+        "answer":[
+          {
+            "answer_text":"expect(5).to be <=> result",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"expect(result).not_to be_empty",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"expect(result).to match /^D\u2019oh!$/",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"All of the above are valid expectations",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"An explanation is like an assertion, in that it checks whether something is strictly true or false. \u201cexpect(5).to be <=> result\u201d is a comparison expression that evaluates to -1, 0, or 1, instead of true or false."
+      }
+    ]
+  },
+  {
+    "module":"8.3: Isolating Code: Doubles and Seams",
+    "questions":[
+      {
+        "text":"Which is FALSE about expect(...).to receive?",
+        "answer":[
+          {
+            "answer_text":"It can be issued either before or after the code that should make the call",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"It provides a stand-in for a real method that doesn\u2019t exist yet",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"It would override the real method, even if it did exist",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"It exploits Ruby\u2019s open classes and metaprogramming to \"intercept\" a method call at testing time",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"The expect(...).to receive matcher clause must be issued after the code making the call, as it serves as an assertion that certain effects were caused by the method calls."
+      }
+    ]
+  },
+  {
+    "module":"8.4: Stubbing the Internet",
+    "questions":[
+      {
+        "text":"to_receive combines _____ and _____, whereas stub is only _____.",
+        "answer":[
+          {
+            "answer_text":"A seam and an expectation, a seam",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"A mock and an expectation, a mock",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"A mock and an expectation, an expectation",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"A seam and an expectation, an expectation",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"Recall that seams help you isolate the behavior of an application and change it without having to change the code, while an expectation is similar to the idea of an assertion that indicates what about the nature of an application should be true."
+      }
+    ]
+  },
+  {
+    "module":"8.6: Fixtures and Factories",
+    "questions":[
+      {
+        "text":"Which of the following kinds of data, if any, should not be set up as fixtures?",
+        "answer":[
+          {
+            "answer_text":"Movies and their ratings",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"The TMDb API key",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"The application's time zone",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Fixtures would be fine for all of these",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"Recall that the definition of a fixture is a fixed state that is used as a baseline for running tests in software testing. Therefore, it\u2019d be best to set up any data that is not dependent on the user\u2019s configurations as fixtures. In this case, movies and their ratings can be divulged to other developers, but users may have their own unique API key and live in different time zones."
+      }
+    ]
+  },
+  {
+    "module":"8.7: Coverage Concepts and Types of Tests",
+    "questions":[
+      {
+        "text":"Which of these is POOR advice for TDD?",
+        "answer":[
+          {
+            "answer_text":"Unit tests give you higher confidence of system correctness than integration tests",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"Mock and stub early and often in unit tests",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Aim for high unit test coverage",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Sometimes it\u2019s OK to use stubs and mocks in integration tests",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"More unit tests and more test coverage in general is correct, but it doesn\u2019t necessarily translate to more system correctness. Recall that unit tests target functionality at very technical levels (does this method work as intended). Integration tests are much more comprehensive and test several software modules altogether as a group. Therefore, it reflects system correctness more accurately."
+      }
+    ]
+  },
+  {
+    "module":"8.8: Other Testing Approaches and Terminology",
+    "questions":[
+      {
+        "text":"Which non-obvious statement about testing is FALSE?",
+        "answer":[
+          {
+            "answer_text":"Testing eliminates the need to use a debugger",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"Even 100% test coverage is not a guarantee of being bug-free",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"If you can stimulate a bug-causing condition in a debugger, you can capture it in a test",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"When you change your code, you need to change your tests as well",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"Recall that even 100% test coverage doesn\u2019t mean code is bug free, whether it is with regards to the technical implementation or overall system correctness according to the customer behavior. Therefore, using a debugger is still needed to trace errant behavior that may not be covered by an existing test, or perhaps cannot be written as a test (non-deterministic errors)."
+      }
+    ]
+  },
+  {
+    "module":"8.10: The Plan-And-Document Perspective on Testing",
+    "questions":[
+      {
+        "text":"Which statement regarding testing is FALSE?",
+        "answer":[
+          {
+            "answer_text":"Formal methods are expensive but worthwhile to verify important applications",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"PandD developers code before they write tests while its vice versa after",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Agile developers Agile developers perform module, integration, system, and acceptance tests. PandD developers don\u2019t",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"PandD sandwich integration aims to reduce wasted work making stubs while trying to get general functionality early",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"Recall that formal methods use mathematical proofs to verify whether applications are performing correctly. These methods are indeed expensive, and while helpful, they are not worthwhile for verifying application correctness because of 1. How time and labor intensive developing formal methods are and 2. They must be updated as the application changes, which is not feasible in an Agile environment."
+      }
+    ]
+  },
+  {
+    "module":"9.1: What Makes Code \"Legacy\" and How Can Agile Help?",
+    "questions":[
+      {
+        "text":"If you\u2019ve been assigned to modify legacy code, which statement would make you happiest if true?",
+        "answer":[
+          {
+            "answer_text":"\"It is well covered by tests\"",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"\"It was originally developed using Agile techniques\"",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"\"It\u2019s nicely structured and easy to read\"",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"\"Many of the original design documents are available\"",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"If the code is well covered by tests, you can safely refactor it to improve its structure and make changes, even if its original structure is poor and design documents are lacking."
+      }
+    ]
+  },
+  {
+    "module":"9.2: Exploring a Legacy Codebase",
+    "questions":[
+      {
+        "text":"\"Patrons can make donations as well as buying tickets. For donations we need to track which fund they donate to so we can create reports showing each fund's activity. For tickets, we need to track what show they're for so we can run reports by show, plus other things that don't apply to donations, such as when they expire.\"\nWhich statement is LEAST compelling for this design?",
+        "answer":[
+          {
+            "answer_text":"Donations and Tickets should subclass from a common ancestor.",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"Donation has at least 2 collaborator classes.",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Donations and Tickets should implement a common interface such as \u201cPurchasable\u201d.",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Donations and Tickets should implement a common interface such as \u201cReportable\u201d.",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"Donations and tickets seem to differ at least as much as they are similar, since donations do not expire and tickets do not have an associated fund. It seems tempting to use inheritance, but it\\'s not clear that\\'s a good solution in this case."
+      }
+    ]
+  },
+  {
+    "module":"9.3: Establishing Ground Truth with Characterization Tests",
+    "questions":[
+      {
+        "text":"Which is FALSE about integration-level characterization tests vs. module- or unit-level characterization tests?",
+        "answer":[
+          {
+            "answer_text":"They are based on fewer assumptions about how the code works",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"They are just as likely to be unexpectedly dependent on the production database",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"They rely less on detailed knowledge about the code\u2019s structure",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"If a customer can do the action, you can create a simple characterization test by mechanizing the action by brute force",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"High-level behaviors captured as black-box tests may indeed be making assumptions about the code, even if those assumptions aren't obvious. For example, the site may behave differently on holidays, or behave differently depending on the amount of data in the database or how many users are logged in."
+      }
+    ]
+  },
+  {
+    "module":"9.4: Comments and Commits: Documenting Code",
+    "questions":[
+
+    ]
+  },
+  {
+    "module":"9.5: Metrics, Code Smells, and SOFA",
+    "questions":[
+      {
+        "text":"Which is generally FALSE about code smells?",
+        "answer":[
+          {
+            "answer_text":"More code is bad; less code is good",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"They can occur both within a class and in interactions among classes",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"They may indicate correctness problems",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"They do not necessarily require repair",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"The correct answer is an absolute claim that's not true all the time. More code could be more clear, easier to read, with self-documenting variables. It could be the right length to do what it needs to do. Conciseness may lead to worse readability and less maintainability."
+      }
+    ]
+  },
+  {
+    "module":"9.6: Method-Level Refactoring: Replacing Dependencies with Seams",
+    "questions":[
+      {
+        "text":"Which is NOT a goal of method-level refactoring?",
+        "answer":[
+          {
+            "answer_text":"Eliminate bugs",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"Reduce code complexity",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Eliminate code smells",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Improve testability",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"While removing bugs is great, refactoring is supposed to change the code's structure WITHOUT changing its behavior. Don't conflate bug-fixing with refactoring."
+      }
+    ]
+  },
+  {
+    "module":"9.7: The Plan-And-Document Perspective on Working with Legacy Code",
+    "questions":[
+      {
+        "text":"Which statement regarding P-D maintenance is FALSE?",
+        "answer":[
+          {
+            "answer_text":"All the above are true",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"The cost of maintenance usually exceeds the cost of development in P-D",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"The Agile equivalent to P-D change requests is user stories, equivalent of change request cost estimates is points, P-D releases are iterations",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"The Agile lifecycle is similar to the P-D maintenance lifecycle: enhancing working software product, collaborating with customer vs. negotiating by contract, continuously responding to change",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"As described in the answer choices"
+      }
+    ]
+  },
+  {
+    "module":"10.1: It Takes a Team: Two-Pizza and Scrum",
+    "questions":[
+      {
+        "text":"Which expression statement regarding SCRUM is TRUE?",
+        "answer":[
+          {
+            "answer_text":"Scrum is at its best when it is difficult to plan ahead",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"Scrum is good for safety critical software as well as SaaS",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Scrum implies Agile software development practices like TDD",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"All the above are true",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"Agile and Scrum are a good match, but the two do not have to be used together. Scrum is not entirely sufficient for safety critical software, as there may be additional tools (formal methods, verification) that can better validate safety critical software."
+      }
+    ]
+  },
+  {
+    "module":"10.2: Using Branches Effectively",
+    "questions":[
+      {
+        "text":"If separate sub-teams are assigned to work on release bug fixes and new features, you will need to use:",
+        "answer":[
+          {
+            "answer_text":"Branch per release + Branch per feature",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"Branch per release",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Branch per feature",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Any of these will work",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"Branch per release allows the release team to apply \"hot fixes\" to the released version even if the trunk or master branch has diverged from the released version. Branch per feature allows new feature development without interfering with the trunk or with deployed releases."
+      }
+    ]
+  },
+  {
+    "module":"10.3: Pull Requests and Code Reviews",
+    "questions":[
+      {
+        "text":"If you try to push to a remote and get a \u201cnon-fast-forward (error): failed to push some refs\u201d, which statement is FALSE?",
+        "answer":[
+          {
+            "answer_text":"You need to manually fix merge conflicts in one or more files",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"Some commits present at remote are not present on your local repo",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"You need to do a merge/pull before you can complete the push",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Your local repo is out-of-date with respect to the remote",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"The commits present on the remote but absent from your copy may or may not cause conflicts in individual files. In a well-organized project, unexpected per-file conflicts should be rare."
+      }
+    ]
+  },
+  {
+    "module":"10.4: Continuous Integration",
+    "questions":[
+      {
+        "text":"RottenPotatoes just got some new AJAX features. Where does it make sense to test these features?",
+        "answer":[
+          {
+            "answer_text":"All of the above",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"Using autotest with RSpec+Cucumber",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"In CI",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"In the staging environment",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"We shouldn't rely on just one kind of test. These features could be tested for basic correctness in development, stress-tested in staging, and cross-browser-tested in CI."
+      }
+    ]
+  },
+  {
+    "module":"10.5: Delivering the Backlog",
+    "questions":[
+      {
+        "text":"",
+        "answer":[
+          {
+            "answer_text":"",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"",
+            "answer_weight":0
+          }
+        ],
+        "explanation":""
+      }
+    ]
+  },
+  {
+    "module":"10.7: Reporting and Fixing Bugs: The Five R's",
+    "questions":[
+      {
+        "text":"Suppose you discover that your most recent release contains a bug whose regression test will require extensive mocking or stubbing because the buggy code is convoluted. Which action, if any, is NOT appropriate?",
+        "answer":[
+          {
+            "answer_text":"Do the refactoring using TDD on the release branch, and push the bug fix as new code with tests ",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"Do the refactoring using TDD on a different branch, push the bug fix as new code with tests, then cherry-pick the fix into release",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Create a regression test with the necessary mocks and stubs, painful though it may be, and push the bugfix and tests to release branch",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Depending on project priorities and project management, any of the above might be appropriate",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"Never do development or make changes directly on the release branch. Remember: always mount a scratch monkey."
+      }
+    ]
+  },
+  {
+    "module":"10.8: The Plan-And-Document Perspective on Managing Teams",
+    "questions":[
+      {
+        "text":"Which expression statement regarding Reviews and Meetings is FALSE?",
+        "answer":[
+          {
+            "answer_text":"The A\u2019s in SAMOSA stands for Agenda and Action items, which are optional pieces of good meetings",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"Intended to improve the quality of the software product using the wisdom of the attendees",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"They result in technical information exchange and can be highly educational for junior people ",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Can be beneficial to both presenters and attendees",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"As described in the answer choices"
+      }
+    ]
+  },
+  {
+    "module":"11.1: Patterns, Antipatterns, and SOLID Class Architecture",
+    "questions":[
+      {
+        "text":"Which of the following statements is FALSE?",
+        "answer":[
+          {
+            "answer_text":"Most design patterns are specific to a particular subset of programming languages.",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"Software that uses more design patterns isn\u2019t necessarily better.",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Well-designed software can evolve to the point where patterns become antipatterns.",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Trying to apply design patterns too early can be just as bad as applying them too late.",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"While a few design patterns arise from language-specific constraints, the great majority of them can be applied no matter what language you use, because design patterns are about relationships among different classes or entities in your code."
+      }
+    ]
+  },
+  {
+    "module":"11.2: Just Enough UML",
+    "questions":[
+      {
+        "text":"Which ActiveRecord association would NOT appear in a Rails app that follows this simplified UML class diagram?",
+        "answer":[
+          {
+            "answer_text":"Item has one AccountCode",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"Show has many Vouchers, through Showdate ",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Customer has many Donations",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Voucher belongs to Vouchertype",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"It is true that a given Item has only a single AccountCode, but has-one is a 1-to-1 relationship, and the diagram shows that an AccountCode has many Items. So the relationship expressed here is Item belongs to AccountCode and AccountCode has many Items."
+      }
+    ]
+  },
+  {
+    "module":"11.3: Single Responsibility Principle",
+    "questions":[
+      {
+        "text":"Which is true about a class's observance of the Single Responsibility Principle?",
+        "answer":[
+          {
+            "answer_text":"Low cohesion is a possible indicator of an opportunity to extract a class",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"In general, we would expect to see a correlation between poor cohesion score and poor SOFA metrics",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"If a class respects SRP, its methods probably respect SOFA",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"If a class's methods respect SOFA, the class probably respects SRP",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"While good style and freedom from smells are important at both the method and class level, they are largely orthogonal. A class with too many responsibilities could have lots of small methods that all follow SOFA, and a class with one responsibility might implement that responsibility with methods that run afoul of SOFA."
+      }
+    ]
+  },
+  {
+    "module":"11.4: Open/Closed Principle",
+    "questions":[
+      {
+        "text":"OmniAuth defines a handful of RESTful endpoints your app must provide to handle authentication with a variety of third parties. To add a new auth provider, you create a gem that works with that provider. Which statement is FALSE about OmniAuth?",
+        "answer":[
+          {
+            "answer_text":"OmniAuth is an example of the Template pattern",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"OmniAuth is itself compliant with OCP",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Using OmniAuth helps your app follow OCP (with respect to 3rd-party authentication)",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"OmniAuth is an example of the Strategy pattern",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"From your app's point of view, the API to authentication is just a few URL endpoints, but the process by which it's done varies wildly depending on the auth provider. Some are OAuth, some implement proprietary protocols, some aren't authentication protocols at all but just testing stubs. So OmniAuth is more like Strategy, since it doesn't consist of overriding a fixed sequence of steps that are basically the same for all authentication providers."
+      }
+    ]
+  },
+  {
+    "module":"11.5: Liskov Substitution Principle",
+    "questions":[
+      {
+        "text":"(a) In duck-typed languages, LSP violations can occur even when inheritance is not used\n(b) In statically-typed languages, if the compiler reports no type errors/warnings, then there are no LSP violations",
+        "answer":[
+          {
+            "answer_text":"Only (a) is true",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"Only (b) is true",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Both are true",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Both are false",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"(a) is true: For example, in Ruby, you might mix in the Comparable module but define <=> in a way that doesn't obey the triangle inequality. Even though there is no inheritance here, you've violated the contract expected by the mixed-in module.\n(b) is false: The Square/Rectangle example explained in the lecture (and at http://pastebin.com/nf2D9RYj) would pass static type checks, yet it violates LSP."
+      }
+    ]
+  },
+  {
+    "module":"11.6: Injection of Dependencies Principle",
+    "questions":[
+      {
+        "text":"In RSpec controller tests, it's common to stub ActiveRecord::Base.where, an inherited method. Which statements are true of such tests:\na. The controller under test is tightly coupled to the model\nb. In a static language, we'd have to use DI to achieve the same task in the testing framework.",
+        "answer":[
+          {
+            "answer_text":"both (a) and (b)",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"only (a)",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"only (b)",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"neither (a) and (b)",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"a. The controller is calling where directly, suggesting that it has detailed knowledge of the database schema for the model.\nb. Injecting a dependency would allow whichever method is called to be replaced at testing time with a double."
+      }
+    ]
+  },
+  {
+    "module":"11.7: Demeter Principle",
+    "questions":[
+      {
+        "text":"Suppose Order belongs to Customer, and a view has @order.customer.name. Is this a Demeter violation?",
+        "answer":[
+          {
+            "answer_text":"Yes...you can make a case for either of the above",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"Yes...but probably reasonable to just expose object graph in the view in this case",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Yes...replace with Order#customer_name which delegates to Customer#name",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"No...by using belongs_to we're already exposing info about the Customer anyway",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"A view is about showing information about the models, so it's not unusual for a view to be somewhat coupled to its models and be able to display a representation of the 'object graph'. On the other hand, purists could indeed create a delegate to handle this, and we could hardly disagree with that. So technically it is a Demeter violation, but reasonable people could make a case for either a non-fix or a delegate fix."
+      }
+    ]
+  },
+  {
+    "module":"11.8: The Plan-and-Document Perspective on Design Patterns",
+    "questions":[
+      {
+        "text":"Which statement regarding design patterns is FALSE?",
+        "answer":[
+          {
+            "answer_text":"None are false; All are true",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"P&D processes have an explicit design phase that is a natural fit to the use of design patterns and thus will have a good SW architecture",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"P&D drawback: initial architecture & design patterns may change as code written and system evolves",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Agile developers may plan for SW architectures and design patterns they expect to need based on previous, similar projects",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"As described in the answer choices"
+      }
+    ]
+  },
+  {
+    "module":"12.1: From Development to Deployment",
+    "questions":[
+      {
+        "text":"Let R = RottenPotatoes app's availability; H = Heroku's availability; C = Internet connection availability; P = Armando's perception of RP availability; Which relationship among these quantities holds?",
+        "answer":[
+          {
+            "answer_text":"Can\u2019t tell without additional information",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"P <= C <= H <= R",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"P >= min (C, H, R)",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"P <= C <= min(H, R)",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"If Prof. Fox was accessing the site constantly around-the-clock, you could argue that his perception of availability would be no better than the minimum of C,H,R. But since we don't know how often or when he is accessing it, there's no way to tell. If the site is only down 1 minute per day but that's the only time he tries to access it, his perception will be 0% availability, and so on. This is one reason availability is more subtle to quantify than you might expect. SubmitSome problems have options such as save, reset, hints, or show answer. These options follow the Submit button."
+      }
+    ]
+  },
+  {
+    "module":"12.2: Three-Tier Architecture",
+    "questions":[
+
+    ]
+  },
+  {
+    "module":"12.3: Responsiveness, Service Level Objectives, and Apdex",
+    "questions":[
+      {
+        "text":"RottenPotatoes\u2019 target uptime is 99.9%. Yesterday there was a one hour outage. Which statement is true:",
+        "answer":[
+          {
+            "answer_text":"There isn\u2019t enough information to determine whether RottenPotatoes can meet its user-perceived uptime goal",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"Because of the outage, RottenPotatoes has no hope of meeting its uptime goal this year",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"RottenPotatoes can still meet its uptime goal if there are no further outages this year",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"If no live users actually tried to get to the site during the outage, uptime wasn\u2019t hurt",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"Recall that Uptime is a measure of system reliability, expressed as the percentage of time a machine, typically a computer, has been working and available. Without knowing the time frame of the target uptime, there's no way for us to evaluate whether the percentage has been met."
+      }
+    ]
+  },
+  {
+    "module":"12.4: Releases and Feature Flags",
+    "questions":[
+      {
+        "text":"Which one, if any, is a POOR place to store the value (eg true/false) of a feature flag?",
+        "answer":[
+          {
+            "answer_text":"A YAML file in config/ directory of app",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"A column in an existing database table",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"A separate database table",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"These are all good places to store feature-flag values",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"If stored in a file, we need logic to determine if the file has changed and when it can be re-read, so that the feature flag value can be changed without restarting the app and re-reading all the config files. In contrast, database-stored values can be changed at runtime and the new values will be picked up immediately by the app."
+      }
+    ]
+  },
+  {
+    "module":"12.5: Monitoring and Finding Bottlenecks",
+    "questions":[
+      {
+        "text":"Which is probably NOT a metric of high interest to you, the app operator?",
+        "answer":[
+          {
+            "answer_text":"Maximum CPU utilization",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"Slowest queries",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"99 percentile response time",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Rendering time of 3 slowest views",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"As an operator, you should focus on metrics that directly impact the customer. While CPU utilization may be related to the other metrics, unless you know for certain that it's the root cause of poor behavior in those other metrics, you should instead focus on understanding why the other metrics are poor."
+      }
+    ]
+  },
+  {
+    "module":"12.6: Improving Rendering and Database Performance With Caching",
+    "questions":[
+      {
+        "text":"Under-17 visitors to RottenPotatoes shouldn\u2019t see NC-17 movies in any listing. A controller filter exists that can determine if a user is under 17. What kinds of caching would be appropriate when implementing this:\ni. Page\nii. Action\niii. Fragment",
+        "answer":[
+          {
+            "answer_text":"ii. and iii.",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"i. and iii.",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"iii. only",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"i., ii., and iii.",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"Page caching will bypass the controller filter, but action caching would allow us to avoid regenerating an 'under-17-specific' view of the listings page, and fragment caching could help if we miss in the action cache."
+      }
+    ]
+  },
+  {
+    "module":"12.7: Avoiding Abusive Database Queries",
+    "questions":[
+      {
+        "text":"Suppose Movie has many Moviegoers through Reviews. Which foreign-key index or indices would MOST help speed up the query: \"fans = @movie.moviegoers\"",
+        "answer":[
+          {
+            "answer_text":"reviews.movie_id",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"movies.review_id",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"reviews.moviegoer_id",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"moviegoers.review_id",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"Because of the through-association, the query involves finding the review(s) whose movie_id matches this movie, and then for each of those, looking up the appropriate moviegoer_id. So we need an index on the movie_id field of reviews. We don't need any special index on moviegoers, since lookups by id are already indexed by default."
+      }
+    ]
+  },
+  {
+    "module":"12.9: Security: Defending Customer Data in Your App",
+    "questions":[
+      {
+        "text":"If a site has a valid SSL certificate from a trusted CA, which of the following are true:\ni) The site is probably not \u201cmasquerading\u201d as an impostor of a real site\nii) CSRF + SQL injection are harder to mount against it\niii) Your data is secure once it reaches the site",
+        "answer":[
+          {
+            "answer_text":"(i) only",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"(i) and (ii) only",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"(ii) and (iii) only",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"(i), (ii) & (iii)",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"SSL assures the server's identity (if the certificate is from a trusted signing authority) and protects data while in transit to the server, but that's it."
+      }
+    ]
+  },
+  {
+    "module":"12.10: The Plan-And-Document Perspective on Operations",
+    "questions":[
+      {
+        "text":"Which statement regarding reliability and security is most likely FALSE?",
+        "answer":[
+          {
+            "answer_text":"Not removing data races could violate the security principle of psychological acceptability",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"Improper initialization of data could violate the security principle of fail-safe defaults",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Not checking buffer limits could violate the security principle of least privilege",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"None are false; all are true",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"Data races describe an error related to non-determinism caused by two competing processes commonly found in systems (OS, databases, parallel computing). This is not particularly related to psychological acceptability, which refers to a more social set of conditions."
+      }
+    ]
+  }
+]
