@@ -7,7 +7,10 @@ a/k/a UC Berkeley CS 169 Software Engineering, a/k/a CS 169.1x/169.2x on
 EdX
 
 This repo contains information useful to instructors (and arguably
-students) using the [ESaaS](http://www.saasbook.info) course materials.
+students) using the [ESaaS](http://www.saasbook.info) course materials, including the following:
+* `discussions`: Worksheets providing hands-on coding and problem solving exercises.
+* `exams`: Review slides and practice exams for midterms and finals.
+* `self-checks`: Questions per module for students to verify their understanding.
 
 The recommended setup is to [use Cloud9](https://github.com/saasbook/courseware/wiki/Setting-up-Cloud9).  We no longer support
 prebuilt virtual machine images.  The [wiki](https://github.com/saasbook/courseware/wiki) has other setup options, but
