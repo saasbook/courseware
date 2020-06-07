@@ -61,7 +61,7 @@ def create_quiz(title, questions):
     return quiz
 
 def create_quizzes():
-    with open('self_checks.json') as f:
+    with open('self-checks.json') as f:
         data = json.load(f)
 
     f = open("quiz_IDs.txt", "w")
@@ -78,7 +78,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Specify which function to run")
     parser.add_argument("-g", "--groups", help="Print list of assignment groups", action="store_true")
     parser.add_argument("-d", "--delete", type=int, nargs=2, metavar=('startID', 'endID'), help='Delete quizzes in specified range')
-    parser.add_argument("-c", "--create", help="Create quizzes from `self_checks.json` file", action="store_true")
+    parser.add_argument("-c", "--create", help="Create quizzes from `self-checks.json` file", action="store_true")
 
     ARGS = parser.parse_args()
 
