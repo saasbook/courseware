@@ -78,17 +78,14 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Specify which function to run")
     parser.add_argument("-g", "--groups", help="Print list of assignment groups", action="store_true")
     parser.add_argument("-d", "--delete", type=int, nargs=2, metavar=('startID', 'endID'), help='Delete quizzes in specified range')
-    parser.add_argument("-c", "--create", type=bool, default=False, help="Create quizzes from `self_checks.json` file")
+    parser.add_argument("-c", "--create", help="Create quizzes from `self_checks.json` file", action="store_true")
 
     ARGS = parser.parse_args()
 
     if ARGS.groups:
-        print("Hi")
         get_assignment_groups()
-    elif ARGS.delete:
-        print("Hi 2")
+    if ARGS.delete:
         startID, endID = ARGS.delete
         delete_quizzes(startID, endID)
-    elif ARGS.create:
-        print("Hi 3")
+    if ARGS.create:
         create_quizzes()
