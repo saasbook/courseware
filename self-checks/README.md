@@ -30,7 +30,7 @@ All self checks are single correct, multiple choice questions.
 `self-checks.py` contains the code for propagating and deleting quizzes to and from the course website. This file can be executed with `python self-checks.py` with the following option flags:
 * `-g`: Return all assignment group IDs of course
 * `-d <startID> <endID>`: Delete all quizzes with IDs in [`startID`, `endID`]
-* `-c`: Generates quizzes from `self-checks.json` content. One quiz will be created for each `module` block.
+* `-c`: Generates quizzes from `self-checks.json` content. One quiz will be created for each `module` block. This command will also generate a `quiz_IDs.txt` file that contains the IDs corresponding to each newly created quiz. This is useful to keep in case one wants to delete the quizzes using the `-d` flag
 
 The generated quiz will have the following settings:
 * Infinite allowed attempts

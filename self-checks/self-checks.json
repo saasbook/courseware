@@ -156,7 +156,28 @@
   {
     "module":"1.8: Deploying SaaS: Browsers and Mobile",
     "questions":[
-
+      {
+        "text":"Which of the following is false when considering using a CSS framework?",
+        "answer":[
+          {
+            "answer_text":"For most cases, it's better to develop a CSS framework from scratch than to use an existing one.",
+            "answer_Weight":1
+          },
+          {
+            "answer_text":"Good frameworks provide responsive behavior that adapts the webpage content to different display sizes (i.e. phone vs. computer)",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Good frameworks provide accessibility support for users with disabilities; this support can be activated by assistive technologies.",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Good frameworks usually write assets in a hierarchical fashion, with high level components being a combination of multiple HTML elements.",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"A good framework provides responsive behavior, accessibility support, and hierarchical CSS as described in the answer choices. On the other hand, it's recommended to use an existing CSS Framework as opposed to writing one for scratch. Most existing, popular frameworks should serve the aforementioned purposes, and writing one from scratch takes a significant amount of time."
+      }
     ]
   },
   {
@@ -737,7 +758,28 @@
   {
     "module":"5.8: Other Types of Code",
     "questions":[
-
+      {
+        "text":"To encapsulate queries that touch many different models, what kind of object should be used?",
+        "answer":[
+          {
+            "answer_text":"Query Object",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"Policy Object",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Service Object",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Form Object",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"As in the name, query objects encapsulate queries that involve multiple models. Policy objects are special cases of service objects that focus on enforcing constraints on multiple models. Form objects process data submissions that require updates to multiple models, while service objects can be thought of as a super class to form, query, and policy objects. They encapsulate any operations that read and write to multiple models, such that it's unnatural to assign the logic as a special case of a single model."
+      }
     ]
   },
   {
@@ -851,7 +893,28 @@
   {
     "module":"6.5: The DOM and Accessibility",
     "questions":[
-
+      {
+        "text":"Which of the following practices contribute to greater accessibility and usability?"
+        "answer":[
+          {
+            "answer_text":"All of the statements",
+            "answer_weight":1
+          },
+          {
+            "answer_text":"Use consistent icons, labels, navigation",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Have easily readable fonts",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Pay attention to colors and contrasts",
+            "answer_weight":1
+          }
+        ],
+        "explanation":"All three points are important when it comes to designing an application that is friendly to users with visual impairments."
+      }
     ]
   },
   {
@@ -1474,7 +1537,28 @@
   {
     "module":"9.4: Comments and Commits: Documenting Code",
     "questions":[
-
+      {
+        "text":"Information regarding how certain code works and information future developers may need to know while working on code should be included in:"
+        "answer":[
+          {
+            "answer_text":"In the comments"
+            "answer_weight":1
+          },
+          {
+            "answer_text":"In commit messages"
+            "answer_weight":0
+          },
+          {
+            "answer_text":"In both comments and commit messages"
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Neither. They belong in a writeup separate from the code"
+            "answer_weight":0
+          }
+        ],
+        "explanation":"Commit messages should be treated as more for historical information, such as why a certain function was deleted or refactored. Comments should reflect how the code works as it exists in the present moment."
+      }
     ]
   },
   {
@@ -1993,7 +2077,28 @@
   {
     "module":"12.2: Three-Tier Architecture",
     "questions":[
-
+      {
+        "text":"The master-slave configuration is appropriate for applications that experience what kind of workload?",
+        "answer":[
+          {
+            "answer_text":"Read heavy",
+            "answer_Weight":1
+          },
+          {
+            "answer_text":"Write heavy",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Equal distribution of read and write operations",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"None, the configuration doesn't affect how the workload is handled",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"The master/slave configuration is a communication model where the master has control over multiple slave devices and load balances requests across the slave devices."
+      }
     ]
   },
   {
