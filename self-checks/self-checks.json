@@ -210,13 +210,55 @@
   {
     "module":"1.10: How to Have a Bad Experience In This Course",
     "questions":[
-
+      {
+        "text":"Out of the following approaches, which is NOT one of the recommended attitudes or perspectives towards achieving the desired outcomes of this course."
+        "answer":[
+          {
+            "answer_text":"This class should be studied as a step by step recipe for building Software as a Service applications."
+            "answer_weight":1
+          },
+          {
+            "answer_text":"This class provides skills and points that will make you a sought after software engineer because you're able to learn and productively use new frameworks and tools rapidly.",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"You'd like to build reliable software.",
+            "answer_weight":0
+          },
+          {
+            "answer_text":"You want to understand how certain, current technologies are the way they are, and what decisions in the history of software engineering led to their current states.",
+            "answer_weight":0
+          }
+        ],
+        "explanation":"It's with no doubt a plus to know how to build SaaS applications with specific languages and frameworks. However, there are so many tools out there that covering them in a single course would not be feasible. Also, it's likely that your work will require you to dig into tools you may have never encountered before. Therefore, the goal of this class is geared towards introducing you to the methodologies and approaches of a great software engineer that can be applied indepednent of the actual tools you end up working with!"
+      }
     ]
   },
   {
     "module":"2.1: Learning to Learn Languages and Frameworks",
     "questions":[
-
+      {
+        "text":"By following certain naming rules, you will not need to provide config files that explain which classes in your app are responsible for which database table. This practice is based on the principle of:",
+        "answer": [
+          {
+            "answer_text":"Convention over Configuration"
+            "answer_weight":1
+          },
+          {
+            "answer_text":"Abstraction and Encapsulation"
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Package Management"
+            "answer_weight":0
+          },
+          {
+            "answer_text":"Configuration Management"
+            "answer_weight":0
+          }
+        ],
+        "explanation":"Convention over configuration refers to a language design choice meant to reduce the amount of manual coding a developer has to do (i.e. connect a class to a database) by replacing manual configuration tasks with automated processes that can be executed from convention, without needing manual intervention."
+      }
     ]
   },
   {
