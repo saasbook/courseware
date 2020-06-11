@@ -211,10 +211,10 @@
     "module":"1.10: How to Have a Bad Experience In This Course",
     "questions":[
       {
-        "text":"Out of the following approaches, which is NOT one of the recommended attitudes or perspectives towards achieving the desired outcomes of this course."
+        "text":"Out of the following approaches, which is NOT one of the recommended attitudes or perspectives towards achieving the desired outcomes of this course.",
         "answer":[
           {
-            "answer_text":"This class should be studied as a step by step recipe for building Software as a Service applications."
+            "answer_text":"This class should be studied as a step by step recipe for building Software as a Service applications.",
             "answer_weight":1
           },
           {
@@ -230,7 +230,7 @@
             "answer_weight":0
           }
         ],
-        "explanation":"It's with no doubt a plus to know how to build SaaS applications with specific languages and frameworks. However, there are so many tools out there that covering them in a single course would not be feasible. Also, it's likely that your work will require you to dig into tools you may have never encountered before. Therefore, the goal of this class is geared towards introducing you to the methodologies and approaches of a great software engineer that can be applied indepednent of the actual tools you end up working with!"
+        "explanation":"It's with no doubt a plus to know how to build SaaS applications with specific languages and frameworks. However, there are so many tools out there that covering them in a single course would not be feasible. Also, it's likely that your work will require you to dig into tools you may have never encountered before. Therefore, the goal of this class is geared towards introducing you to the methodologies and approaches of a great software engineer that can be applied indepedent of the actual tools you end up working with!"
       }
     ]
   },
@@ -241,23 +241,23 @@
         "text":"By following certain naming rules, you will not need to provide config files that explain which classes in your app are responsible for which database table. This practice is based on the principle of:",
         "answer": [
           {
-            "answer_text":"Convention over Configuration"
+            "answer_text":"Convention over Configuration",
             "answer_weight":1
           },
           {
-            "answer_text":"Abstraction and Encapsulation"
+            "answer_text":"Abstraction and Encapsulation",
             "answer_weight":0
           },
           {
-            "answer_text":"Package Management"
+            "answer_text":"Package Management",
             "answer_weight":0
           },
           {
-            "answer_text":"Configuration Management"
+            "answer_text":"Configuration Management",
             "answer_weight":0
           }
         ],
-        "explanation":"Convention over configuration refers to a language design choice meant to reduce the amount of manual coding a developer has to do (i.e. connect a class to a database) by replacing manual configuration tasks with automated processes that can be executed from convention, without needing manual intervention."
+        "explanation":"Convention over configuration refers to a language design choice meant to reduce the amount of manual coding a developer has to do (i.e. connect a class to a database) by replacing manual configuration tasks with automated processes that can be executed from convention. Upon compilation, the compiler for the language will derive conventional behavior from the code itself."
       }
     ]
   },
@@ -936,7 +936,7 @@
     "module":"6.5: The DOM and Accessibility",
     "questions":[
       {
-        "text":"Which of the following practices contribute to greater accessibility and usability?"
+        "text":"Which of the following practices contribute to greater accessibility and usability?",
         "answer":[
           {
             "answer_text":"All of the statements",
@@ -1580,26 +1580,26 @@
     "module":"9.4: Comments and Commits: Documenting Code",
     "questions":[
       {
-        "text":"Information regarding how certain code works and information future developers may need to know while working on code should be included in:"
+        "text":"Information regarding how certain code works and information future developers may need to know while working on code should be included in:",
         "answer":[
           {
-            "answer_text":"In the comments"
+            "answer_text":"In the comments",
             "answer_weight":1
           },
           {
-            "answer_text":"In commit messages"
+            "answer_text":"In commit messages",
             "answer_weight":0
           },
           {
-            "answer_text":"In both comments and commit messages"
+            "answer_text":"In both comments and commit messages",
             "answer_weight":0
           },
           {
-            "answer_text":"Neither. They belong in a writeup separate from the code"
+            "answer_text":"Neither. They belong in a writeup separate from the code",
             "answer_weight":0
           }
         ],
-        "explanation":"Commit messages should be treated as more for historical information, such as why a certain function was deleted or refactored. Comments should reflect how the code works as it exists in the present moment."
+        "explanation":"Commit messages should be treated as historical records of the development process so far, such as why a certain function was deleted or refactored. Comments should reflect how the code works as it exists in the present moment. They should describe how the code works from a conceptual standpoint."
       }
     ]
   },
@@ -2124,7 +2124,7 @@
         "answer":[
           {
             "answer_text":"Read heavy",
-            "answer_Weight":1
+            "answer_weight":1
           },
           {
             "answer_text":"Write heavy",
@@ -2139,7 +2139,7 @@
             "answer_weight":0
           }
         ],
-        "explanation":"The master/slave configuration is a communication model where the master has control over multiple slave devices and load balances requests across the slave devices."
+        "explanation":"The master/slave configuration is a communication model where the master has control over multiple slave devices and load balances requests across the slave devices. Another distinction between master and slave is that while any slave can perform a read, only the master can perform writes. The master must also update slaves with the writes' results. Therefore, when faced with a write-heavy workload, this configuration becomes increasingly inefficient because a single server will be burdened with the majority of the work."
       }
     ]
   },
