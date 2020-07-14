@@ -682,7 +682,7 @@
           },
           {
             "answer_text":"Access can be time-limited to expire on a pre-set date",
-            "answer_weight":0
+            "answer_weight":1
           }
         ],
         "explanation":"Most third-party authentication schemes support expiration, to limit the damage in case the requester is compromised."

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Example</title>
+        <style>
+        div {
+          /* height: 100px; */
+          width: 60%;
+          border: 2px dashed #00FF00;
+          margin: auto;
+          text-align: center;
+          vertical-align: middle;
+          line-height: 98%;
+          padding: 10px;
+          font-family: sans-serif;
+        }
+
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <div id="foobar">
+          Question 6.5 Solution<br>
+          Change my background
+        </div>
+
+        <script>
+        $('#foobar').on("click", function() {
+          $(this).css('background-color', '#00FF00');
+        });
+        </script>
+    </body>
+</html>
