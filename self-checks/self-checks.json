@@ -1245,7 +1245,7 @@
           },
           {
             "answer_text":"All are false",
-            "answer_weight":0
+            "answer_weight":1
           }
         ],
         "explanation":"Explicit scenarios usually capture acceptance tests that reflect user stories discussed with the customer. Declarative scenarios are more focused on behavior, not implementation. The remaining answer choice flips the definitions of explicit and  implicit requirements (explicit requirements are defined with declarative scenarios, implicit with imperative scenarios."
