@@ -1,9 +1,7 @@
 Courseware for Engineering Software as a Service
 ================================================
 
-**[NOTICE: End of life for AWS/Azure-based autograders](https://github.com/saasbook/courseware/wiki/NOTICE:-End-of-life-for-legacy-autograders)**
-
-a/k/a UC Berkeley CS 169 Software Engineering, a/k/a CS 169.1x/169.2x on
+a/k/a UC Berkeley CS (W)169(A,L) Software Engineering, a/k/a CS 169.(1,2,3)x on
 EdX
 
 This repo contains information useful to instructors (and arguably
@@ -12,9 +10,7 @@ students) using the [ESaaS](http://www.saasbook.info) course materials, includin
 * `practice-exams`: Review slides and practice exams for midterms and finals.
 * `self-checks`: Questions per module for students to verify their understanding.
 
-The recommended setup is to [use Cloud9](https://github.com/saasbook/courseware/wiki/Setting-up-Cloud9).  We no longer support
-prebuilt virtual machine images.  The [wiki](https://github.com/saasbook/courseware/wiki) has other setup options, but
-not all are thoroughly tested, and none are officially supported.
+The recommended setup is to [use Codio](https://codio.saasbook.info) for programming assignments and autograding; the [book's website](http://www.saasbook.info/instructors) has other options.  We no longer support Cloud9 or prebuilt VM images.
 
 The Wiki also contains information on each of the autogradable homeworks,
 which are public repos named `saasbook/hw-*`.  (The corresponding
