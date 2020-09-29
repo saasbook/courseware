@@ -25,7 +25,7 @@ Here's a quick summary of the assignments, presented in the order in which they 
 3. **Comprehension:** CHIPS involves minimal or no coding, but rather performing some tasks and answering self-check questions about them.  You can, e.g., use these for group work, peer grading, etc.
 
 * 2.5 [Ruby Intro](/saasbook/hw-ruby-intro) ([autograder/solutions](/saasbook/hw-ruby-intro-ci)): gentle intro to Ruby idioms, including running instructor-provided unit tests to check your answers
-* 3.3 [HTTP and URIs](/saasbook/hw-http-intro) (comprehension): intro to HTTP requests, URIs, and cookies, using `curl` and `netcat` to see raw data.
+* 3.3 [HTTP and URIs](/saasbook/hw-http-intro) (comprehension): intro to HTTP requests, URIs, and cookies, using `curl` and `netcat` to see raw data, using the [esaas-cookie-demo app](https://esaas-cookie-demo.herokuapp.com) ([source](/saasbook/esaas-cookie-demo)).
 * 3.7 [Create and Deploy a Simple SaaS App](/saasbook/hw-sinatra-saas-hangperson) ([autograder/solutions](/saasbook/hw-sinatra-saas-hangperson-ci)): de-mystifies the creation of a SaaS app (a simple Hangman game using Sinatra) including use of an external service, and how to think about RESTfully "wrapping" application logic in SaaS.
 * 4.3 [ActiveRecord Basics](/saasbook/hw-activerecord-practice) (self-graded): write ActiveRecord queries against a provided seeded database.
 * 4.5  [Rails Routes](https://rails-routing-practice.herokuapp.com) (self-graded): not actually a homework assignment, but a simple app that lets students enter syntactically valid Rails routes and understand the RESTful routes that Rails would generate for them.
@@ -64,4 +64,5 @@ In our setup, since the questions are multiple parts with later parts building o
 * [Interview Scheduler](/saasbook/exam-interviewscheduler-associations): Modify an existing app to add the correct associations among Interviews, Candidates, and Recruiters.  Factor out some common code among the models and mix it back in, to DRY out the code. [Solutions](/saasbook/exam-interviewscheduler-associations-
 * **Incomplete** [Ruby Iterators](/saasbook/exam-ruby-iterators) Create Ruby iterators for a new `Matrix` class.
 * [Can I Stream It?](/saasbook/exam-rottenpotatoes-canistreamit) Enhance RottenPotatoes by adding a view that displays information retrieved from the `CanIStream.it` API.
-*  [Encryption Demo](/saasbook/exam-encrypty) Create this [simple app](https://encrypty.herokuapp.com) that allows users to specify a key for symmetric encryption and to encrypt/decrypt text with that key.
+*  [Encryption Demo](/saasbook/exam-encrypty) Create this [simple app](https://encrypty.herokuapp.com) ([source](/saasbook/encrypty)) that allows users to specify a key for symmetric encryption and to encrypt/decrypt text with that key.
+
