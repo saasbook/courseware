@@ -1236,8 +1236,8 @@
             "answer_weight":0
           },
           {
-            "answer_text":"Explicit scenarios usually capture integration tests",
-            "answer_weight":0
+            "answer_text":"Explicit scenarios are usually captured by integration tests",
+            "answer_weight":1
           },
           {
             "answer_text":"Declarative scenarios aim to capture implementation as well as behavior",
@@ -1245,10 +1245,10 @@
           },
           {
             "answer_text":"All are false",
-            "answer_weight":1
+            "answer_weight":0
           }
         ],
-        "explanation":"Explicit scenarios usually capture acceptance tests that reflect user stories discussed with the customer. Declarative scenarios are more focused on behavior, not implementation. The remaining answer choice flips the definitions of explicit and  implicit requirements (explicit requirements are defined with declarative scenarios, implicit with imperative scenarios."
+        "explanation":"Explicit scenarios usually capture acceptance tests that reflect user stories discussed with the customer.  NO type of high-level scenario (either implicit or explicit, either declarative or imperative) focuses on implementation; all focus on behavior. Changing the implementation while preserving the external-facing behavior should still allow such scenarios to pass. And either implicit or explicit requirements may be captured with either declarative or imperative scenarios, as appropriate; declarative vs imperative really just defines the granularity of behavior being described in the scenario, but says nothing about the nature of the requirement being exercised by the scenario."
       }
     ]
   },
