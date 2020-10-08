@@ -1,0 +1,74 @@
+# Ansible playbook for installing Ruby (via RVM) on empty Ubuntu box
+# Used for configuring Codio stack for ESaaS course
+---
+- hosts: 127.0.0.1
+  become: true  
+  
+  tasks:    
+    - name: Add nodesource repository
+      shell: curl -sL https://deb.nodesource.com/setup_10.x | bash -
+        
+    - name: Add APT key
+      apt_key: 
+        url: https://dl.yarnpkg.com/debian/pubkey.gpg
+        state: present
+    
+    - name: Add APT repository
+      apt_repository: 
+        repo: deb https://dl.yarnpkg.com/debian/ stable main
+        state: present
+    
+    - apt: update_cache=yes
+    - apt: name=nodejs state=present
+    - apt: name=build-essential state=present
+    - apt: name=yarn state=present
+    
+    - name: Install the dependencies required to install Ruby     
+      apt: 
+        name:
+          - autoconf
+          - bison         
+          - libssl-dev
+          - libyaml-dev
+          - libreadline6-dev
+          - zlib1g-dev
+          - libncurses5-dev
+          - libffi-dev
+          - libgdbm5
+          - libgdbm-dev
+          - software-properties-common
+          - sqlite3
+          - libsqlite3-dev
+        state: present
+      
+    - name: Add ppa brightbox ruby repository  
+      apt_repository:
+        repo: ppa:brightbox/ruby-ng 
+        state: present
+        
+    - name: Update apt packages
+      become: true
+      apt:        
+        update_cache: yes
+        
+    - name: Install Ubuntu RVM package and Ruby 2.6.6
+      apt_repository:
+        repo: ppa:rael-gc/rvm
+      apt:
+        name:
+          - rvm
+
+    # then echo 'source "/etc/profile.d/rvm.sh"' >> ~/.bashrc
+    # then have to logout/login to run 'rvm install...'
+
+    - name: Install bundler     
+      shell: gem install bundler  
+               
+    - name: Install Rails      
+      shell: gem install rails -v 4.2.11.3 --no-document
+        
+    - name: Install rubocop      
+      shell: gem install rubocop --no-document
+    
+    - name: Install rspec      
+      shell: gem install rspec --no-document
