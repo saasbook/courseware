@@ -161,7 +161,7 @@
         "answer":[
           {
             "answer_text":"For most cases, it's better to develop a CSS framework from scratch than to use an existing one.",
-            "answer_Weight":1
+            "answer_weight":1
           },
           {
             "answer_text":"Good frameworks provide responsive behavior that adapts the webpage content to different display sizes (i.e. phone vs. computer)",
