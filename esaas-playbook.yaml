@@ -72,3 +72,6 @@
     
     - name: Install rspec      
       shell: gem install rspec --no-document
+
+    - name: Install Heroku CLI
+      shell: curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
