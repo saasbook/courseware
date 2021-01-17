@@ -16,6 +16,15 @@ check_bash() {
     fi
 }
 
+check_curl() {
+    echo -n 'Checking if curl is installed...'
+    if [[ `curl --version` = 'curl '* ]]; then
+        echo 'OK'
+    else
+        quit 'cURL is not installed. See the assignment for options.'
+    fi
+}
+ 
 check_git() {
     ## is git installed?
 
@@ -101,7 +110,7 @@ check_heroku_login() {
 if [[ $1 != '' ]]; then
     check_$1 ; exit 0
 else
-    for thing in bash git git_ssh rvm_ruby rails node heroku heroku_login
+    for thing in bash curl git git_ssh rvm_ruby rails node heroku heroku_login
     do
         check_$thing
     done
