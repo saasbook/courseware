@@ -29,7 +29,7 @@ check_git() {
     ## is git installed?
 
     echo -n 'Checking if Git CLI is installed...'
-    if [[ `git status /tmp 2>&1` = *repository* ]]; then
+    if [[ `git status /tmp 2>&1` = *fatal* ]]; then
         echo "OK"
     else
         quit "Git CLI not installed"
