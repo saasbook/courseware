@@ -35,7 +35,7 @@ Here's a quick summary of the assignments, presented in the order in which they 
 * 5.7 Associations (TBD) 
 * 6.9 AJAX Enhancements to RottenPotatoes (TBD) 
 * 7.7 [Intro to BDD and Cucumber](https://github.com/saasbook/hw-bdd-cucumber) ([autograder/solutions](https://github.com/saasbook/hw-bdd-cucumber-ci)): write features to test happy and sad paths of RottenPotatoes. 
-* 8.5 [RSpec on Rails](https://github.com/saasbook/hw-tdd-rspec): (**Needs updating & CI repo**) Given a Cucumber scenario for a not-yet-implemented feature, students use TDD and RSpec to write tests that drive the creation of the code to make the scenario pass.  Students also learn to use Travis CI to automate testing workflow.
+* 8.5 [RSpec on Rails](https://github.com/saasbook/hw-tdd-rspec): (**Note:** This CHIPS is in the process of being replaced. We recommend just using 8.9 until that time.) Given a Cucumber scenario for a not-yet-implemented feature, students use TDD and RSpec to write tests that drive the creation of the code to make the scenario pass.  Students also learn to use Travis CI to automate testing workflow.
 * 8.9 [BDD/TDD Cycle](https://github.com/saasbook/hw-acceptance-unit-test-cycle-lite): a complete pass through the BDD and TDD cycle of specifying a feature in terms of stories and then using TDD with RSpec to drive the development and deployment of the feature.
 * 10.5 [Agile Iterations]() Two (or more) full iterations of Agile adding features to an existing (legacy) app
 * 12.8 [Exploiting Caching and Indices](https://github.com/saasbook/hw-indices-performance): improve the performance of RottenPotatoes by adding database indices to speed up key queries. 
@@ -54,6 +54,8 @@ Here's a quick summary of the assignments, presented in the order in which they 
 [Multiple choice questions](https://github.com/saasbook/csw169a-quizzes) grouped by textbook chapter.  The [RuQL gem](https://github.com/saasbook/ruql) and its associated formatters let you export quiz questions to HTML/hardcopy, the Canvas LMS, and other quiz formats.
 
 ## Coding Exam questions with autograders ([instructor access only](https://www.saasbook.info/instructors))
+
+**NOTE:** We're in the process of moving these to Codio and will make them available there for instructors using Codio.  The tools described below for running these exams are no longer supported, though the questions (and solutions) themselves may still be useful.
 
 We've given exams where part of the exam is spent writing actual code. We have developed an infrastructure for doing this that allows students full read-only access to the Internet via Google's cache, so they can look up any existing information they want but cannot post a question or send email/messages to ask for the answers.  However, you can also use these as homework assignments since they included test cases.
 
