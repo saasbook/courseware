@@ -9,7 +9,7 @@ check_bash() {
     ## is bash the current shell?
 
     echo -n 'Checking if bash is the shell...'
-    if [[ `echo $SHELL` = *'bash' ]] || [[ `echo $SHELL` = *'zsh' ]] || [[ `echo $SHELL` = *'ch' ]]; then
+    if [[ `echo $SHELL` = *'bash' ]] || [[ `echo $SHELL` = *'zsh' ]] || [[ `echo $SHELL` = *'csh' ]]; then
         echo "OK"
     else
         quit "it's not"
