@@ -14,15 +14,53 @@ students) using the [ESaaS](http://www.saasbook.info) course materials, includin
 
 ## CHIPS (Coding/Hands-on Integrated Projects) with Autograding
 
-The recommended setup is to use [Codio](https://www.codio.com/resources/esaas?utm_campaign=E-SaaS&utm_source=Referral&utm_medium=AF)
-for programming assignments and autograding; their implementation of ESaaS resources (including the full textbook, ungraded activities, and auto-graded CHIPS) allows you to use our fully configured coursework in your classes with just a few clicks at a very low cost per student that includes direct customer support.
+The CHIPS provide hands-on skills practice and are keyed to specific
+sections in the book.  Most are designed to work with the
+[Codio](https://www.codio.com/resources/esaas?utm_campaign=E-SaaS&utm_source=Referral&utm_medium=AF)
+educational IDE
+for programming assignments and autograding; their implementation of
+ESaaS resources (including the full textbook, ungraded activities, and
+auto-graded CHIPS) allows you to use our fully configured coursework
+in your classes with just a few clicks at a very low cost per student
+that includes direct customer support.  (**Disclaimer:** the authors
+have no formal connection to Codio and do not receive any royalty if
+you use their service.)
 The [book's website](http://www.saasbook.info/instructors) has other options if you don't wish to use Codio.  
+
+In general, each CHIP (say `foo`) has a public
+repo `hw-foo` and a private repo `hw-foo-ci`.
+The repo `hw-foo`
+contains the student-facing information such as instructions and
+starter code.
+This repo is **automatically
+generated** from `hw-foo-ci`, which also contains the autograder
+files, a human-readable reference solution for instructors, and the
+student-facing README in a format that displays correctly in Codio, so
+students using Codio don't need to refer to the separate `hw-foo` repo
+for instructions.
+
+The `-ci` repos are restricted to [registered
+instructors](https://www.saasbook.info/instructors).
+
+**Do not open pull requests to the public student-facing repos** as
+they are regenerated whenever the `-ci` repos change.  Registered
+instructors can open PRs to the `-ci` repos.
 
 Here's a quick summary of the assignments, presented in the order in which they appear in the [ESaaS textbook](http://www.saasbook.info). There are three types:
 
-1. **Autograded:** The solutions repos (restricted to [registered instructors](https://www.saasbook.info/instructors)) include reference solutions, Codio-based autograders in the Codio course, and files for manually configuring [Gradescope](https://gradescope.com)-based autograding.
+1. **Autograded:** The solutions repos (restricted to [registered
+instructors](https://www.saasbook.info/instructors)) include reference
+solutions, Codio-based autograders in the Codio course, and files for
+manually configuring [Gradescope](https://gradescope.com)-based
+autograding.  (Gradescope is no longer officially supported, so use
+those files at your own risk.)
 2. **Self-graded:**  CHIPS involves coding, but rather than an autograder, includes tests students run themselves.
-3. **Comprehension:** CHIPS involves minimal or no coding, but rather performing some tasks and answering self-check questions about them.  You can, e.g., use these for group work, peer grading, etc.
+3. **Comprehension:** CHIPS involves minimal or no coding, but rather
+performing some tasks and answering self-check questions about them.
+The questions are usually built into the Codio version of the assignment.
+
+You can add `-ci` to the link name of any repo below to access the
+solutions repo.
 
 * 2.5 [Ruby Intro](https://github.com/saasbook/hw-ruby-intro) ([autograder/solutions](https://github.com/saasbook/hw-ruby-intro-ci)): gentle intro to Ruby idioms, including running instructor-provided unit tests to check your answers
 * 3.3 [HTTP and URIs](https://github.com/saasbook/hw-http-intro) (comprehension): intro to HTTP requests, URIs, and cookies, using `curl` and `netcat` to see raw data, using the [esaas-cookie-demo app](https://esaas-cookie-demo.herokuapp.com) ([source](https://github.com/saasbook/esaas-cookie-demo)).
