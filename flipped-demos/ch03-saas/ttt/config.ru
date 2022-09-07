@@ -1,0 +1,5 @@
+require './app'
+run TicTacToeApp
+
+
+

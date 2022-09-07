@@ -1,0 +1,42 @@
+/* @override http://localhost:9292/default.css */
+body {
+	font-family: Helvetica, Arial, Geneva, sans-serif;
+	padding: 2em;
+	border: 8px solid teal;
+}
+
+span.word {
+	text-transform: uppercase;
+	letter-spacing: 4px;
+	color: #0432ff;
+	font-weight: bold;
+	font-size: larger;
+	padding-left: 2em;
+}
+
+span.guesses {
+	color: #ff2600;
+	font-weight: bold;
+	letter-spacing: 4px;
+	text-transform: uppercase;
+	padding-left: 1em;
+}
+
+span.lose {
+	color: red;
+	font-weight: bold;
+}
+
+span.error {
+  color: red;
+}
+
+span.win {
+        color: green;
+        font-weight: bold;
+}
+
+form {
+	border: 1px solid grey;
+	margin: 4px;
+}

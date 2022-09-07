@@ -1,0 +1,4 @@
+require './app'
+run DemoApp
+
+

@@ -1,0 +1,11 @@
+\#*\#
+*~
+TAGS
+db/schema.rb
+log/
+db/*.sqlite3
+tmp/
+
+# bundler state
+/.bundle
+/vendor/bundle/

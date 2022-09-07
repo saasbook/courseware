@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <style type="text/css">
+      * { font-family: sans-serif; font-size: 28pt; }
+      body { padding: 1em; }
+      table,td { border: 2px solid red; border-collapse: collapse;  padding: 1em; }
+      .emptySquare { color: grey; }
+      .x { color: green; font-weight: bold; font-size: 110%; }
+      .o { color: blue; font-weight: bold; font-size: 110%; }
+    </style>
+  </head>
+  <body>
+    <div id="board">
+      <table>
+        <thead></thead>
+        <tbody>
+          <% i = 0 %>
+          <% 3.times do %>
+          <tr>
+            <% 3.times do %>
+            <td>
+              <% val = @game.board[i] %>
+              <% if val.empty? %>
+                <span class="emptySquare"> <%= i %> </span>
+              <% else %>
+                <span class="<%= val %>"> <%= val %> </span>
+              <% end %>
+              <% i += 1 %>
+            </td>
+            <% end %>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <form method="post" action="/move">
+      <p><%= @game.turn %>'s move</p>
+      <p>Enter square 0-8</p>
+      <input type="text" name="square">
+      <input type="submit" value="Make Move">
+    </form>
+  </body>
+</html>

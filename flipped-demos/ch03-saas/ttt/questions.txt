@@ -1,0 +1,60 @@
+Considering the two possible routes "GET '/new'" and "POST '/new'",
+which statement is true:
+
+(A) The app can't tell them apart - both would result in running the
+'new' controller action
+
+(B) The app can tell them apart, but we cannot use both 
+
+(C) The app can tell them apart, and we could use both, but only if
+ assigned to different actions
+
+(D) The app can tell them apart, and we could use both, mapping to
+either the same or different actions
+
+
+-------
+
+
+Which actions - (i) new game, (ii) make move, (iii) show the board - are appropriate
+for an HTTP GET?
+
+(A) 'new', 'move', and 'show'
+
+(B) 'move' and 'show', but not 'new'
+
+(C) 'show', but not 'move' or 'new'
+
+
+-----------
+
+
+When must we explicitly assign session[:game]?
+
+(A) never - the framework (Sinatra) does this automatically
+
+(B) after every action
+
+(C) after every action that modifies the game object
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
