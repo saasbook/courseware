@@ -25,7 +25,8 @@ class TicTacToe
   end
 
   def board_full
-    ! @board.any?(&:empty?)
+    # ! @board.any?(&:empty?)
+    ! @board.any? { |square| square.empty? }
   end
 
   def over?

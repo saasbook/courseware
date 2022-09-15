@@ -127,8 +127,6 @@ One way to use these demos interactively is to clone the repo, switch to
 a scratch branch, and delete a lot of the code, then fill it back in as
 a group activity.
 
-"Real example" of REST: show cs-coursequestionbank.herokuapp.com and note attention to users, questions, collections, etc.
-
 Suppose we want to do a RESTful TicTacToe (noughts and crosses) game.
 
 * What resource(s) would the app manipulate?
