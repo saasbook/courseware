@@ -54,7 +54,7 @@ check_rvm_ruby() {
     rubies=`rvm list 2>&1`
     if [[ $rubies = *'not found'* ]]; then
         quit "rvm is not installed or not in the $PATH"
-    elif [[ $rubies = *'2.6'* ]] || [[ $rubies = *'2.7'* ]]; then
+    elif [[ $rubies = *'2.'* ]] || [[ $rubies = *'3.'* ]]; then
         echo "OK"
     else
         quit "rvm is installed, but you need Ruby 2.6.x or 2.7.x"
