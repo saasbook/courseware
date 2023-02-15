@@ -1,0 +1,51 @@
+name: build
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      CCTR: ./cc-test-reporter
+      CCTR_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      BUNDLE_WITHOUT: production
+      KEY: ${{ secrets.RAILS_MASTER_KEY }}
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Install Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.6.6
+        bundler-cache: true
+        
+    - name: make secrets available
+      run: |
+        gpg --pinentry-mode loopback --batch --passphrase "$KEY" -d -o config/application.yml config/application.yml.asc
+
+    - name: create test database configuration
+      run: |
+        cp config/database.yml.test config/database.yml
+        
+    - name: set up CodeClimate test-reporter
+      run: |
+        curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > $CCTR
+        chmod +x $CCTR
+        $CCTR before-build
+
+    - name: run RSpec tests and capture coverage
+      run: |
+        bundle exec rspec
+        $CCTR format-coverage --output coverage/codeclimate.$SUITE.json --input-type simplecov
+        
+    - name: run Cucumber tests and capture coverage
+      run: |
+        bundle exec cucumber --retry 2
+        $CCTR format-coverage --output coverage/codeclimate.$SUITE.json --input-type simplecov
+  
+    - name: Publish code coverage
+      run: |
+        export GIT_BRANCH="${GITHUB_REF/refs\/heads\//}"
+        $CCTR sum-coverage coverage/codeclimate.*.json
+        $CCTR upload-coverage --id $CCTR_ID
+        $CCTR after-build --id $CCTR_ID
