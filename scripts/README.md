@@ -15,8 +15,6 @@
 
 #### &nbsp;&nbsp;&nbsp;5. Copy-paste the desired script into the REPL to run it.
 
-<br>
-
 ## __sl_add_members.py__
 
 #### Bulk-add members to a Slack workspace with at least a Plus-level subscription based on the contents of `\scripts\email_surveys.csv`. By Simon Jovanovic (@simonjov).
@@ -30,29 +28,27 @@ Jovanovic (@simonjov).
 #### The selenium web driver for each of the scripts is currently using Microsoft Edge. The browser used by selenium can be changed in the first few lines of each of the scripts. However, since there may be compatibility issues between different implementations of methods across web drivers, it is still suggested to download Microsoft Edge in order to run these scripts in the same environment in which they were developed.
 #### Each script has certain values that either need to or can be changed for each use case. These are denoted by comments in this or a similar form: &nbsp; `# CHANGE this value`.
 
-<br>
-
-### __gh_add_members.py__
+## __gh_add_members.py__
 
 #### Bulk-add members to a GitHub or GitHub Classroom org based on the contents of `\scripts\email_surveys.csv`. By Simon Jovanovic (@simonjov).
 
-### __gh_delete_repos.py__
+## __gh_delete_repos.py__
 
 #### Bulk-delete repositories from a GitHub or GitHub Classroom org. By Simon Jovanovic (@simonjov).
 
-### __gh_remove_members.py__
+## __gh_remove_members.py__
 
 #### Bulk-remove members from a GitHub or GitHub Classroom org. By Simon Jovanovic (@simonjov).
 
-### __he_add_members.py__
+## __he_add_members.py__
 
 #### Bulk-add members to a Heroku org based on the contents of `\scripts\email_surveys.csv`. 2-Factor Authentication is required for logging into heroku. The script provides 30 seconds for this step but more time can be added if necessary. By Simon Jovanovic (@simonjov).
 
-### __he_remove_members.py (NOT WORKING, NEEDS IMPROVEMENT)__
+## __he_remove_members.py (NOT WORKING, NEEDS IMPROVEMENT)__
 
 #### Intended to bulk-remove members from a Heroku org. Currently not working due to difficulty in automation of removal. By Simon Jovanovic (@simonjov).
 
-### __pt_add_members.py__
+## __pt_add_members.py__
 
 #### Bulk-add members to a Pivotal Tracker based on the contents of `\scripts\email_surveys.csv`. By Simon Jovanovic (@simonjov).
 
