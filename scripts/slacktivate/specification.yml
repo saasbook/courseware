@@ -1,0 +1,22 @@
+
+settings:
+  slack_token: "your token"
+  workspace: "https://berkeley-cs169.slack.com/"
+  keep_customized_photos: true
+  keep_customized_name: true
+  extend_group_memberships: false
+  extend_channel_memberships: false
+  alternate_emails: "./output/alternate-emails.txt"
+
+users:
+
+  - file: "input/slack-berkeley-cs169-members.csv"
+    sort: "newest"
+    type: "csv"
+    key: "{{ email }}"
+    fields:
+
+      # Slack normal fields
+      "givenName": "{{ first }}"
+      "familyName": "{{ last }}"
+      "userName": "{{ email.split('@')[0] }}"
