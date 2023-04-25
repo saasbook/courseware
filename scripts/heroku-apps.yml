@@ -1,9 +1,0 @@
-heroku:
-  team: "esaas"
-  apps:
-    delete_regexp: "^sp23-"
-    num_new: 10
-    create_format: "fa23-%02d-actionmap"
-  keep_users:
-    - governify.auditor@gmail.com
-  
