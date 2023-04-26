@@ -1,5 +1,0 @@
-heroku_team: "esaas"
-app_prefix: "fa23-"
-extra_users:
-  - governify.auditor@gmail.com
-
