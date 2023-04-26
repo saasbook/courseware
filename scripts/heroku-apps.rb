@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 
-require 'byebug'
 require 'optparse'
 require 'platform-api'
 require 'yaml'
@@ -9,11 +8,14 @@ require 'csv'
 def main()
   h = HerokuAppManager.new
   $opts = OptionParser.new do |opt|
-    opt.banner = "Usage: #{__FILE__} [required options] [individual|team|delete].\n'individual' creates individual apps, 'team' creates team apps, 'delete' cleans up (deletes) any apps with given prefix. All options are required except --extra-users."
+    opt.banner = "Usage: #{__FILE__} [required options] [individual|team|delapps|delusers]
+'individual' creates individual apps, 'team' creates team apps, 'delapps' deletes any apps with given prefix,
+'delusers' deletes all users in CSV file from the team. All options are required except --extra-users.
+It's safe to run multiple times, since existing apps/collaborators are left alone."
     opt.on('-cCSVFILE', '--csv=CSVFILE', 'CSV file containing at least "Team" and "Email" named columns') do |csv|
       h.read_teams_and_emails_from_csv(csv)
     end
-    opt.on('-tTEAM', '--heroku-team=TEAM', 'Heroku team name that should own the apps') do |team|
+    opt.on('-tTEAM', '--team=TEAM', 'Heroku team name that should own the apps') do |team|
       h.heroku_team = team
     end
     opt.on('-pPREFIX', '--prefix=PREFIX', 'App name prefix, eg "fa23" gives apps "fa23-01", "fa23-02", etc.') do |pfx|
@@ -29,7 +31,8 @@ def main()
   case command
   when 'individual' then h.create_individual_apps
   when 'team' then h.create_team_apps
-  when 'delete' then h.delete_apps
+  when 'delapps' then h.delete_apps
+  when 'delusers' then h.delete_users
   else h.print_help_and_exit
   end
 end
@@ -49,7 +52,7 @@ class HerokuAppManager
   public
 
   def valid?
-    @heroku_team && @app_prefix && @extra_users
+    @heroku_team && @app_prefix 
   end
 
   def read_teams_and_emails_from_csv(csv)
@@ -59,9 +62,7 @@ class HerokuAppManager
       hash.has_key?('Team') && hash.has_key?('Email')
     data.each do |row|
       email = row['Email']
-      if @users.has_key?(email) # duplicate!
-        puts "Duplicate email: #{email}" and exit 1
-      end
+      print_help_and_exit("Duplicate email in #{csv}: #{email}") if @users.has_key?(email) # duplicate!
       @users[email] = user_part_of_email(email)
       @teams[row['Team']] << email
     end
@@ -86,9 +87,26 @@ class HerokuAppManager
   end
 
   def delete_apps
-    count = existing_apps.select { |app| app =~ /^#{@app_prefix}/ }.count
-    confirm(%Q{In Heroku team '#{@heroku_team}', delete #{count} apps named #{@app_prefix}*, and delete any of their collaborators who appear in CSV file})
-    byebug
+    apps_to_delete = existing_apps.select { |app| app =~ /^#{@app_prefix}/ }
+    STDERR.puts("No apps named #{@app_prefix}* exist in team '#{@heroku_team}'") || exit(0) if apps_to_delete.empty?
+    confirm(%Q{In Heroku team '#{@heroku_team}', delete #{apps_to_delete.length} apps named #{@app_prefix}*})
+    apps_to_delete.each do |app|
+      puts "delete #{app}"
+      @heroku.app.delete(app)
+    end
+  end
+
+  def delete_users
+    confirm(%Q{In Heroku team '#{@heroku_team}', delete any of the #{@users.keys.length} users who appear in CSV file})
+    existing_team_users = @heroku.team_member.list(@heroku_team)
+    @users.keys.each do |user|
+      if existing_team_users.include?(user)
+        puts "remove #{user}"
+        @heroku.team_member.delete(@heroku_team, user)
+      else
+        puts "  skip #{user}"
+      end
+    end
   end
   
   def print_help_and_exit(msg=nil)
