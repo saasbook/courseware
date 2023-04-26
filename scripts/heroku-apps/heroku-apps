@@ -9,6 +9,7 @@ def main()
   h = HerokuAppManager.new
   $opts = OptionParser.new do |opt|
     opt.banner = "Usage: #{__FILE__} [required options] [individual|team|delapps|delusers]
+HEROKU_API_KEY must be set as an environment variable.
 'individual' creates individual apps, 'team' creates team apps, 'delapps' deletes any apps with given prefix,
 'delusers' deletes all users in CSV file from the team. All options are required except --extra-users.
 It's safe to run multiple times, since existing apps/collaborators are left alone."
@@ -74,7 +75,7 @@ class HerokuAppManager
       @users.each_pair do |email,sanitized_username|
         appname = "#{@app_prefix}#{sanitized_username}"
         existing_apps.include?(appname) ?
-          check_add_collaborator(appname,email) :
+          check_add_collaborators(appname,[email]) :
           create_app_and_add_collaborators(appname, [email])
       rescue Excon::Error => e
         "Error creating/adding collaborator on #{appname}: #{e.inspect}"
@@ -84,6 +85,14 @@ class HerokuAppManager
 
   def create_team_apps
     confirm(%Q{In Heroku team '#{@heroku_team}', create #{@teams.keys.length} team apps starting with #{@app_prefix} and also add users: #{@extra_users.join(', ')}})
+    @teams.each_pair do |team_id, emails|
+      # if team id is numeric, treat as number and zero-pad to 2 digits, else leave as is
+      team_id = sprintf("%02d", team_id) if team_id =~ /^[0-9]+$/
+      appname = "#{@app_prefix}#{team_id}"
+      existing_apps.include?(appname) ?
+        check_add_collaborators(appname, emails) :
+        create_app_and_add_collaborators(appname, emails)
+    end
   end
 
   def delete_apps
@@ -146,7 +155,7 @@ class HerokuAppManager
 
   def user_part_of_email(email)
     puts "Email #{email} not valid" and exit 1 unless email =~ /^([^@]+)@([^@]+)$/
-    $1.gsub(/[^A-Za-z0-9]/, '')
+    $1.gsub(/[^A-Za-z0-9]/, '-')
   end
 
   def confirm(description)

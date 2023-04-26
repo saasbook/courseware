@@ -1,0 +1,5 @@
+ruby '< 3.0'
+
+gem 'platform-api'
+gem 'csv'
+gem 'yaml'
