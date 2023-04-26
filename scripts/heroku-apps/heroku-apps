@@ -43,7 +43,7 @@ class HerokuAppManager
   def initialize
     @heroku_team = nil
     @app_prefix = nil
-    @extra_users = nil
+    @extra_users = []
     @users = {} # email => sanitized leader part of email (eg: 'john.q+public@gmail.com' => 'johnqpublic')
     @teams = Hash.new {|hsh, key| hsh[key] = [] } # teamID => [email1, email2, ...]
     print_help_and_exit("HEROKU_API_KEY not defined in environment") unless (@key = ENV['HEROKU_API_KEY'])
@@ -70,7 +70,9 @@ class HerokuAppManager
   end
 
   def create_individual_apps
-    confirm(%Q{In Heroku team '#{@heroku_team}', create #{@users.keys.length} individual apps starting with #{@app_prefix} and also add users: #{@extra_users.join(', ')}})
+    message = %Q{In Heroku team '#{@heroku_team}', create individual apps for #{@users.keys.length} students starting with #{@app_prefix}}
+    message << %Q{and also add users: #{@extra_users.join(', ')}} unless @extra_users.empty?
+    confirm(message)
     begin
       @users.each_pair do |email,sanitized_username|
         appname = "#{@app_prefix}#{sanitized_username}"
