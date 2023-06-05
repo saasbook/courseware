@@ -1,0 +1,5 @@
+ruby '~> 3.0'
+
+gem 'octokit'
+gem 'csv'
+gem 'yaml'
