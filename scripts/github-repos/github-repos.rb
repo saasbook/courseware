@@ -5,6 +5,7 @@ require 'octokit'
 require 'csv'
 
 def main()
+    puts "Script start."
     org = OrgManager.new
     $opts = OptionParser.new do |opt|
         opt.banner = "Usage: #{__FILE__} [required options] [invite|repos|remove]
@@ -15,15 +16,15 @@ def main()
         org.read_teams_and_emails_from csv
         end
         opt.on('-oORGNAME', '--orgname=ORGNAME', 'The name of the org') do |orgname|
-        org.name = orgname
+        org.orgname = orgname
         end
         opt.on('-fFILENAME', '--filename=FILENAME', 'The base filename for repos') do |filename|
         org.base_filename = filename
         end
-        opt.on('-pPREFIX' '--prefix=PREFIX', 'Semester prefix, eg "fa23" create a repos prefix, "fa23-actionmap-04", etc') do |pfx|
+        opt.on('-pPREFIX', '--prefix=PREFIX', 'Semester prefix, eg "fa23" create a repos prefix, "fa23-actionmap-04", etc') do |pfx|
         org.semester = pfx
         end
-        opt.on('-tTEMPLATE' '--template=TEMPLATE', 'The repo name within the org to use as template eg repo_name') do |template|
+        opt.on('-tTEMPLATE', '--template=TEMPLATE', 'The repo name within the org to use as template eg repo_name') do |template|
         org.template = template
         end
     end
@@ -35,6 +36,7 @@ def main()
     when 'remove' then org.remove
     else org.print_error
     end
+    puts "Script ends."
 end
 
 class OrgManager
@@ -48,7 +50,7 @@ class OrgManager
         @parentteam = 'cs169a-students'
         @childteams = Hash.new { |hash, key| hash[key] = [] } # teamID => [email1, email2, ...]
         # print_error("GITHUB_ORG_API_KEY not defined in environment") unless (@key = ENV['GITHUB_ORG_API_KEY'])
-        @client = Octokit::Client.new(access_token: "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")
+        @client = Octokit::Client.new(access_token: "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")
     end
 
     public
@@ -77,28 +79,37 @@ class OrgManager
     def invite
         print_error "csv file, base filename, template repo name and semester prefix needed." unless valid?
         first_child_team_name = %Q{#{@semester}-#{@childteams.keys[0]}}
-        parentteam_obj = @client.team_by_name(@orgname, @parentteam)
-        if parentteam_obj && !@client.team_by_name(@orgname, first_child_team_name) 
+
+        begin
+            parentteam_obj = @client.team_by_name(@orgname, @parentteam)
+        rescue Octokit::NotFound
+            parentteam_obj = nil
+        end
+
+        begin
+            if parentteam_obj
+                @client.team_by_name(@orgname, first_child_team_name)
+            end
+        rescue Octokit::NotFound
             # cs169a-students team exists before invite
             # remove all members in this team, and delete the team
             parentteam_id = parentteam_obj['id']
-            old_team_members = @client.team_member(parentteam_id)
+            old_team_members = @client.team_members(parentteam_id)
             old_team_members.each do |member|
                 @client.remove_organization_member(@orgname, member)
             end
             @client.delete_team parentteam_id
         end
-        parentteam_id = @client.create_team(@orgname, {name: @parentteam})['id']
+
+        parentteam_id = @client.create_team(@orgname, {name: @parentteam, privacy: 'closed'})['id']
         @childteams.each_key do |team|
             childteam_name = %Q{#{@semester}-#{team}}
-            childteam = @client.team_by_name(@orgname, childteam_name)
-            childteam_id = nil
-
-            if !childteam
-                childteam_id = @client.create_team(@orgname, {name: %Q{#{@semester}-#{team}}, parent_team_id: parentteam_id})
-            else
-                childteam_id = childteam['id']
+            begin
+                childteam = @client.team_by_name(@orgname, childteam_name)
+            rescue Octokit::NotFound
+                childteam = @client.create_team(@orgname, {name: %Q{#{@semester}-#{team}}, parent_team_id: parentteam_id})
             end
+            childteam_id = childteam['id']
 
             @childteams[team].each do |member|
                 if !@client.team_member?(childteam_id, member) && !@client.team_invitations(childteam_id).any? {|invitations| invitations.login == member}
@@ -106,17 +117,26 @@ class OrgManager
                 end
             end
         end
+        puts "Run successfully."
     end
 
     def create_repos
         print_error "csv file, base filename, template repo name and semester prefix needed." unless valid?
         @childteams.each_key do |team|
-            team_id = @client.team_by_name(@orgname, %Q{#{@semester}-#{team}})['id']
-            new_repo_name = %Q{#{@orgname}/#{@semester}-#{@base_filename}-#{team}}
-            if !repository? new_repo_name
-                new_repo = @client.create_repository_from_template(%Q{#{@orgname}/#{@template}}, new_repo_name, 
-                    {owner: @orgname, private: true})
-                @client.add_team_repository(team_id, new_repo, {permission: 'admin'})
+            begin
+                team_id = @client.team_by_name(@orgname, %Q{#{@semester}-#{team}})['id']
+            rescue Octokit::NotFound
+                print_error "Team information mismatched."
+            end
+            new_repo_name = %Q{#{@semester}-#{@base_filename}-#{team}}
+            if !@client.repository? %Q{#{@orgname}/#{new_repo_name}}
+                begin
+                    new_repo = @client.create_repository_from_template(%Q{#{@orgname}/#{@template}}, new_repo_name, 
+                        {owner: @orgname, private: true})
+                rescue Octokit::NotFound
+                    print_error "Template not found."
+                end
+                @client.add_team_repository(team_id, new_repo['full_name'], {permission: 'admin'})
             end
         end
     end
@@ -141,3 +161,5 @@ class OrgManager
     end
     
 end
+
+main
