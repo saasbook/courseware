@@ -49,8 +49,8 @@ class OrgManager
         @template = nil
         @parentteam = 'cs169a-students'
         @childteams = Hash.new { |hash, key| hash[key] = [] } # teamID => [email1, email2, ...]
-        # print_error("GITHUB_ORG_API_KEY not defined in environment") unless (@key = ENV['GITHUB_ORG_API_KEY'])
-        @client = Octokit::Client.new(access_token: "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")
+        print_error("GITHUB_ORG_API_KEY not defined in environment") unless (@key = ENV['GITHUB_ORG_API_KEY'])
+        @client = Octokit::Client.new(access_token: @key)
     end
 
     public
