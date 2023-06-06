@@ -4,6 +4,8 @@ require 'optparse'
 require 'octokit'
 require 'csv'
 
+ENV['GITHUB_ORG_API_KEY'] = "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"
+
 def main()
     puts "Script start."
     org = OrgManager.new
@@ -36,6 +38,7 @@ def main()
     when 'remove' then org.remove
     else org.print_error
     end
+    puts "Run successfully."
     puts "Script ends."
 end
 
@@ -89,6 +92,9 @@ class OrgManager
         begin
             if parentteam_obj
                 @client.team_by_name(@orgname, first_child_team_name)
+                parentteam_id = parentteam_obj['id']
+            else
+                parentteam_id = @client.create_team(@orgname, {name: @parentteam, privacy: 'closed'})['id']
             end
         rescue Octokit::NotFound
             # cs169a-students team exists before invite
@@ -99,9 +105,9 @@ class OrgManager
                 @client.remove_organization_member(@orgname, member)
             end
             @client.delete_team parentteam_id
+            parentteam_id = @client.create_team(@orgname, {name: @parentteam, privacy: 'closed'})['id']
         end
 
-        parentteam_id = @client.create_team(@orgname, {name: @parentteam, privacy: 'closed'})['id']
         @childteams.each_key do |team|
             childteam_name = %Q{#{@semester}-#{team}}
             begin
@@ -112,12 +118,11 @@ class OrgManager
             childteam_id = childteam['id']
 
             @childteams[team].each do |member|
-                if !@client.team_member?(childteam_id, member) && !@client.team_invitations(childteam_id).any? {|invitations| invitations.login == member}
+                if !@client.team_member?(childteam_id, member) && !@client.team_invitations(childteam_id).any? {|invitations| invitations.login == member.join('')}
                     @client.add_team_membership(childteam_id, member)
                 end
             end
         end
-        puts "Run successfully."
     end
 
     def create_repos
@@ -136,7 +141,7 @@ class OrgManager
                 rescue Octokit::NotFound
                     print_error "Template not found."
                 end
-                @client.add_team_repository(team_id, new_repo['full_name'], {permission: 'admin'})
+                @client.add_team_repository(team_id, new_repo['full_name'], {permission: 'push'})
             end
         end
     end
@@ -144,20 +149,35 @@ class OrgManager
     def remove
         print_error "csv file, base filename, template repo name and semester prefix needed." unless valid?
         # remove students from the cs169a-students team
+        # member in @childteams is char array
         @childteams.each_value do |member|
-            @client.remove_org_member(@orgname, member)
+            @client.remove_organization_member(@orgname, member.join(''))
         end
         # remove and delete all repos from the cs169a-students team, delete all child teams
+        # also cancel all pending invitaions (not implemented)
         @childteams.each_key do |team|
             repo_name = %Q{#{@orgname}/#{@semester}-#{@base_filename}-#{team}}
-            childteam_id = @client.team_by_name(@orgname, %Q{#{@semester}-#{team}})['id'] # eg slug fa23-01
+            begin
+                childteam_id = @client.team_by_name(@orgname, %Q{#{@semester}-#{team}})['id'] # eg slug fa23-01
+            rescue Octokit::NotFound
+                next
+            end
             @client.remove_team_repository(childteam_id, repo_name)
             @client.delete_repository(repo_name)
+
+            # @client.team_invitations(childteam_id).each do |invitation|
+            #     No method support the cancel_team_invitation
+            #     @client.cancel_team_invitation(invitation[:id])
+            # end
             @client.delete_team childteam_id
         end
         # delete cs169a-student team
-        team_id = @client.team_by_name(@orgname, @parentteam)['id']
-        @client.delete_team team_id
+        begin
+            team_id = @client.team_by_name(@orgname, @parentteam)['id']
+            @client.delete_team team_id
+        rescue Octokit::NotFound
+            # do nothing if no such team
+        end
     end
     
 end

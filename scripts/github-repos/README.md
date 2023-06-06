@@ -22,6 +22,8 @@ Then creates different child teams for them for the chip10.5. At a minimum,
 you need a CSV file listing all enrolled students with columns 'Email' and 'Team'.  
 The values in the Team columns should be nonnegative integers identifying teams.
 
+Org setting: Assume Base permissions is no permission, each students can only access their team repos.
+
 **Assumption:** You have a GITHUB ORG API key.
 
 ### Create a team under the org that includes all students in the same semester
