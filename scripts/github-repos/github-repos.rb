@@ -4,7 +4,7 @@ require 'optparse'
 require 'octokit'
 require 'csv'
 
-ENV['GITHUB_ORG_API_KEY'] = "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"
+ENV['GITHUB_ORG_API_KEY'] = "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"
 
 def main()
     puts "Script start."
@@ -154,7 +154,7 @@ class OrgManager
             @client.remove_organization_member(@orgname, member.join(''))
         end
         # remove and delete all repos from the cs169a-students team, delete all child teams
-        # also cancel all pending invitaions (not implemented)
+        # also cancel all pending invitaions
         @childteams.each_key do |team|
             repo_name = %Q{#{@orgname}/#{@semester}-#{@base_filename}-#{team}}
             begin
@@ -165,10 +165,10 @@ class OrgManager
             @client.remove_team_repository(childteam_id, repo_name)
             @client.delete_repository(repo_name)
 
-            # @client.team_invitations(childteam_id).each do |invitation|
-            #     No method support the cancel_team_invitation
-            #     @client.cancel_team_invitation(invitation[:id])
-            # end
+            @client.team_invitations(childteam_id).each do |invitation|
+                # cancel all pending invitations
+                @client.delete(%Q{/orgs/#{@orgname}/invitations/#{invitation[:id]}})
+            end
             @client.delete_team childteam_id
         end
         # delete cs169a-student team
