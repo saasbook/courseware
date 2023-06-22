@@ -10,11 +10,13 @@ GITHUB_ORG_API_KEY for the org must be set as an environment variable.
 It's safe to run multiple times.
 
 Required arguments:
-    -c, --csv=CSVFILE                CSV file containing at least "Team" and "Username" named columns
+    -c, --csv=CSVFILE                CSV file containing at least "Team" and "Email" named columns
     -o, --orgname=ORGNAME            The name of the org eg org_name
-    -f, --filename=FILENAME          The base filename for repos  
+    -f, --filename=FILENAME          The base filename for repos, eg "fa23-actionmap-04", actionmap is the base file name of the repo
     -p, --prefix=PREFIX              Semester prefix, eg "fa23" create a repos prefix, "fa23-actionmap-04", etc.
-    -t, --template=TEMPLATE          The repo name within the org to use as template eg repo_name (Assume the repo own by org) 
+    -t, --template=TEMPLATE          The repo name within the org to use as template eg repo_name (Assume the repo own by org)
+    -s, --studentteam=STUDENTTEAM    The team name of all the students team
+    -g, --gsiteam=GSITEAM            The team name of all the staff team
 ```
 
 This script creates a team that include all stundents in the same semester, eg fa23. 
@@ -28,10 +30,10 @@ Org setting: Assume Base permissions is no permission, each students can only ac
 
 ### Create a team under the org that includes all students in the same semester
 
-**Use case:** Create a team "cs169a-students", and send invitations 
-to the students in csv file. If the team exists, delete the team and 
-create a new one. For all students NOT in that team, add/invite into 
-that team.
+**Use case:** Create a team called STUDENTTEAM, and send invitations 
+to the students in csv file. If STUDENTTEAM exists, delete the team and 
+create a new one. (Team repos still exist) 
+For all students NOT in that team, add/invite into that team.
 
 ### Create 10.5 repos for each child team 
 
@@ -40,9 +42,10 @@ gets a repo for chip 10.5.  Repos' names are formed
 by concatenating the prefix, base file name, and the team ID. 
 (eg "fa23-actionmap-04" for team #4) For all students on that team who do 
 NOT already have access to the repo, give them write access on the repo.
+Add all repos to the gsiteam with admin permission.
 
 ### Remove all team members from cs169a-student team, and delete all the repos
 
-**Use case:** Delete all repos whose name matches the "base repo" name.
-Remove all students in team "cs169a-students" from the org and team.
+**Use case:** Delete all repos whose name matches the "PREFIX-FILENAME-team number".
+Remove all students and subteams in STUDENTTEAM from the org.
 
