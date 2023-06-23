@@ -1,6 +1,14 @@
 # Useful scripts for managing ESaaS courses
 
-# <center>__email_surveys.csv__</center>
+# `heroku`
+
+Given a (paid or academic) Heroku org in which a specific team exists for the purposes of hosting students' ESaaS course apps (individual or team apps), and a spreadsheet containing student emails (as used for their Heroku accounts) and team numbers (if team projects are being done), use the Heroku API to automatically create (or delete) app containers for each student and team, with the correct access controls, including course staff access to the student apps if desired.
+
+# `github-repos`
+
+Given a (paid or academic) GitHub org, uses the GitHub API to create (or delete) private repos for student team projects, such that each repo can be read/written only by its team and additionally read by course staff.  This is done using GitHub teams to manage student and staff membership, so that the repos and org members can be easily identified and removed at the end of the course.
+
+# `email_surveys.csv`
 
 Should contain each student's email for each service to which they need to be added (i.e. Github, Heroku, or Pivotal Tracker). Suggested columns provided but can be replaced. Each script that uses this file will need to be given which column number (0-indexed) is associated with emails for the given service.
 
@@ -26,9 +34,17 @@ Bulk-add members to a Slack workspace with at least a Plus-level subscription ba
 Bulk-remove members from a Slack workspace with at least a Plus-level subscription. By Simon Jovanovic (@simonjov).
 
 # <center> __/selenium__ </center>
+
+**NOTE:** These scripts use Selenium/Webdriver to do various tasks in GitHub, Heroku, Pivotal Tracker, etc.  If possible, you should use the above `github-repos` and `heroku` scripts, which use APIs.  There is not yet an equivalent for the Pivotal Tracker team management script, though.
+
 The selenium web driver for each of the scripts is currently using Microsoft Edge. The browser used by selenium can be changed in the first few lines of each of the scripts. However, since there may be compatibility issues between different implementations of methods across web drivers, it is still suggested to download Microsoft Edge in order to run these scripts in the same environment in which they were developed.
 
 Each script has certain values that either need to or can be changed for each use case. These are denoted by comments in this or a similar form: &nbsp; `# CHANGE this value`.
+
+### __pt_add_members.py__
+
+Bulk-add members to a Pivotal Tracker based on the contents of `\scripts\email_surveys.csv`. By Simon Jovanovic (@simonjov).
+
 
 ### __gh_add_members.py__
 
@@ -50,8 +66,6 @@ Bulk-add members to a Heroku org based on the contents of `\scripts\email_survey
 
 Intended to bulk-remove members from a Heroku org. Currently not working due to difficulty in automation of removal. By Simon Jovanovic (@simonjov).
 
-### __pt_add_members.py__
 
-Bulk-add members to a Pivotal Tracker based on the contents of `\scripts\email_surveys.csv`. By Simon Jovanovic (@simonjov).
 
 
