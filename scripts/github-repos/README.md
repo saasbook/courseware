@@ -1,7 +1,7 @@
 # Bulk creation/deletion of many repos and cs169a-team
 
 ```
-Usage: ./github-repos.rb [required options] [invite|repos|remove]
+Usage: ./github-repos.rb [required options] [invite|repos|remove|remove_access]
 
 GITHUB_ORG_API_KEY for the org must be set as an environment variable.
 
@@ -44,8 +44,13 @@ by concatenating the prefix, base file name, and the team ID.
 NOT already have access to the repo, give them write access on the repo.
 Add all repos to the gsiteam with admin permission.
 
-### Remove all team members from cs169a-student team, and delete all the repos
+### Remove all team members from students team, and delete all the repos
 
 **Use case:** Delete all repos whose name matches the "PREFIX-FILENAME-team number".
 Remove all students and subteams in STUDENTTEAM from the org.
+
+### Remove student access to all the chip 10.5 repos 
+
+**Use case:** Only remove the access of students teams, repos still can be accessed by
+gsi team.
 

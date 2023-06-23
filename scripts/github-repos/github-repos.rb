@@ -42,6 +42,7 @@ def main()
     when 'invite' then org.invite
     when 'repos' then org.create_repos 
     when 'remove' then org.remove
+    when 'remove_access' then org.remove_access
     else org.print_error
     end
     puts "Run successfully."
@@ -185,7 +186,6 @@ class OrgManager
             rescue Octokit::NotFound
                 next
             end
-            @client.remove_team_repository(childteam_id, repo_name)
 
             # remove students from the student teams
             team_members = @client.team_members(childteam_id)
@@ -210,6 +210,17 @@ class OrgManager
         end
     end
     
+    def remove_access
+        @childteams.each_key do |team|
+            repo_name = %Q{#{@orgname}/#{@semester}-#{@base_filename}-#{team}}
+            begin
+                childteam_id = @client.team_by_name(@orgname, %Q{#{@semester}-#{team}})['id'] # eg slug fa23-1
+            rescue Octokit::NotFound
+                next
+            end
+            @client.remove_team_repository(childteam_id, repo_name)
+        end
+    end
 end
 
 main
