@@ -1,6 +1,6 @@
 # Useful scripts for managing ESaaS courses
 
-# `heroku`
+# `heroku-apps`
 
 Given a (paid or academic) Heroku org in which a specific team exists for the purposes of hosting students' ESaaS course apps (individual or team apps), and a spreadsheet containing student emails (as used for their Heroku accounts) and team numbers (if team projects are being done), use the Heroku API to automatically create (or delete) app containers for each student and team, with the correct access controls, including course staff access to the student apps if desired.
 
@@ -35,7 +35,7 @@ Bulk-remove members from a Slack workspace with at least a Plus-level subscripti
 
 # <center> __/selenium__ </center>
 
-**NOTE:** These scripts use Selenium/Webdriver to do various tasks in GitHub, Heroku, Pivotal Tracker, etc.  If possible, you should use the above `github-repos` and `heroku` scripts, which use APIs.  There is not yet an equivalent for the Pivotal Tracker team management script, though.
+**NOTE:** These scripts use Selenium/Webdriver to do various tasks in GitHub, Heroku, Pivotal Tracker, etc.  If possible, you should use the above `github-repos` and `heroku-apps` scripts, which use APIs.  There is not yet an equivalent for the Pivotal Tracker team management script, though.
 
 The selenium web driver for each of the scripts is currently using Microsoft Edge. The browser used by selenium can be changed in the first few lines of each of the scripts. However, since there may be compatibility issues between different implementations of methods across web drivers, it is still suggested to download Microsoft Edge in order to run these scripts in the same environment in which they were developed.
 
