@@ -1,0 +1,19 @@
+source 'https://rubygems.org'
+ruby '~> 2.0'
+
+gem 'sinatra', '>= 1.4'
+
+group :development, :test do
+  gem 'cucumber'
+  gem 'cucumber-sinatra'
+  gem 'capybara'
+
+  gem 'rspec'
+  gem 'rspec-autotest'
+
+  gem 'rack-test'
+
+  gem 'byebug'
+  gem 'launchy'
+  gem 'rerun'
+end

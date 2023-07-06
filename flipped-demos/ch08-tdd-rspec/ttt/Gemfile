@@ -1,0 +1,9 @@
+source 'https://rubygems.org'
+ruby '>= 2.2.0'
+
+group :development, :test do
+  gem 'rspec', '3.3.0'
+  gem 'rspec-autotest', '1.0.0'
+  gem 'byebug', '5.0.0'
+  gem 'ZenTest', '4.11.0'
+end

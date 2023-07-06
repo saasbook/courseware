@@ -1,0 +1,34 @@
+GEM
+  specs:
+    csv (3.1.2)
+    erubis (2.7.0)
+    excon (0.99.0)
+    heroics (0.1.2)
+      erubis (~> 2.0)
+      excon
+      moneta
+      multi_json (>= 1.9.2)
+      webrick
+    moneta (1.0.0)
+    multi_json (1.13.1)
+    platform-api (3.5.0)
+      heroics (~> 0.1.1)
+      moneta (~> 1.0.0)
+      rate_throttle_client (~> 0.1.0)
+    rate_throttle_client (0.1.2)
+    webrick (1.6.1)
+    yaml (0.1.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  csv
+  platform-api
+  yaml
+
+RUBY VERSION
+   ruby 2.7.7p221
+
+BUNDLED WITH
+   2.1.4
