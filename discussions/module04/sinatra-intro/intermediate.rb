@@ -79,7 +79,7 @@ end
 
 # update a todo
 # return: if todo with specified id exist and description non-empty, render json with msg set to "update success"
-# 				otherwise render json with msg set to "upate failure"
+# 				otherwise render json with msg set to "update failure"
 # hint: Todo class has instance method update_attribute
 put '/todos/:id' do
 	content_type :json
@@ -88,7 +88,7 @@ put '/todos/:id' do
 		todo.update_attribute(:description, params[:description])
 		return {msg: "update success"}.to_json
 	else
-		return {msg: "upate failure"}.to_json
+		return {msg: "update failure"}.to_json
 	end
 end
 

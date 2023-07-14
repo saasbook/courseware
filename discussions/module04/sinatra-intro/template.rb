@@ -1,5 +1,5 @@
 =begin
-A toy Sinatra app to demostrate the basic concept of MVC, RESTful Routes and CRUD.
+A toy Sinatra app to demonstrate the basic concept of MVC, RESTful Routes and CRUD.
 Run ``bundle install`` to make sure you have necessary gems installed.
 TO run the script, type ``ruby template.rb`` in command line.
 updated: jeremy warner, original author: hezheng.yin
@@ -74,7 +74,7 @@ end
 
 # update a todo
 # return: if todo with specified id exist and description non-empty, render json with msg set to "update success"
-# 				otherwise render json with msg set to "upate failure"
+# 				otherwise render json with msg set to "update failure"
 # hint: Todo class has instance method update_attribute
 put '/todos/:id' do
   ### YOUR CODE HERE ###
