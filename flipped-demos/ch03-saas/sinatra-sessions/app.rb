@@ -2,17 +2,9 @@ require 'sinatra'
 
 class DemoApp < Sinatra::Base
 
-  enable :sessions
-
-  get '/' do
-    @someone = session[:thing]
+  get '/hello/:something' do
+    @content = params[:something]
     erb :hello
   end
-  
-  get '/set/:something' do
-    session[:thing] = params[:something]
-    redirect '/'
-  end
-  
   
 end
