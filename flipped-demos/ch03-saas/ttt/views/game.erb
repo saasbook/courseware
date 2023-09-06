@@ -1,54 +1,28 @@
-<!DOCTYPE html>
-<html>
-  <!-- fun exercise: make it so that the individual numbers in the squares are
-       clickable, and each player moves by clicking the number instead of typing
-       in a form field.  
-    -->
-  <head>
-    <style type="text/css">
-      * { font-family: sans-serif; font-size: 28pt; }
-      body { padding: 1em; }
-      table,td { border: 2px solid red; border-collapse: collapse;  padding: 1em; }
-      .emptySquare { color: grey; }
-      .x { color: green; font-weight: bold; font-size: 110%; }
-      .o { color: blue; font-weight: bold; font-size: 110%; }
-    </style>
-  </head>
-  <body>
-    <% if session[:message] %>
-    <div class="alert alert-danger">
-      <%= session[:message] %>
+<% if session[:message] %>
+  <div class="alert alert-danger">
+    <%= session[:message] %>
+  </div>
+<% end %>
+<div id="board">
+
+  <% row = col = 0 %>
+  <% 0.upto(2) do |row| %>
+  <div class="row ">
+    <% 0.upto(2) do |col| %>
+    <div class="col-3 text-center h1 border-primary
+                <%= 'border-bottom' if row != 2 %>
+                <%= 'border-right' if col != 2 %>">
+      <% square_num = row * 3 + col %>
+      <%= if (val = @game.board[square_num]).empty? then square_num else val end %>
     </div>
     <% end %>
-    <div id="board">
-      <table>
-        <thead></thead>
-        <tbody>
-          <% i = 0 %>
-          <% 3.times do %>
-          <tr>
-            <% 3.times do %>
-            <td>
-              <% val = @game.board[i] %>
-              <% if val.empty? %>
-                <span class="emptySquare"> <%= i %> </span>
-              <% else %>
-                <span class="<%= val %>"> <%= val %> </span>
-              <% end %>
-              <% i += 1 %>
-            </td>
-            <% end %>
-          </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
+  </div>
+  <% end %>
+</div>
 
-    <form method="post" action="/move">
-      <p><%= @game.turn %>'s move</p>
-      <p>Enter square 0-8</p>
-      <input type="text" name="square">
-      <input type="submit" value="Make Move">
-    </form>
-  </body>
-</html>
+<form method="post" action="/move">
+  <p><%= @game.turn %>'s move</p>
+  <p>Enter square 0-8</p>
+  <input type="text" name="square">
+  <input type="submit" value="Make Move">
+</form>
