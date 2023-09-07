@@ -7,13 +7,13 @@
 
   <% row = col = 0 %>
   <% 0.upto(2) do |row| %>
-  <div class="row ">
+  <div class="row">
     <% 0.upto(2) do |col| %>
-    <div class="col-3 text-center h1 border-primary
-                <%= 'border-bottom' if row != 2 %>
-                <%= 'border-right' if col != 2 %>">
-      <% square_num = row * 3 + col %>
-      <%= if (val = @game.board[square_num]).empty? then square_num else val end %>
+    <div class="col-3 text-center h1">
+      <div class="border-primary <%= 'border-bottom' if row!=2 %> <%= 'border-left' if col!=0 %>">
+        <% square_num = row * 3 + col %>
+        <%= if (val = @game.board[square_num]).empty? then square_num else val end %>
+      </div>
     </div>
     <% end %>
   </div>
