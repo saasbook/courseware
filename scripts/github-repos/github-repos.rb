@@ -4,8 +4,6 @@ require 'optparse'
 require 'octokit'
 require 'csv'
 
-ENV['GITHUB_ORG_API_KEY'] = ""
-
 def main()
     puts "Script start."
     org = OrgManager.new

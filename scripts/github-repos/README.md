@@ -54,3 +54,29 @@ Remove all students and subteams in STUDENTTEAM from the org.
 **Use case:** Only remove the access of students teams, repos still can be accessed by
 gsi team.
 
+## Running with Docker
+
+Instead of switching to the right Ruby version manually, you can also build and use a Docker image to run this script.
+
+### To build
+
+To create the Docker image, clone this repository, cd into the script directory, and run:
+
+```
+docker build -t saasbook-script-github-repos .
+```
+
+### To run
+
+Run the following, replacing the appropriate parameters.
+
+If using Windows, you may need to change the `` `pwd` `` mount. Files in the working directory will be available to the container at `/app/files`, e.g. `-c /app/files/team-info.csv`.
+
+```
+docker run \
+  -v `pwd`:/app/files \
+  -e GITHUB_ORG_API_KEY=[ghp_your_key] \
+  saasbook-script-github-repos \
+  [args] \
+  [command]
+```
