@@ -1,24 +1,19 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This mini-app was created with Ruby 2.7.7, Rails 6.1, and this command
+line:
 
-Things you may want to cover:
+`rails new moovover --skip-test --skip-turbolinks --skip-jbuilder --skip-active-job --skip-webpack-install --skip-git --skip-keep --minimal`
 
-* Ruby version
+Say `rails help new` to understand what the various options do.
 
-* System dependencies
+Then follow this with:
 
-* Configuration
+`rails scaffold movie title:string rating:string`
 
-* Database creation
+This generates a migration you can apply with `rake db:migrate`.
 
-* Database initialization
+Finally, add `resources :movies` to `config/routes.rb`.
 
-* How to run the test suite
+Seed data is provided in `db/seeds.rb` that you can load with `rake db:seed`.
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
