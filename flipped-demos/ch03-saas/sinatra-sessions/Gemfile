@@ -3,4 +3,4 @@ ruby '>= 2.3.0', '< 3.0'
 
 gem 'sinatra', '>= 2.0'
 gem 'sinatra-flash'
-
+gem 'byebug'
