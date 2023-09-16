@@ -77,6 +77,8 @@ class OrgManager
 
     public
 
+
+    
     def valid?
         @orgname && @base_filename && @semester && @childteams.length > 0 && @template && @parentteam && gsiteam_valid?
     end
