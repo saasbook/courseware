@@ -11,7 +11,7 @@ def main()
   org = OrgManager.new
   $opts = OptionParser.new do |opt|
     opt.banner = "Usage: #{__FILE__} [required options] [invite|create_teams|indiv_repos|team_repos|
-    remove_indivi_repos|remove_team_repos|remove_teams|remove_team_repo_access] [optional options]
+    remove_indiv_repos|remove_team_repos|remove_teams|remove_team_repo_access] [optional options]
     GITHUB_ORG_API_KEY for the org must be set as an environment variable."
 
     opt.separator ""
@@ -20,10 +20,10 @@ def main()
     opt.separator "            If STUDENTTEAM is already exist, the script will resent invitation to students."
     opt.separator "            (Temporary for special situations in Fa23)"
     opt.separator "            If PREFIX is provided, it will assume the csv file contains \"Team\" column, and create child teams under the STUDENTTEAM, and invites them to child teams.\n"
-    opt.separator "    create_teams: Create child teams for students for CHIP 10.5 \n"
+    opt.separator "    create_teams: Assuming students are in STUDENTTEAM, create child teams for students for CHIP 10.5 and add them to the child team. \n"
     opt.separator "    indiv_repos: Create CHIPS repo for each stedent in STUDENTTEAM. Repos' names are form like \"PREFIX-[username]-FILENAME\"\n"
     opt.separator "    team_repos: Create 10.5 repos for each child team. Repos' names are form like \"PREFIX-FILENAME-[Team number]\""
-    opt.separator "                Make sure child teams are formed before running this method.\n"
+    opt.separator "                Make sure child teams are formed before running this command.\n"
     opt.separator "    remove_indiv_repos: Delete all repos whose names are formed like \"PREFIX-[username]-FILENAME\".\n"
     opt.separator "    remove_team_repos: Delete all repos whose names are formed like \"PREFIX-FILENAME-[Team number]\".\n"
     opt.separator "    remove_teams: Remove all students and child teams in STUDENTTEAM from the org. Remove STUDENTTEAM as well.\n"
@@ -47,13 +47,16 @@ def main()
       end
     when 'create_teams'
       opt.on('-cCSVFILE', '--csv=CSVFILE', 'CSV file containing at least "Team" and "Email" named columns') do |csv|
-        org.read_teams_and_users_from csv
+        org.csv = csv
       end
       opt.on('-sSTUDENTTEAM', '--studentteam=STUDENTTEAM', 'The team name of all the students team') do |studentteam|
         org.parentteam = studentteam
       end
       opt.on('-pPREFIX', '--prefix=PREFIX', 'Semester prefix, eg fa23.') do |pfx|
         org.semester = pfx
+      end
+      opt.on('-oORGNAME', '--orgname=ORGNAME', 'The name of the org') do |orgname|
+        org.orgname = orgname
       end
     when 'indiv_repos'
       opt.on('-fFILENAME', '--filename=FILENAME', 'The base filename for repos') do |filename|
@@ -71,6 +74,9 @@ def main()
       opt.on('-gGSITEAM', '--gsiteam=GSITEAM', 'The team name of all the staff team') do |gsiteam|
         org.gsiteam = gsiteam
       end
+      opt.on('-oORGNAME', '--orgname=ORGNAME', 'The name of the org') do |orgname|
+        org.orgname = orgname
+      end
     when 'team_repos'      
       opt.on('-fFILENAME', '--filename=FILENAME', 'The base filename for repos') do |filename|
         org.base_filename = filename
@@ -87,12 +93,18 @@ def main()
       opt.on('-gGSITEAM', '--gsiteam=GSITEAM', 'The team name of all the staff team') do |gsiteam|
         org.gsiteam = gsiteam
       end
-    when 'remove_idiv_repos'
+      opt.on('-oORGNAME', '--orgname=ORGNAME', 'The name of the org') do |orgname|
+        org.orgname = orgname
+      end
+    when 'remove_indiv_repos'
       opt.on('-pPREFIX', '--prefix=PREFIX', 'Semester prefix, eg fa23.') do |pfx|
         org.semester = pfx
       end
       opt.on('-fFILENAME', '--filename=FILENAME', 'The base filename for repos') do |filename|
         org.base_filename = filename
+      end
+      opt.on('-oORGNAME', '--orgname=ORGNAME', 'The name of the org') do |orgname|
+        org.orgname = orgname
       end
     when 'remove_team_repos'
       opt.on('-pPREFIX', '--prefix=PREFIX', 'Semester prefix, eg fa23.') do |pfx|
@@ -101,12 +113,18 @@ def main()
       opt.on('-fFILENAME', '--filename=FILENAME', 'The base filename for repos') do |filename|
         org.base_filename = filename
       end
+      opt.on('-oORGNAME', '--orgname=ORGNAME', 'The name of the org') do |orgname|
+        org.orgname = orgname
+      end
     when 'remove_teams'
       opt.on('-pPREFIX', '--prefix=PREFIX', 'Semester prefix, eg fa23.') do |pfx|
         org.semester = pfx
       end
       opt.on('-sSTUDENTTEAM', '--studentteam=STUDENTTEAM', 'The team name of all the students team') do |studentteam|
         org.parentteam = studentteam
+      end
+      opt.on('-oORGNAME', '--orgname=ORGNAME', 'The name of the org') do |orgname|
+        org.orgname = orgname
       end
     when 'remove_team_repo_access'
       opt.on('-fFILENAME', '--filename=FILENAME', 'The base filename for repos') do |filename|
@@ -115,25 +133,21 @@ def main()
       opt.on('-pPREFIX', '--prefix=PREFIX', 'Semester prefix, eg fa23.') do |pfx|
         org.semester = pfx
       end
+      opt.on('-oORGNAME', '--orgname=ORGNAME', 'The name of the org') do |orgname|
+        org.orgname = orgname
+      end
     end
   end
   $opts.parse!
   command = ARGV.pop
-  # case command
-  # when 'invite' then org.invite
-  # when 'repos' then org.create_repos 
-  # when 'remove' then org.remove
-  # when 'remove_access' then org.remove_access
-  # else org.print_error
-  # end
   case command
   when 'invite' then org.invite
-  when 'create_teams'
-  when 'indiv_repos'
-  when 'team_repos'  
-  when 'remove_idiv_repos'
-  when 'remove_team_repos'
-  when 'remove_teams'
+  when 'create_teams' then org.create_teams
+  when 'indiv_repos' then org.indiv_repos
+  when 'team_repos' then org.team_repos
+  when 'remove_indiv_repos' then org.remove_indiv_repos
+  when 'remove_team_repos' then org.remove_team_repos
+  when 'remove_teams' then org.remove_teams
   when 'remove_team_repo_access'
   else org.print_error
   end
@@ -149,7 +163,7 @@ class OrgManager
     @base_filename = nil
     @semester = nil
     @template = nil
-    @has_childteams = false
+    @csv = nil
     @users = []
     @childteams = Hash.new { |hash, key| hash[key] = [] } # teamID => [email1, email2, ...]
     print_error("GITHUB_ORG_API_KEY not defined in environment") unless (@key = ENV['GITHUB_ORG_API_KEY'])
@@ -164,7 +178,7 @@ class OrgManager
     print_error "Need at least 'Email' (str) columns in #{csv}" unless
       hash.has_key?('Email')
     data.each do |row|
-      @users << username
+      @users << row['Email']
     end
   end
 
@@ -180,10 +194,10 @@ class OrgManager
   end
 
   def invite_valid?
-    # process the csv file
     if @orgname.nil? || @orgname.empty? || @csv.nil? || @parentteam.nil? || @parentteam.empty?
       return false
     end
+    # process the csv file
     if @semester.nil?
       read_users_from @csv
     else
@@ -192,12 +206,33 @@ class OrgManager
     true
   end
 
+  def create_teams_valid?
+    if @orgname.nil? || @orgname.empty? || @csv.nil? || @parentteam.nil? || @parentteam.empty? || @semester.nil?
+      return false
+    end
+    read_teams_and_users_from @csv
+    true
+  end
+
+  def repos_valid?
+    !(@orgname.nil? || @parentteam.nil? || @prefix.nil? || @template.nil? || gsiteam_valid? || @base_filename.nil?)
+  end
+
+  def remove_valid?
+    !(@orgname.nil? || @semester.nil? || @base_filename.nil?)
+  end
+  
+  def remove_teams_valid?
+    !(@orgname.nil? || @semester.nil? || @parentteam.nil?)
+  end
+
   def gsiteam_valid?
     gsiteam_obj = nil
     if !@gsiteam.nil? && @gsiteam.length > 0 
       begin
         gsiteam_obj = @client.team_by_name(@orgname, @gsiteam)
       rescue Octokit::NotFound
+        print_error "Can't find the gsi team in the org."
       end
     end
     !gsiteam_obj.nil?
@@ -216,7 +251,7 @@ class OrgManager
   end
 
   def invite
-    print_error "csv file, organization name, student team name are needed." unless valid?
+    print_error "csv file, organization name, student team name are needed." unless invite_valid?
     if @semester.nil? 
       # Semester prefix is not provided
 
@@ -275,13 +310,84 @@ class OrgManager
     end
   end
 
-  def create_repos
-    print_error "csv file, base filename, template repo name, semester prefix, students team name, and gsi team name needed." unless valid?
+  def create_teams
+    print_error "csv file, students team name, semester prefix, org name are needed." unless create_teams_valid?
+
+    # Looking for the STUDENTTEAM in the org, see if it is exist.
+    begin
+      parentteam_id = @client.team_by_name(@orgname, @parentteam)['id']
+    rescue Octokit::NotFound
+      print_error "Please make sure the invite command runs first, or students team is created."
+    end
+
+    email_to_username_map = {}
+
+    @client.team_members(parent_team_id).each do |mem|
+      email_to_username_map[mem.login] = mem.email
+    end
+
+    failed_emails = []
+
+    # create child teams and add students to their child teams
+    @childteams.each_key do |team|
+      childteam_name = %Q{#{@semester}-#{team}}
+      begin
+        childteam = @client.team_by_name(@orgname, childteam_name)
+        print_error "Childteam has been created before the script runs."
+      rescue Octokit::NotFound
+        childteam = @client.create_team(@orgname, {name: %Q{#{@semester}-#{team}}, parent_team_id: parentteam_id})
+      end
+      childteam_id = childteam['id']
+      @childteams[team].each do |email|
+        if email_to_username_map.has_key? email
+          @client.add_team_member(childteam_id, email_to_username_map[email])
+        else
+          # save the incorrect email
+          failed_emails << email
+        end
+      end
+    end
+
+    # print the emails that is failed to add to child team
+    if !failed_emails.empty?
+      puts 'Failed to add these emails to child team:'
+      puts failed_emails
+    end
+  end
+
+  def indiv_repos
+    print_error "orgname, student team name, base filename, template repo name, semester prefix, and gsi team name needed." unless repos_valid?
+    
+    # Looking for the STUDENTTEAM in the org, see if it is exist.
+    begin
+      parentteam_id = @client.team_by_name(@orgname, @parentteam)['id']
+    rescue Octokit::NotFound
+      print_error "Please make sure students team is created."
+    end
+
+    @client.team_members(parent_team_id).each do |mem|
+      new_repo_name = %Q{#{@semester}-#{mem.login}-#{@base_filename}}
+      if !@client.repository? %Q{#{@orgname}/#{new_repo_name}}
+        begin
+          new_repo = @client.create_repository_from_template(%Q{#{@orgname}/#{@template}}, new_repo_name, 
+            {owner: @orgname, private: true})
+        rescue Octokit::NotFound
+          print_error "Template not found."
+        end
+        @client.add_collab(new_repo, mem.login)
+        @client.add_team_repository(gsiteam_id, new_repo['full_name'], {permission: 'admin'})
+      end
+    end
+  end
+
+  def team_repos
+    print_error "orgname, student team name, base filename, template repo name, semester prefix, and gsi team name needed." unless repos_valid?
+
     @childteams.each_key do |team|
       begin
         team_id = @client.team_by_name(@orgname, %Q{#{@semester}-#{team}})['id']
       rescue Octokit::NotFound
-        print_error "Students teams information mismatched."
+        print_error "Students teams are not created."
       end
       gsiteam_id = @client.team_by_name(@orgname, @gsiteam)['id']
       new_repo_name = %Q{#{@semester}-#{@base_filename}-#{team}}
@@ -296,53 +402,74 @@ class OrgManager
         @client.add_team_repository(gsiteam_id, new_repo['full_name'], {permission: 'admin'})
       end
     end
+
   end
 
-  def remove
-    print_error "csv file, base filename, template repo name, semester prefix, students team name, and gsi team name needed." unless valid?
-    # remove and delete all repos from the students team, delete all child teams
-    # also cancel all pending invitaions
-    @childteams.each_key do |team|
-      repo_name = %Q{#{@orgname}/#{@semester}-#{@base_filename}-#{team}}
-      @client.delete_repository(repo_name)
-      begin
-        childteam_id = @client.team_by_name(@orgname, %Q{#{@semester}-#{team}})['id'] # eg slug fa23-01
-      rescue Octokit::NotFound
-        next
-      end
+  def remove_indiv_repos
+    print_error "org name, base filename, semester prefix are needed." unless remove_valid?
 
-      # remove students from the student teams
-      team_members = @client.team_members(childteam_id)
-      team_members.each do |member|
-        if @client.organization_membership(@orgname, :user => member['login'])['role'] == 'member'
-          @client.remove_organization_member(@orgname, member['login'])
-        end
+    repos = @client.org_repos(@orgname, {:type => 'private'})
+    repos.each do |repo|
+      if repo.name =~ /^#{Regexp.escape(@orgname)}\/#{Regexp.escape(@semester)}-(.*)-#{Regexp.escape(@base_filename)}$/
+        @client.delete_repository(repo)
       end
-
-      @client.team_invitations(childteam_id).each do |invitation|
-        # cancel all pending invitations
-        @client.delete(%Q{/orgs/#{@orgname}/invitations/#{invitation[:id]}})
-      end
-      @client.delete_team childteam_id
     end
-    # delete students team
+  end
+
+  def remove_team_repos
+    print_error "org name, base filename, semester prefix are needed." unless remove_valid?
+
+    repos = @client.org_repos(@orgname, {:type => 'private'})
+    repos.each do |repo|
+      if repo.name =~ /^#{Regexp.escape(@orgname)}\/#{Regexp.escape(@semester)}-#{Regexp.escape(@base_filename)}-\d+$/
+        @client.delete_repository(repo)
+      end
+    end
+  end
+
+  def remove_teams
+    print_error "org name, semester prefix, students team namd are needed." unless remove_teams_valid?
+
+    # Looking for the STUDENTTEAM in the org, see if it is exist.
     begin
-      team_id = @client.team_by_name(@orgname, @parentteam)['id']
-      @client.delete_team team_id
+      parentteam_id = @client.team_by_name(@orgname, @parentteam)['id']
     rescue Octokit::NotFound
-      # do nothing if no such team
+      print_error "Please make sure students team is created."
     end
-  end
-  
-  def remove_access
-    @childteams.each_key do |team|
-      repo_name = %Q{#{@orgname}/#{@semester}-#{@base_filename}-#{team}}
-      begin
-        childteam_id = @client.team_by_name(@orgname, %Q{#{@semester}-#{team}})['id'] # eg slug fa23-1
-      rescue Octokit::NotFound
-        next
+    
+    # # Remove all child teams
+    # @client.org_teams(@orgname).each do |team|
+    #   if team.parent.id == parentteam_id
+    #     @client.delete_team team.id
+    #   end
+    # end
+
+    # Remove all members in the students team from org
+    @client.team_members(parent_team_id).each do |mem|
+      if @client.organization_membership(@orgname, :user => mem.login)['role'] == 'member'
+        @client.remove_organization_member(@orgname, mem.login)
       end
-      @client.remove_team_repository(childteam_id, repo_name)
+    end
+
+    # Remove students team, child team will be removed as well
+    @client.delete_team parentteam_id
+  end
+
+  def remove_access
+    print_error "org name, base filename, semester prefix are needed." unless remove_valid?
+
+    repos = @client.org_repos(@orgname, {:type => 'private'})
+    repos.each do |repo|
+      match = repo.name.match(/^#{Regexp.escape(@orgname)}\/#{Regexp.escape(@semester)}-#{Regexp.escape(@base_filename)}-(\d+)$/)
+      if match
+        team_num = match[1]
+        begin
+          childteam_id = @client.team_by_name(@orgname, %Q{#{@semester}-#{team_num}})['id'] # eg slug fa23-1
+        rescue Octokit::NotFound
+          next
+        end
+        @client.remove_team_repository(childteam_id, repo)
+      end
     end
   end
 end

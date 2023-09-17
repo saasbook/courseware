@@ -23,17 +23,19 @@ Optional options:
     -p, --prefix=PREFIX              Semester prefix, eg fa23.
 
 'create_teams'
-Create child teams for students for CHIP 10.5
+Assuming students are in STUDENTTEAM, create child teams for students for CHIP 10.5 and add them to the child team.
 
 Required options:
     -c, --csv=CSVFILE                CSV file containing at least "Team" and "Email/Username" named columns
     -s, --studentteam=STUDENTTEAM    The team name of all the students team
     -p, --prefix=PREFIX              Semester prefix, eg fa23.
+    -o, --orgname=ORGNAME            The name of the org
 
 'indiv_repos'
 Create CHIPS repo for each stedent in STUDENTTEAM. Repos' names are form like "PREFIX-[username]-FILENAME"
 
 Required options:
+    -o, --orgname=ORGNAME            The name of the org
     -s, --studentteam=STUDENTTEAM    The team name of all the students team
     -p, --prefix=PREFIX              Semester prefix, eg fa23.
     -t, --template=TEMPLATE          The repo name within the org to use as template
@@ -42,9 +44,10 @@ Required options:
 
 'team_repos'
 Create 10.5 repos for each child team. Repos' names are form like "PREFIX-FILENAME-[Team number]"
-Make sure child teams are formed before running this method.
+Make sure child teams are formed before running this command.
 
 Required options:
+    -o, --orgname=ORGNAME            The name of the org
     -p, --prefix=PREFIX              Semester prefix, eg fa23.
     -t, --template=TEMPLATE          The repo name within the org to use as template
     -f, --filename=FILENAME          The base filename for repos.
@@ -55,6 +58,7 @@ Required options:
 Delete all repos whose names are formed like "PREFIX-[username]-FILENAME".
 
 Required options:
+    -o, --orgname=ORGNAME            The name of the org
     -p, --prefix=PREFIX              Semester prefix, eg fa23.
     -f, --filename=FILENAME          The base filename for repos.
 
@@ -62,6 +66,7 @@ Required options:
 Delete all repos whose names are formed like "PREFIX-FILENAME-[Team number]".
 
 Required options:
+    -o, --orgname=ORGNAME            The name of the org
     -p, --prefix=PREFIX              Semester prefix, eg fa23.
     -f, --filename=FILENAME          The base filename for repos.
 
@@ -70,6 +75,7 @@ Remove all students and child teams in STUDENTTEAM from the org.
 Remove STUDENTTEAM as well.
 
 Required options:
+    -o, --orgname=ORGNAME            The name of the org
     -p, --prefix=PREFIX              Semester prefix, eg fa23.
     -s, --studentteam=STUDENTTEAM    The team name of all the students team
 
@@ -77,6 +83,7 @@ Required options:
 Remove students access to CHIP 10.5 repos that are formed like "PREFIX-FILENAME-[Team number]".
 
 Required options:
+    -o, --orgname=ORGNAME            The name of the org
     -p, --prefix=PREFIX              Semester prefix, eg fa23.
     -f, --filename=FILENAME          The base filename for repos.
 ```
