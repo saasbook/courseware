@@ -1,7 +1,7 @@
-# Bulk creation/deletion of many repos and cs169a-team
+# Bulk creation/deletion of many repos and student teams
 
 ```
-Usage: ./github-repos.rb [required options] [invite|create_teams|indiv_repos|team_repos|remove_indivi_repos|remove_team_repos|remove_teams|remove_team_repo_access]
+Usage: ./github-repos.rb [required options] [invite|create_teams|indiv_repos|team_repos|remove_indivi_repos|remove_team_repos|remove_teams|remove_team_repo_access] [optional options]
 
 GITHUB_ORG_API_KEY for the org must be set as an environment variable.
 
@@ -9,23 +9,31 @@ It's safe to run multiple times.
 
 'invite':
 Create a team called STUDENTTEAM under the org that has all students in the same semester and send invitation
+If STUDENTTEAM is already exist, the script will resent invitation to students. 
+(Temporary for special situations in Fa23)
+If PREFIX is provided, it will assume the csv file contains "Team" column, and create child teams under 
+the STUDENTTEAM, and invites them to child teams.
 
-Required arguments:
-    -c, --csv=CSVFILE                CSV file containing at leaset "Email"/"Username" named columns
+Required options:
+    -c, --csv=CSVFILE                CSV file containing at leaset "Email/Username" named columns
     -s, --studentteam=STUDENTTEAM    The team name of all the students team
+    -o, --orgname=ORGNAME            The name of the org
+
+Optional options:
+    -p, --prefix=PREFIX              Semester prefix, eg fa23.
 
 'create_teams'
 Create child teams for students for CHIP 10.5
 
-Required arguments:
-    -c, --csv=CSVFILE                CSV file containing at least "Team" and "Email"/"Username" named columns
+Required options:
+    -c, --csv=CSVFILE                CSV file containing at least "Team" and "Email/Username" named columns
     -s, --studentteam=STUDENTTEAM    The team name of all the students team
     -p, --prefix=PREFIX              Semester prefix, eg fa23.
 
 'indiv_repos'
 Create CHIPS repo for each stedent in STUDENTTEAM. Repos' names are form like "PREFIX-[username]-FILENAME"
 
-Required arguments:
+Required options:
     -s, --studentteam=STUDENTTEAM    The team name of all the students team
     -p, --prefix=PREFIX              Semester prefix, eg fa23.
     -t, --template=TEMPLATE          The repo name within the org to use as template
@@ -36,7 +44,7 @@ Required arguments:
 Create 10.5 repos for each child team. Repos' names are form like "PREFIX-FILENAME-[Team number]"
 Make sure child teams are formed before running this method.
 
-Required arguments:
+Required options:
     -p, --prefix=PREFIX              Semester prefix, eg fa23.
     -t, --template=TEMPLATE          The repo name within the org to use as template
     -f, --filename=FILENAME          The base filename for repos.
@@ -46,14 +54,14 @@ Required arguments:
 'remove_indiv_repos'
 Delete all repos whose names are formed like "PREFIX-[username]-FILENAME".
 
-Required arguments:
+Required options:
     -p, --prefix=PREFIX              Semester prefix, eg fa23.
     -f, --filename=FILENAME          The base filename for repos.
 
 'remove_team_repos'
 Delete all repos whose names are formed like "PREFIX-FILENAME-[Team number]".
 
-Required arguments:
+Required options:
     -p, --prefix=PREFIX              Semester prefix, eg fa23.
     -f, --filename=FILENAME          The base filename for repos.
 
@@ -61,14 +69,14 @@ Required arguments:
 Remove all students and child teams in STUDENTTEAM from the org.
 Remove STUDENTTEAM as well.
 
-Required arguments:
+Required options:
     -p, --prefix=PREFIX              Semester prefix, eg fa23.
     -s, --studentteam=STUDENTTEAM    The team name of all the students team
 
 'remove_team_repo_access'
 Remove students access to CHIP 10.5 repos that are formed like "PREFIX-FILENAME-[Team number]".
 
-Required arguments:
+Required options:
     -p, --prefix=PREFIX              Semester prefix, eg fa23.
     -f, --filename=FILENAME          The base filename for repos.
 ```
