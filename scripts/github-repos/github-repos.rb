@@ -4,7 +4,7 @@ require 'optparse'
 require 'octokit'
 require 'csv'
 
-ENV['GITHUB_ORG_API_KEY'] = ""
+ENV['GITHUB_ORG_API_KEY'] = "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"
 
 def main()
   puts "Script start."
@@ -28,114 +28,28 @@ def main()
     opt.separator "    remove_team_repos: Delete all repos whose names are formed like \"PREFIX-FILENAME-[Team number]\".\n"
     opt.separator "    remove_teams: Remove all students and child teams in STUDENTTEAM from the org. Remove STUDENTTEAM as well.\n"
     opt.separator "    remove_team_repo_access: Remove students access to CHIP 10.5 repos that are formed like \"PREFIX-FILENAME-[Team number]\".\n"
-    opt.separator "Required options:"
+    opt.separator "Options:"
 
-    case ARGV[0]
-    when 'invite'
-      opt.on('-cCSVFILE', '--csv=CSVFILE', 'CSV file containing at leaset "Email" named columns') do |csv|
-        org.csv = csv
-      end
-      opt.on('-oORGNAME', '--orgname=ORGNAME', 'The name of the org') do |orgname|
-        org.orgname = orgname
-      end
-      opt.on('-sSTUDENTTEAM', '--studentteam=STUDENTTEAM', 'The team name of all the students team') do |studentteam|
-        org.parentteam = studentteam
-      end
-      opt.separator "Optional options:"
-      opt.on('-pPREFIX', '--prefix=PREFIX', 'Semester prefix, eg fa23.') do |pfx|
-        org.semester = pfx
-      end
-    when 'create_teams'
-      opt.on('-cCSVFILE', '--csv=CSVFILE', 'CSV file containing at least "Team" and "Email" named columns') do |csv|
-        org.csv = csv
-      end
-      opt.on('-sSTUDENTTEAM', '--studentteam=STUDENTTEAM', 'The team name of all the students team') do |studentteam|
-        org.parentteam = studentteam
-      end
-      opt.on('-pPREFIX', '--prefix=PREFIX', 'Semester prefix, eg fa23.') do |pfx|
-        org.semester = pfx
-      end
-      opt.on('-oORGNAME', '--orgname=ORGNAME', 'The name of the org') do |orgname|
-        org.orgname = orgname
-      end
-    when 'indiv_repos'
-      opt.on('-fFILENAME', '--filename=FILENAME', 'The base filename for repos') do |filename|
-        org.base_filename = filename
-      end
-      opt.on('-pPREFIX', '--prefix=PREFIX', 'Semester prefix, eg fa23.') do |pfx|
-        org.semester = pfx
-      end
-      opt.on('-tTEMPLATE', '--template=TEMPLATE', 'The repo name within the org to use as template') do |template|
-        org.template = template
-      end
-      opt.on('-sSTUDENTTEAM', '--studentteam=STUDENTTEAM', 'The team name of all the students team') do |studentteam|
-        org.parentteam = studentteam
-      end
-      opt.on('-gGSITEAM', '--gsiteam=GSITEAM', 'The team name of all the staff team') do |gsiteam|
-        org.gsiteam = gsiteam
-      end
-      opt.on('-oORGNAME', '--orgname=ORGNAME', 'The name of the org') do |orgname|
-        org.orgname = orgname
-      end
-    when 'team_repos'      
-      opt.on('-fFILENAME', '--filename=FILENAME', 'The base filename for repos') do |filename|
-        org.base_filename = filename
-      end
-      opt.on('-pPREFIX', '--prefix=PREFIX', 'Semester prefix, eg fa23.') do |pfx|
-        org.semester = pfx
-      end
-      opt.on('-tTEMPLATE', '--template=TEMPLATE', 'The repo name within the org to use as template') do |template|
-        org.template = template
-      end
-      opt.on('-sSTUDENTTEAM', '--studentteam=STUDENTTEAM', 'The team name of all the students team') do |studentteam|
-        org.parentteam = studentteam
-      end
-      opt.on('-gGSITEAM', '--gsiteam=GSITEAM', 'The team name of all the staff team') do |gsiteam|
-        org.gsiteam = gsiteam
-      end
-      opt.on('-oORGNAME', '--orgname=ORGNAME', 'The name of the org') do |orgname|
-        org.orgname = orgname
-      end
-    when 'remove_indiv_repos'
-      opt.on('-pPREFIX', '--prefix=PREFIX', 'Semester prefix, eg fa23.') do |pfx|
-        org.semester = pfx
-      end
-      opt.on('-fFILENAME', '--filename=FILENAME', 'The base filename for repos') do |filename|
-        org.base_filename = filename
-      end
-      opt.on('-oORGNAME', '--orgname=ORGNAME', 'The name of the org') do |orgname|
-        org.orgname = orgname
-      end
-    when 'remove_team_repos'
-      opt.on('-pPREFIX', '--prefix=PREFIX', 'Semester prefix, eg fa23.') do |pfx|
-        org.semester = pfx
-      end
-      opt.on('-fFILENAME', '--filename=FILENAME', 'The base filename for repos') do |filename|
-        org.base_filename = filename
-      end
-      opt.on('-oORGNAME', '--orgname=ORGNAME', 'The name of the org') do |orgname|
-        org.orgname = orgname
-      end
-    when 'remove_teams'
-      opt.on('-pPREFIX', '--prefix=PREFIX', 'Semester prefix, eg fa23.') do |pfx|
-        org.semester = pfx
-      end
-      opt.on('-sSTUDENTTEAM', '--studentteam=STUDENTTEAM', 'The team name of all the students team') do |studentteam|
-        org.parentteam = studentteam
-      end
-      opt.on('-oORGNAME', '--orgname=ORGNAME', 'The name of the org') do |orgname|
-        org.orgname = orgname
-      end
-    when 'remove_team_repo_access'
-      opt.on('-fFILENAME', '--filename=FILENAME', 'The base filename for repos') do |filename|
-        org.base_filename = filename
-      end
-      opt.on('-pPREFIX', '--prefix=PREFIX', 'Semester prefix, eg fa23.') do |pfx|
-        org.semester = pfx
-      end
-      opt.on('-oORGNAME', '--orgname=ORGNAME', 'The name of the org') do |orgname|
-        org.orgname = orgname
-      end
+    opt.on('-cCSVFILE', '--csv=CSVFILE', 'CSV file containing at leaset "Email" named columns') do |csv|
+      org.csv = csv
+    end
+    opt.on('-oORGNAME', '--orgname=ORGNAME', 'The name of the org') do |orgname|
+      org.orgname = orgname
+    end
+    opt.on('-sSTUDENTTEAM', '--studentteam=STUDENTTEAM', 'The team name of all the students team') do |studentteam|
+      org.parentteam = studentteam
+    end
+    opt.on('-pPREFIX', '--prefix=PREFIX', 'Semester prefix, eg fa23.') do |pfx|
+      org.semester = pfx
+    end
+    opt.on('-fFILENAME', '--filename=FILENAME', 'The base filename for repos') do |filename|
+      org.base_filename = filename
+    end
+    opt.on('-tTEMPLATE', '--template=TEMPLATE', 'The repo name within the org to use as template') do |template|
+      org.template = template
+    end
+    opt.on('-gGSITEAM', '--gsiteam=GSITEAM', 'The team name of all the staff team') do |gsiteam|
+      org.gsiteam = gsiteam
     end
   end
   $opts.parse!
@@ -167,7 +81,7 @@ class OrgManager
     @users = []
     @childteams = Hash.new { |hash, key| hash[key] = [] } # teamID => [email1, email2, ...]
     print_error("GITHUB_ORG_API_KEY not defined in environment") unless (@key = ENV['GITHUB_ORG_API_KEY'])
-    @client = Octokit::Client.new(access_token: @key)
+    @client = Octokit::Client.new(access_token: @key, scopes: ['user', 'user:email'])
   end
 
   private
@@ -193,6 +107,23 @@ class OrgManager
     end
   end
 
+def to_slug(input)
+  # Convert to lowercase
+  slug = input.downcase
+
+  # Replace characters other than 0-9, a-z, '.', '_', and '-'
+  slug.gsub!(/[^0-9a-z.\-_]+/, '-')
+
+  # Remove leading and trailing hyphens
+  slug.gsub!(/^-+/, '')
+  slug.gsub!(/-+$/, '')
+
+  # Limit the string to 63 characters
+  slug = slug[0, 63]
+
+  return slug
+end
+
   def invite_valid?
     if @orgname.nil? || @orgname.empty? || @csv.nil? || @parentteam.nil? || @parentteam.empty?
       return false
@@ -215,7 +146,7 @@ class OrgManager
   end
 
   def repos_valid?
-    !(@orgname.nil? || @parentteam.nil? || @prefix.nil? || @template.nil? || gsiteam_valid? || @base_filename.nil?)
+    !(@orgname.nil? || @parentteam.nil? || @semester.nil? || @template.nil? || !gsiteam_valid? || @base_filename.nil?)
   end
 
   def remove_valid?
@@ -230,7 +161,7 @@ class OrgManager
     gsiteam_obj = nil
     if !@gsiteam.nil? && @gsiteam.length > 0 
       begin
-        gsiteam_obj = @client.team_by_name(@orgname, @gsiteam)
+        gsiteam_obj = @client.team_by_name(@orgname, to_slug(@gsiteam))
       rescue Octokit::NotFound
         print_error "Can't find the gsi team in the org."
       end
@@ -257,13 +188,13 @@ class OrgManager
 
       # Looking for the STUDENTTEAM in the org, see if it is exist.
       begin
-        parentteam_id = @client.team_by_name(@orgname, @parentteam)['id']
+        parentteam_id = @client.team_by_name(@orgname, to_slug(@parentteam))['id']
       rescue Octokit::NotFound
         parentteam_id = @client.create_team(@orgname, {name: @parentteam, privacy: 'closed'})['id']
       end
 
       @users.each do |student_email|
-        if !@client.team_invitations(parentteam_id).any? {|invitations| invitations.email == member}
+        if !@client.team_invitations(parentteam_id).any? {|invitations| invitations.email == student_email}
           # invitation is not pending, send invitation
           begin
             @client.post(%Q{/orgs/#{@orgname}/invitations}, {org: @orgname, email: student_email , role: 'direct_member', team_ids: [parentteam_id]})
@@ -278,7 +209,7 @@ class OrgManager
       
       # Looking for the STUDENTTEAM in the org, see if it is exist.
       begin
-        parentteam_id = @client.team_by_name(@orgname, @parentteam)['id']
+        parentteam_id = @client.team_by_name(@orgname, to_slug(@parentteam))['id']
       rescue Octokit::NotFound
         parentteam_id = @client.create_team(@orgname, {name: @parentteam, privacy: 'closed'})['id']
       end
@@ -288,7 +219,7 @@ class OrgManager
       @childteams.each_key do |team|
         childteam_name = %Q{#{@semester}-#{team}}
         begin
-          childteam = @client.team_by_name(@orgname, childteam_name)
+          childteam = @client.team_by_name(@orgname, to_slug(childteam_name))
         rescue Octokit::NotFound
           childteam = @client.create_team(@orgname, {name: %Q{#{@semester}-#{team}}, parent_team_id: parentteam_id})
         end
@@ -315,16 +246,23 @@ class OrgManager
 
     # Looking for the STUDENTTEAM in the org, see if it is exist.
     begin
-      parentteam_id = @client.team_by_name(@orgname, @parentteam)['id']
+      parentteam_id = @client.team_by_name(@orgname, to_slug(@parentteam))['id']
     rescue Octokit::NotFound
       print_error "Please make sure the invite command runs first, or students team is created."
     end
 
     email_to_username_map = {}
 
-    @client.team_members(parent_team_id).each do |mem|
-      email_to_username_map[mem.login] = mem.email
+    @client.team_members(parentteam_id).each do |mem|
+      team_mem = @client.user
+      puts team_mem.login
     end
+
+    @client.team_members(parentteam_id).each do |mem|
+      email_to_username_map[mem.email] = mem.login
+    end
+
+    puts email_to_username_map
 
     failed_emails = []
 
@@ -332,8 +270,7 @@ class OrgManager
     @childteams.each_key do |team|
       childteam_name = %Q{#{@semester}-#{team}}
       begin
-        childteam = @client.team_by_name(@orgname, childteam_name)
-        print_error "Childteam has been created before the script runs."
+        childteam = @client.team_by_name(@orgname, to_slug(childteam_name))
       rescue Octokit::NotFound
         childteam = @client.create_team(@orgname, {name: %Q{#{@semester}-#{team}}, parent_team_id: parentteam_id})
       end
@@ -360,22 +297,44 @@ class OrgManager
     
     # Looking for the STUDENTTEAM in the org, see if it is exist.
     begin
-      parentteam_id = @client.team_by_name(@orgname, @parentteam)['id']
+      parentteam_id = @client.team_by_name(@orgname, to_slug(@parentteam))['id']
     rescue Octokit::NotFound
       print_error "Please make sure students team is created."
     end
 
-    @client.team_members(parent_team_id).each do |mem|
-      new_repo_name = %Q{#{@semester}-#{mem.login}-#{@base_filename}}
-      if !@client.repository? %Q{#{@orgname}/#{new_repo_name}}
-        begin
-          new_repo = @client.create_repository_from_template(%Q{#{@orgname}/#{@template}}, new_repo_name, 
-            {owner: @orgname, private: true})
-        rescue Octokit::NotFound
-          print_error "Template not found."
+    gsiteam_id =  @client.team_by_name(@orgname, to_slug(@gsiteam)).id
+    self_user_name = @client.user.login
+    @client.team_members(parentteam_id).each do |mem|
+      if self_user_name != mem.login
+        new_repo_name = %Q{#{@semester}-#{mem.login}-#{@base_filename}}
+        if !@client.repository? %Q{#{@orgname}/#{new_repo_name}}
+          begin
+            new_repo = @client.create_repository_from_template(%Q{#{@orgname}/#{@template}}, new_repo_name, 
+              {owner: @orgname, private: true})
+          rescue Octokit::NotFound
+            print_error "Template not found."
+          end
+          @client.add_collab(new_repo['full_name'], mem.login)
+          @client.add_team_repository(gsiteam_id, new_repo['full_name'], {permission: 'admin'})
         end
-        @client.add_collab(new_repo, mem.login)
-        @client.add_team_repository(gsiteam_id, new_repo['full_name'], {permission: 'admin'})
+      end
+    end
+
+
+    # can remove the below loop because in the future, there should not be child teams while we assigning the indiv repos. 
+    @client.child_teams(parentteam_id).each.each do |mem|
+      if !mem.login.nil? && self_user_name != mem.login
+        new_repo_name = %Q{#{@semester}-#{mem.login}-#{@base_filename}}
+        if !@client.repository? %Q{#{@orgname}/#{new_repo_name}}
+          begin
+            new_repo = @client.create_repository_from_template(%Q{#{@orgname}/#{@template}}, new_repo_name, 
+              {owner: @orgname, private: true})
+          rescue Octokit::NotFound
+            print_error "Template not found."
+          end
+          @client.add_collab(new_repo['full_name'], mem.login)
+          @client.add_team_repository(gsiteam_id, new_repo['full_name'], {permission: 'admin'})
+        end
       end
     end
   end
@@ -383,14 +342,11 @@ class OrgManager
   def team_repos
     print_error "orgname, student team name, base filename, template repo name, semester prefix, and gsi team name needed." unless repos_valid?
 
-    @childteams.each_key do |team|
-      begin
-        team_id = @client.team_by_name(@orgname, %Q{#{@semester}-#{team}})['id']
-      rescue Octokit::NotFound
-        print_error "Students teams are not created."
-      end
-      gsiteam_id = @client.team_by_name(@orgname, @gsiteam)['id']
-      new_repo_name = %Q{#{@semester}-#{@base_filename}-#{team}}
+    child_teams = @client.child_teams(@client.team_by_name(@orgname, to_slug(@parentteam)).id)
+    gsiteam_id = @client.team_by_name(@orgname, to_slug(@gsiteam))['id']
+    child_teams.each do |team|
+      team_num = team.slug.match(/-(\d+)$/)[1]
+      new_repo_name = %Q{#{@semester}-#{@base_filename}-#{team_num}}
       if !@client.repository? %Q{#{@orgname}/#{new_repo_name}}
         begin
           new_repo = @client.create_repository_from_template(%Q{#{@orgname}/#{@template}}, new_repo_name, 
@@ -398,7 +354,7 @@ class OrgManager
         rescue Octokit::NotFound
           print_error "Template not found."
         end
-        @client.add_team_repository(team_id, new_repo['full_name'], {permission: 'push'})
+        @client.add_team_repository(team.id, new_repo['full_name'], {permission: 'push'})
         @client.add_team_repository(gsiteam_id, new_repo['full_name'], {permission: 'admin'})
       end
     end
@@ -410,8 +366,8 @@ class OrgManager
 
     repos = @client.org_repos(@orgname, {:type => 'private'})
     repos.each do |repo|
-      if repo.name =~ /^#{Regexp.escape(@orgname)}\/#{Regexp.escape(@semester)}-(.*)-#{Regexp.escape(@base_filename)}$/
-        @client.delete_repository(repo)
+      if repo.name =~ /^#{Regexp.escape(@semester)}-(.*)-#{Regexp.escape(@base_filename)}$/
+        @client.delete_repository(repo.full_name)
       end
     end
   end
@@ -421,33 +377,35 @@ class OrgManager
 
     repos = @client.org_repos(@orgname, {:type => 'private'})
     repos.each do |repo|
-      if repo.name =~ /^#{Regexp.escape(@orgname)}\/#{Regexp.escape(@semester)}-#{Regexp.escape(@base_filename)}-\d+$/
-        @client.delete_repository(repo)
+      if repo.name =~ /^#{Regexp.escape(@semester)}-#{Regexp.escape(@base_filename)}-\d+$/
+        @client.delete_repository(repo.full_name)
       end
     end
   end
 
   def remove_teams
-    print_error "org name, semester prefix, students team namd are needed." unless remove_teams_valid?
+    print_error "org name, semester prefix, students team name are needed." unless remove_teams_valid?
 
     # Looking for the STUDENTTEAM in the org, see if it is exist.
     begin
-      parentteam_id = @client.team_by_name(@orgname, @parentteam)['id']
+      parentteam_id = @client.team_by_name(@orgname, to_slug(@parentteam))['id']
     rescue Octokit::NotFound
       print_error "Please make sure students team is created."
     end
-    
-    # # Remove all child teams
-    # @client.org_teams(@orgname).each do |team|
-    #   if team.parent.id == parentteam_id
-    #     @client.delete_team team.id
-    #   end
-    # end
 
     # Remove all members in the students team from org
-    @client.team_members(parent_team_id).each do |mem|
-      if @client.organization_membership(@orgname, :user => mem.login)['role'] == 'member'
+    self_user_name = @client.user.login
+    @client.team_members(parentteam_id).each do |mem|
+      if !mem.login.nil? && mem.login != self_user_name
         @client.remove_organization_member(@orgname, mem.login)
+      end 
+    end
+
+    @client.child_teams(parentteam_id).each do |childteam|
+      @client.team_members(childteam.id).each do |mem|
+        if !mem.login.nil? && mem.login != self_user_name
+          @client.remove_organization_member(@orgname, mem.login)
+        end
       end
     end
 
@@ -460,11 +418,11 @@ class OrgManager
 
     repos = @client.org_repos(@orgname, {:type => 'private'})
     repos.each do |repo|
-      match = repo.name.match(/^#{Regexp.escape(@orgname)}\/#{Regexp.escape(@semester)}-#{Regexp.escape(@base_filename)}-(\d+)$/)
+      match = repo.name.match(/^#{Regexp.escape(@semester)}-#{Regexp.escape(@base_filename)}-(\d+)$/)
       if match
         team_num = match[1]
         begin
-          childteam_id = @client.team_by_name(@orgname, %Q{#{@semester}-#{team_num}})['id'] # eg slug fa23-1
+          childteam_id = @client.team_by_name(@orgname, to_slug(%Q{#{@semester}-#{team_num}}))['id'] # eg slug fa23-1
         rescue Octokit::NotFound
           next
         end

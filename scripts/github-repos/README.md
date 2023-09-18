@@ -15,18 +15,18 @@ If PREFIX is provided, it will assume the csv file contains "Team" column, and c
 the STUDENTTEAM, and invites them to child teams.
 
 Required options:
-    -c, --csv=CSVFILE                CSV file containing at leaset "Email/Username" named columns
+    -c, --csv=CSVFILE                CSV file containing at leaset "Email" named columns
     -s, --studentteam=STUDENTTEAM    The team name of all the students team
     -o, --orgname=ORGNAME            The name of the org
 
 Optional options:
     -p, --prefix=PREFIX              Semester prefix, eg fa23.
 
-'create_teams'
+'create_teams' (Not functioning)
 Assuming students are in STUDENTTEAM, create child teams for students for CHIP 10.5 and add them to the child team.
 
 Required options:
-    -c, --csv=CSVFILE                CSV file containing at least "Team" and "Email/Username" named columns
+    -c, --csv=CSVFILE                CSV file containing at least "Team" and "Email" named columns
     -s, --studentteam=STUDENTTEAM    The team name of all the students team
     -p, --prefix=PREFIX              Semester prefix, eg fa23.
     -o, --orgname=ORGNAME            The name of the org
