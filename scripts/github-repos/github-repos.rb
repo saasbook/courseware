@@ -299,18 +299,20 @@ end
 
 
     # can remove the below loop because in the future, there should not be child teams while we assigning the indiv repos. 
-    @client.child_teams(parentteam_id).each.each do |mem|
-      if !mem.login.nil? && self_user_name != mem.login
-        new_repo_name = %Q{#{@semester}-#{mem.login}-#{@base_filename}}
-        if !@client.repository? %Q{#{@orgname}/#{new_repo_name}}
-          begin
-            new_repo = @client.create_repository_from_template(%Q{#{@orgname}/#{@template}}, new_repo_name, 
-              {owner: @orgname, private: true})
-          rescue Octokit::NotFound
-            print_error "Template not found."
+    @client.child_teams(parentteam_id).each do |childteam|
+      @client.team_members(childteam.id).each do |mem|
+        if !mem.login.nil? && self_user_name != mem.login
+          new_repo_name = %Q{#{@semester}-#{mem.login}-#{@base_filename}}
+          if !@client.repository? %Q{#{@orgname}/#{new_repo_name}}
+            begin
+              new_repo = @client.create_repository_from_template(%Q{#{@orgname}/#{@template}}, new_repo_name, 
+                {owner: @orgname, private: true})
+            rescue Octokit::NotFound
+              print_error "Template not found."
+            end
+            @client.add_collab(new_repo['full_name'], mem.login)
+            @client.add_team_repository(gsiteam_id, new_repo['full_name'], {permission: 'admin'})
           end
-          @client.add_collab(new_repo['full_name'], mem.login)
-          @client.add_team_repository(gsiteam_id, new_repo['full_name'], {permission: 'admin'})
         end
       end
     end
