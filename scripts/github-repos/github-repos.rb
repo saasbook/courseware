@@ -62,7 +62,7 @@ def main()
   when 'remove_indiv_repos' then org.remove_indiv_repos
   when 'remove_team_repos' then org.remove_team_repos
   when 'remove_teams' then org.remove_teams
-  when 'remove_team_repo_access'
+  when 'remove_team_repo_access' then org.remove_team_repo_access
   else org.print_error
   end
   puts "Run successfully."
@@ -392,7 +392,7 @@ end
     @client.delete_team parentteam_id
   end
 
-  def remove_access
+  def remove_team_repo_access
     print_error "org name, base filename, semester prefix are needed." unless remove_valid?
 
     repos = @client.org_repos(@orgname, {:type => 'private'})
