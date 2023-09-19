@@ -4,7 +4,7 @@ require 'optparse'
 require 'octokit'
 require 'csv'
 
-ENV['GITHUB_ORG_API_KEY'] = "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"
+ENV['GITHUB_ORG_API_KEY'] = ""
 
 def main()
   puts "Script start."
@@ -30,7 +30,7 @@ def main()
     opt.separator "    remove_team_repo_access: Remove students access to CHIP 10.5 repos that are formed like \"PREFIX-FILENAME-[Team number]\".\n"
     opt.separator "Options:"
 
-    opt.on('-cCSVFILE', '--csv=CSVFILE', 'CSV file containing at leaset "Email" named columns') do |csv|
+    opt.on('-cCSVFILE', '--csv=CSVFILE', 'CSV file containing at leaset "Username" named columns') do |csv|
       org.csv = csv
     end
     opt.on('-oORGNAME', '--orgname=ORGNAME', 'The name of the org') do |orgname|
@@ -81,7 +81,7 @@ class OrgManager
     @users = []
     @childteams = Hash.new { |hash, key| hash[key] = [] } # teamID => [email1, email2, ...]
     print_error("GITHUB_ORG_API_KEY not defined in environment") unless (@key = ENV['GITHUB_ORG_API_KEY'])
-    @client = Octokit::Client.new(access_token: @key, scopes: ['user', 'user:email'])
+    @client = Octokit::Client.new(access_token: @key, scopes: ['user'])
   end
 
   private
@@ -89,20 +89,20 @@ class OrgManager
   def read_users_from csv
     data = CSV.parse(IO.read(csv), headers: true)
     hash = data.first.to_h
-    print_error "Need at least 'Email' (str) columns in #{csv}" unless
-      hash.has_key?('Email')
+    print_error "Need at least 'Username' (str) columns in #{csv}" unless
+      hash.has_key?('Username')
     data.each do |row|
-      @users << row['Email']
+      @users << row['Username']
     end
   end
 
   def read_teams_and_users_from csv
     data = CSV.parse(IO.read(csv), headers: true)
     hash = data.first.to_h
-    print_error "Need at least 'Team' (int) and 'Email' (str) columns in #{csv}" unless
-      hash.has_key?('Team') && hash.has_key?('Email')
+    print_error "Need at least 'Team' (int) and 'Username' (str) columns in #{csv}" unless
+      hash.has_key?('Team') && hash.has_key?('Username')
     data.each do |row|
-      username = row['Email']
+      username = row['Username']
       @childteams[row['Team']] << username
     end
   end
@@ -171,10 +171,6 @@ end
 
   public
 
-  def valid?
-    @orgname && @base_filename && @semester && @childteams.length > 0 && @template && @parentteam && gsiteam_valid?
-  end
-
   def print_error(msg=nil)
     STDERR.puts "Error: #{msg}" if msg
     STDERR.puts $opts
@@ -193,15 +189,11 @@ end
         parentteam_id = @client.create_team(@orgname, {name: @parentteam, privacy: 'closed'})['id']
       end
 
-      @users.each do |student_email|
-        if !@client.team_invitations(parentteam_id).any? {|invitations| invitations.email == student_email}
-          # invitation is not pending, send invitation
-          begin
-            @client.post(%Q{/orgs/#{@orgname}/invitations}, {org: @orgname, email: student_email , role: 'direct_member', team_ids: [parentteam_id]})
-          rescue Octokit::UnprocessableEntity
-            # send fail, member is already a part of org
-            next
-          end
+      @users.each do |username|
+        begin 
+          @client.put(%Q{/orgs/#{@orgname}/teams/#{to_slug(@parentteam)}/memberships/#{username}})
+        rescue Octokit::UnprocessableEntity
+          next
         end
       end
     else
@@ -226,14 +218,12 @@ end
         childteam_id = childteam['id']
         @childteams[team].each do |member|
           # Try no check invitations before create one.
-          if !@client.team_invitations(childteam_id).any? {|invitations| invitations.email == member}
-            # send invitation
-            begin
-              @client.post(%Q{/orgs/#{@orgname}/invitations}, {org: @orgname, email: member, role: 'direct_member', team_ids: [childteam_id]})
-            rescue Octokit::UnprocessableEntity
-              # member is already a part of org
-              next
-            end
+          # send invitation
+          begin
+            @client.put(%Q{/orgs/#{@orgname}/teams/#{childteam.slug}/memberships/#{member}})
+          rescue Octokit::UnprocessableEntity
+            # member is already a part of org
+            next
           end
         end
       end
@@ -251,20 +241,7 @@ end
       print_error "Please make sure the invite command runs first, or students team is created."
     end
 
-    email_to_username_map = {}
-
-    @client.team_members(parentteam_id).each do |mem|
-      team_mem = @client.user
-      puts team_mem.login
-    end
-
-    @client.team_members(parentteam_id).each do |mem|
-      email_to_username_map[mem.email] = mem.login
-    end
-
-    puts email_to_username_map
-
-    failed_emails = []
+    failed_username = []
 
     # create child teams and add students to their child teams
     @childteams.each_key do |team|
@@ -275,20 +252,20 @@ end
         childteam = @client.create_team(@orgname, {name: %Q{#{@semester}-#{team}}, parent_team_id: parentteam_id})
       end
       childteam_id = childteam['id']
-      @childteams[team].each do |email|
-        if email_to_username_map.has_key? email
-          @client.add_team_member(childteam_id, email_to_username_map[email])
-        else
-          # save the incorrect email
-          failed_emails << email
+      @childteams[team].each do |username|
+        begin
+          @client.add_team_member(childteam_id, username)
+        rescue Octokit::UnprocessableEntity
+          # save the incorrect username
+          failed_username << username
         end
       end
     end
 
     # print the emails that is failed to add to child team
-    if !failed_emails.empty?
-      puts 'Failed to add these emails to child team:'
-      puts failed_emails
+    if !failed_username.empty?
+      puts 'Failed to add these usernames to child team:'
+      puts failed_username
     end
   end
 

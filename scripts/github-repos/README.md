@@ -15,7 +15,7 @@ If PREFIX is provided, it will assume the csv file contains "Team" column, and c
 the STUDENTTEAM, and invites them to child teams.
 
 Required options:
-    -c, --csv=CSVFILE                CSV file containing at leaset "Email" named columns
+    -c, --csv=CSVFILE                CSV file containing at leaset "Username" named columns
     -s, --studentteam=STUDENTTEAM    The team name of all the students team
     -o, --orgname=ORGNAME            The name of the org
 
@@ -26,7 +26,7 @@ Optional options:
 Assuming students are in STUDENTTEAM, create child teams for students for CHIP 10.5 and add them to the child team.
 
 Required options:
-    -c, --csv=CSVFILE                CSV file containing at least "Team" and "Email" named columns
+    -c, --csv=CSVFILE                CSV file containing at least "Team" and "Username" named columns
     -s, --studentteam=STUDENTTEAM    The team name of all the students team
     -p, --prefix=PREFIX              Semester prefix, eg fa23.
     -o, --orgname=ORGNAME            The name of the org
@@ -90,7 +90,7 @@ Required options:
 
 This script creates a team that include all stundents in the same semester, eg fa23. 
 Then creates different child teams for them for the chip10.5. At a minimum, 
-you need a CSV file listing all enrolled students with columns 'Email' and 'Team'.  
+you need a CSV file listing all enrolled students with columns 'Username' and 'Team'.  
 The values in the Team columns should be nonnegative integers identifying teams.
 
 Org setting: Assume Base permissions is no permission, each students can only access their team repos.
