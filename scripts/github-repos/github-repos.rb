@@ -262,7 +262,7 @@ end
       end
     end
 
-    # print the emails that is failed to add to child team
+    # print the usernames that is failed to add to child team
     if !failed_username.empty?
       puts 'Failed to add these usernames to child team:'
       puts failed_username
@@ -405,7 +405,7 @@ end
         rescue Octokit::NotFound
           next
         end
-        @client.remove_team_repository(childteam_id, repo)
+        @client.remove_team_repository(childteam_id, repo.full_name)
       end
     end
   end
