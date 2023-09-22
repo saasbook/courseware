@@ -1,141 +1,136 @@
 # Bulk creation/deletion of many repos and student teams
 
 ```
-Usage: ./github-repos.rb [required options] [invite|create_teams|indiv_repos|team_repos|remove_indivi_repos|remove_team_repos|remove_teams|remove_team_repo_access] [optional options]
+Usage: ./github-repos.rb [required options] [invite|create_teams|indiv_repos|group_repos|remove_indiv_repos|remove_group_repos|remove_teams|remove_group_repos_access] [optional options]
 
 GITHUB_ORG_API_KEY for the org must be set as an environment variable.
 
 It's safe to run multiple times.
 
 'invite':
-Create a team called STUDENTTEAM under the org that has all students in the same semester and send invitation
-If STUDENTTEAM is already exist, the script will resent invitation to students. 
-(Temporary for special situations in Fa23)
-If PREFIX is provided, it will assume the csv file contains "Team" column, and create child teams under 
-the STUDENTTEAM, and invites them to child teams.
+Create a team called STUDENTTEAM under the org and send invitations to students to the team.
+If STUDENTTEAM already exists, the script will resend invitation to students.
+
+If PREFIX is provided, it will assume the csv file contains "Group" column, and create groups(child teams) under 
+the STUDENTTEAM, and invites them to groups. (Temporary for special situations in Fa23)
 
 Required options:
-    -c, --csv=CSVFILE                CSV file containing at leaset "Username" named columns
-    -s, --studentteam=STUDENTTEAM    The team name of all the students team
+    -c, --csv=CSVFILE                CSV file containing at least "Username" named columns
+    -s, --studentteam=STUDENTTEAM    The team name for students' team
     -o, --orgname=ORGNAME            The name of the org
 
 Optional options:
-    -p, --prefix=PREFIX              Semester prefix, eg fa23.
+    -p, --prefix=PREFIX              Semester prefix, eg fa23. If prefix is not provided, it will not create groups.
 
-'create_teams' (Not functioning)
-Assuming students are in STUDENTTEAM, create child teams for students for CHIP 10.5 and add them to the child team.
+'create_groups'
+Assuming students are in STUDENTTEAM, create groups for students for CHIP 10.5 and add them to corresponding groups.
 
 Required options:
-    -c, --csv=CSVFILE                CSV file containing at least "Team" and "Username" named columns
-    -s, --studentteam=STUDENTTEAM    The team name of all the students team
+    -c, --csv=CSVFILE                CSV file containing at least "Group" and "Username" named columns
+    -s, --studentteam=STUDENTTEAM    The team name for students' team
     -p, --prefix=PREFIX              Semester prefix, eg fa23.
     -o, --orgname=ORGNAME            The name of the org
 
 'indiv_repos'
-Create CHIPS repo for each stedent in STUDENTTEAM. Repos' names are form like "PREFIX-[username]-FILENAME"
+Create CHIPS repos for each student in STUDENTTEAM. Repos' names are form like "[PREFIX]-[username]-[ASSIGNMENT]"
+[username] stands for the GitHub username.
 
 Required options:
     -o, --orgname=ORGNAME            The name of the org
-    -s, --studentteam=STUDENTTEAM    The team name of all the students team
+    -s, --studentteam=STUDENTTEAM    The team name for students' team
     -p, --prefix=PREFIX              Semester prefix, eg fa23.
     -t, --template=TEMPLATE          The repo name within the org to use as template
-    -g, --gsiteam=GSITEAM            The team name of all the staff team
-    -f, --filename=FILENAME          The base filename for repos
+    -g, --gsiteam=GSITEAM            The team name of staff team
+    -a, --assignment=ASSIGNMENT      The assignment name
 
-'team_repos'
-Create 10.5 repos for each child team. Repos' names are form like "PREFIX-FILENAME-[Team number]"
-Make sure child teams are formed before running this command.
+'group_repos'
+Create repos for each group. Repos' names are form like "[PREFIX]-[ASSIGNMENT]-[GROUPNUM]"
+Make sure groups are formed before running this command.
 
 Required options:
     -o, --orgname=ORGNAME            The name of the org
     -p, --prefix=PREFIX              Semester prefix, eg fa23.
     -t, --template=TEMPLATE          The repo name within the org to use as template
-    -f, --filename=FILENAME          The base filename for repos.
-    -s, --studentteam=STUDENTTEAM    The team name of all the students team
-    -g, --gsiteam=GSITEAM            The team name of all the staff team
+    -a, --assignment=ASSIGNMENT      The assignment name. eg chip-10.5
+    -s, --studentteam=STUDENTTEAM    The team name for students' team
+    -g, --gsiteam=GSITEAM            The team name of staff team
 
 'remove_indiv_repos'
-Delete all repos whose names are formed like "PREFIX-[username]-FILENAME".
+Delete all repos whose names are formed like "[PREFIX]-[username]-[ASSIGNMENT]".
 
 Required options:
     -o, --orgname=ORGNAME            The name of the org
     -p, --prefix=PREFIX              Semester prefix, eg fa23.
-    -f, --filename=FILENAME          The base filename for repos.
+    -a, --assignment=ASSIGNMENT      The assignment name. eg chip-10.5
 
-'remove_team_repos'
-Delete all repos whose names are formed like "PREFIX-FILENAME-[Team number]".
+'remove_group_repos'
+Delete all repos whose names are formed like "[PREFIX]-[ASSIGNMENT]-[GROUPNUM]".
 
 Required options:
     -o, --orgname=ORGNAME            The name of the org
     -p, --prefix=PREFIX              Semester prefix, eg fa23.
-    -f, --filename=FILENAME          The base filename for repos.
+    -a, --assignment=ASSIGNMENT      The assignment name. eg chip-10.5
 
 'remove_teams'
-Remove all students and child teams in STUDENTTEAM from the org.
+Remove all students and groups in STUDENTTEAM from the org.
 Remove STUDENTTEAM as well.
 
 Required options:
     -o, --orgname=ORGNAME            The name of the org
     -p, --prefix=PREFIX              Semester prefix, eg fa23.
-    -s, --studentteam=STUDENTTEAM    The team name of all the students team
+    -s, --studentteam=STUDENTTEAM    The team name for students' team
 
-'remove_team_repo_access'
-Remove students access to CHIP 10.5 repos that are formed like "PREFIX-FILENAME-[Team number]".
+'remove_group_repos_access'
+Remove group access to group repos that are formed like "[PREFIX]-[ASSIGNMENT]-[GROUPNUM]".
 
 Required options:
     -o, --orgname=ORGNAME            The name of the org
     -p, --prefix=PREFIX              Semester prefix, eg fa23.
-    -f, --filename=FILENAME          The base filename for repos.
+    -a, --assignment=ASSIGNMENT      The assignment name. eg chip-10.5 
 ```
 
-This script creates a team that include all stundents in the same semester, eg fa23. 
-Then creates different child teams for them for the chip10.5. At a minimum, 
-you need a CSV file listing all enrolled students with columns 'Username' and 'Team'.  
-The values in the Team columns should be nonnegative integers identifying teams.
+This script offer commands to manage student teams and groups, repositories.
 
 Org setting: Assume Base permissions is no permission, each students can only access their team repos.
 
 **Assumption:** You have a GITHUB ORG API key.
 
-### Create a team under the org that has all students in the same semester and send invitation
+### Create a student team under the org and send invitations to students
 
-**Use case:** Create a team called STUDENTTEAM, and send invitations 
-to the students in csv file. If STUDENTTEAM exists, delete STUDENTTEAM and 
-create a new one. (Team repos still exist)
-For all students NOT in STUDENTTEAM, add/invite into STUDENTTEAM.
-Team column is not needed for this.
+**Use case:** Create a team called STUDENTTEAM if it don't exist, and send invitations 
+to the students in csv file. For students NOT in STUDENTTEAM, invite them to STUDENTTEAM.
 
-### Create child teams for students for CHIP 10.5
+### Create groups for students for CHIP 10.5
 
-**Use case:** Create child teams for students for CHIP 10.5. 
+**Use case:** Create groups for students for CHIP 10.5. 
 
 ### Create CHIPS repo for each stedent
 
 **Use case:** Create CHIP repos for each student in STUDENTTEAM.
-The repos' names are formed like  "fa23-[username]-FILENAME". There will 
-be only one collabrator. Add all repos to the gsiteam with admin permission.
+The repos' names are formed like  "[PREFIX]-[username]-[ASSIGNMENT]". There will 
+be only one collabrator. Give GSITEAM admin access to the created repos.
 
-### Create 10.5 repos for each child team 
+### Create 10.5 repos for each group
 
-**Use case:** Each team (as identified by Team column in CSV file)
-gets a repo for chip 10.5.  Repos' names are formed like "PREFIX-FILENAME-TEAMNUM"
-Every one in the child team has write access to the repo.
-Add all repos to the gsiteam with admin permission.
+**Use case:** Each group (as identified by "Group" column in CSV file)
+gets a repo for chip 10.5.  Repos' names are formed like "[PREFIX]-[ASSIGNMENT]-[TEAMNUM]"
+Every one in the same group has write access to the repo.
+Give GSITEAM admin access to the created repos.
 
 ### Remove the CHIPS repos
 
-**Use case:** Delete all repos whose names are formed like "PREFIX-[username]-FILENAME".
+**Use case:** Delete all repos whose names are formed like "[PREFIX]-[username]-[ASSIGNMENT]".
 
 ### Remove CHIP 10.5 repos
 
-**Use case:** Delete all repos whose names are formed like "PREFIX-FILENAME-[Team number]".
+**Use case:** Delete all repos whose names are formed like "[PREFIX]-[ASSIGNMENT]-[GROUPNUM]".
 
 ### Remove all team members from students teams, then delete all teams
 
-**Use case:** Remove all students and subteams in STUDENTTEAM from the org.
+**Use case:** Remove all students and groups in STUDENTTEAM from the org.
 
 ### Remove student access to all the chip 10.5 repos 
 
-**Use case:** Only remove the access of students teams, repos still can be accessed by
+**Use case:** Only remove the access of students groups, repos can still be accessed by
 gsi team.
 

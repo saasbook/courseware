@@ -10,45 +10,46 @@ def main()
   puts "Script start."
   org = OrgManager.new
   $opts = OptionParser.new do |opt|
-    opt.banner = "Usage: #{__FILE__} [required options] [invite|create_teams|indiv_repos|team_repos|
-    remove_indiv_repos|remove_team_repos|remove_teams|remove_team_repo_access] [optional options]
+    opt.banner = "Usage: #{__FILE__} [required options] [invite|create_teams|indiv_repos|group_repos|
+    remove_indiv_repos|remove_group_repos|remove_teams|remove_group_repos_access] [optional options]
     GITHUB_ORG_API_KEY for the org must be set as an environment variable."
 
     opt.separator ""
     opt.separator "Commands:"
-    opt.separator "    invite: Create a team called STUDENTTEAM under the org..."
-    opt.separator "            If STUDENTTEAM is already exist, the script will resent invitation to students."
-    opt.separator "            (Temporary for special situations in Fa23)"
-    opt.separator "            If PREFIX is provided, it will assume the csv file contains \"Team\" column, and create child teams under the STUDENTTEAM, and invites them to child teams.\n"
-    opt.separator "    create_teams: Assuming students are in STUDENTTEAM, create child teams for students for CHIP 10.5 and add them to the child team. \n"
-    opt.separator "    indiv_repos: Create CHIPS repo for each stedent in STUDENTTEAM. Repos' names are form like \"PREFIX-[username]-FILENAME\"\n"
-    opt.separator "    team_repos: Create 10.5 repos for each child team. Repos' names are form like \"PREFIX-FILENAME-[Team number]\""
-    opt.separator "                Make sure child teams are formed before running this command.\n"
-    opt.separator "    remove_indiv_repos: Delete all repos whose names are formed like \"PREFIX-[username]-FILENAME\".\n"
-    opt.separator "    remove_team_repos: Delete all repos whose names are formed like \"PREFIX-FILENAME-[Team number]\".\n"
-    opt.separator "    remove_teams: Remove all students and child teams in STUDENTTEAM from the org. Remove STUDENTTEAM as well.\n"
-    opt.separator "    remove_team_repo_access: Remove students access to CHIP 10.5 repos that are formed like \"PREFIX-FILENAME-[Team number]\".\n"
+    opt.separator "    invite: Create a team called STUDENTTEAM under the org and send invitations to students to the team.
+            If STUDENTTEAM already exists, the script will resend invitation to students.
+            If PREFIX is provided, it will assume the csv file contains \"Group\" column, 
+            and create groups (child teams) under the STUDENTTEAM, and invites them to groups.(Temporary for special situations in Fa23)\n"
+    opt.separator "    create_groups: Assuming students are in STUDENTTEAM, create groups for students for CHIP 10.5 and add them to corresponding groups.\n"
+    opt.separator "    indiv_repos: Create CHIPS repo for each stedent in STUDENTTEAM. Repos' names are form like \"[PREFIX]-[username]-[ASSIGNMENT]\"
+                [username] stands for the GitHub username.\n"
+    opt.separator "    group_repos: Create 10.5 repos for each child team. Repos' names are form like \"[PREFIX]-[ASSIGNMENT]-[GROUPNUM]\"
+                Make sure groups are formed before running this command.\n"
+    opt.separator "    remove_indiv_repos: Delete all repos whose names are formed like \"[PREFIX]-[username]-[ASSIGNMENT]\".\n"
+    opt.separator "    remove_group_repos: Delete all repos whose names are formed like \"[PREFIX]-[ASSIGNMENT]-[GROUPNUM]\".\n"
+    opt.separator "    remove_teams: Remove all students and groups in STUDENTTEAM from the org. Remove STUDENTTEAM as well.\n"
+    opt.separator "    remove_group_repos_access: Remove students access to CHIP 10.5 repos that are formed like \"[PREFIX]-[ASSIGNMENT]-[GROUPNUM]\".\n"
     opt.separator "Options:"
 
-    opt.on('-cCSVFILE', '--csv=CSVFILE', 'CSV file containing at leaset "Username" named columns') do |csv|
+    opt.on('-cCSVFILE', '--csv=CSVFILE', 'CSV file containing at least "Username" named columns') do |csv|
       org.csv = csv
     end
     opt.on('-oORGNAME', '--orgname=ORGNAME', 'The name of the org') do |orgname|
       org.orgname = orgname
     end
-    opt.on('-sSTUDENTTEAM', '--studentteam=STUDENTTEAM', 'The team name of all the students team') do |studentteam|
+    opt.on('-sSTUDENTTEAM', '--studentteam=STUDENTTEAM', 'The team name for students\' team') do |studentteam|
       org.parentteam = studentteam
     end
     opt.on('-pPREFIX', '--prefix=PREFIX', 'Semester prefix, eg fa23.') do |pfx|
       org.semester = pfx
     end
-    opt.on('-fFILENAME', '--filename=FILENAME', 'The base filename for repos') do |filename|
-      org.base_filename = filename
+    opt.on('-aASSIGNMENT', '--assignment=ASSIGNMENT', 'The assignment name. eg chip-10.5') do |filename|
+      org.assignment = assignment
     end
     opt.on('-tTEMPLATE', '--template=TEMPLATE', 'The repo name within the org to use as template') do |template|
       org.template = template
     end
-    opt.on('-gGSITEAM', '--gsiteam=GSITEAM', 'The team name of all the staff team') do |gsiteam|
+    opt.on('-gGSITEAM', '--gsiteam=GSITEAM', 'The team name of staff team') do |gsiteam|
       org.gsiteam = gsiteam
     end
   end
@@ -58,11 +59,11 @@ def main()
   when 'invite' then org.invite
   when 'create_teams' then org.create_teams
   when 'indiv_repos' then org.indiv_repos
-  when 'team_repos' then org.team_repos
+  when 'group_repos' then org.group_repos
   when 'remove_indiv_repos' then org.remove_indiv_repos
-  when 'remove_team_repos' then org.remove_team_repos
+  when 'remove_group_repos' then org.remove_group_repos
   when 'remove_teams' then org.remove_teams
-  when 'remove_team_repo_access' then org.remove_team_repo_access
+  when 'remove_group_repos_access' then org.remove_group_repos_access
   else org.print_error
   end
   puts "Run successfully."
@@ -70,11 +71,11 @@ def main()
 end
 
 class OrgManager
-  attr_accessor :orgname, :base_filename, :semester, :template, :parentteam, :gsiteam, :csv, :users
+  attr_accessor :orgname, :assignment, :semester, :template, :parentteam, :gsiteam, :csv, :users
 
   def initialize
     @orgname = nil
-    @base_filename = nil
+    @assignment = nil
     @semester = nil
     @template = nil
     @csv = nil
@@ -146,11 +147,11 @@ end
   end
 
   def repos_valid?
-    !(@orgname.nil? || @parentteam.nil? || @semester.nil? || @template.nil? || !gsiteam_valid? || @base_filename.nil?)
+    !(@orgname.nil? || @parentteam.nil? || @semester.nil? || @template.nil? || !gsiteam_valid? || @assignment.nil?)
   end
 
   def remove_valid?
-    !(@orgname.nil? || @semester.nil? || @base_filename.nil?)
+    !(@orgname.nil? || @semester.nil? || @assignment.nil?)
   end
   
   def remove_teams_valid?
@@ -283,7 +284,7 @@ end
     self_user_name = @client.user.login
     @client.team_members(parentteam_id).each do |mem|
       if self_user_name != mem.login
-        new_repo_name = %Q{#{@semester}-#{mem.login}-#{@base_filename}}
+        new_repo_name = %Q{#{@semester}-#{mem.login}-#{@assignment}}
         if !@client.repository? %Q{#{@orgname}/#{new_repo_name}}
           begin
             new_repo = @client.create_repository_from_template(%Q{#{@orgname}/#{@template}}, new_repo_name, 
@@ -302,7 +303,7 @@ end
     @client.child_teams(parentteam_id).each do |childteam|
       @client.team_members(childteam.id).each do |mem|
         if !mem.login.nil? && self_user_name != mem.login
-          new_repo_name = %Q{#{@semester}-#{mem.login}-#{@base_filename}}
+          new_repo_name = %Q{#{@semester}-#{mem.login}-#{@assignment}}
           if !@client.repository? %Q{#{@orgname}/#{new_repo_name}}
             begin
               new_repo = @client.create_repository_from_template(%Q{#{@orgname}/#{@template}}, new_repo_name, 
@@ -318,14 +319,14 @@ end
     end
   end
 
-  def team_repos
+  def group_repos
     print_error "orgname, student team name, base filename, template repo name, semester prefix, and gsi team name needed." unless repos_valid?
 
     child_teams = @client.child_teams(@client.team_by_name(@orgname, to_slug(@parentteam)).id)
     gsiteam_id = @client.team_by_name(@orgname, to_slug(@gsiteam))['id']
     child_teams.each do |team|
       team_num = team.slug.match(/-(\d+)$/)[1]
-      new_repo_name = %Q{#{@semester}-#{@base_filename}-#{team_num}}
+      new_repo_name = %Q{#{@semester}-#{@assignment}-#{team_num}}
       if !@client.repository? %Q{#{@orgname}/#{new_repo_name}}
         begin
           new_repo = @client.create_repository_from_template(%Q{#{@orgname}/#{@template}}, new_repo_name, 
@@ -345,18 +346,18 @@ end
 
     repos = @client.org_repos(@orgname, {:type => 'private'})
     repos.each do |repo|
-      if repo.name =~ /^#{Regexp.escape(@semester)}-(.*)-#{Regexp.escape(@base_filename)}$/
+      if repo.name =~ /^#{Regexp.escape(@semester)}-(.*)-#{Regexp.escape(@assignment)}$/
         @client.delete_repository(repo.full_name)
       end
     end
   end
 
-  def remove_team_repos
+  def remove_group_repos
     print_error "org name, base filename, semester prefix are needed." unless remove_valid?
 
     repos = @client.org_repos(@orgname, {:type => 'private'})
     repos.each do |repo|
-      if repo.name =~ /^#{Regexp.escape(@semester)}-#{Regexp.escape(@base_filename)}-\d+$/
+      if repo.name =~ /^#{Regexp.escape(@semester)}-#{Regexp.escape(@assignment)}-\d+$/
         @client.delete_repository(repo.full_name)
       end
     end
@@ -392,12 +393,12 @@ end
     @client.delete_team parentteam_id
   end
 
-  def remove_team_repo_access
+  def remove_group_repos_access
     print_error "org name, base filename, semester prefix are needed." unless remove_valid?
 
     repos = @client.org_repos(@orgname, {:type => 'private'})
     repos.each do |repo|
-      match = repo.name.match(/^#{Regexp.escape(@semester)}-#{Regexp.escape(@base_filename)}-(\d+)$/)
+      match = repo.name.match(/^#{Regexp.escape(@semester)}-#{Regexp.escape(@assignment)}-(\d+)$/)
       if match
         team_num = match[1]
         begin
