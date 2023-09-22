@@ -4,7 +4,7 @@ require 'optparse'
 require 'octokit'
 require 'csv'
 
-ENV['GITHUB_ORG_API_KEY'] = "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"
+ENV['GITHUB_ORG_API_KEY'] = "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"
 
 def main()
   puts "Script start."
@@ -284,16 +284,16 @@ end
     @client.team_members(parentteam_id).each do |mem|
       if self_user_name != mem.login
         new_repo_name = %Q{#{@semester}-#{mem.login}-#{@assignment}}
-        if !@client.repository? %Q{#{@orgname}/#{new_repo_name}}
-          begin
-            new_repo = @client.create_repository_from_template(%Q{#{@orgname}/#{@template}}, new_repo_name, 
-              {owner: @orgname, private: true})
-          rescue Octokit::NotFound
-            print_error "Template not found."
-          end
-          @client.add_collab(new_repo['full_name'], mem.login)
-          @client.add_team_repository(gsiteam_id, new_repo['full_name'], {permission: 'admin'})
+        begin
+          new_repo = @client.create_repository_from_template(%Q{#{@orgname}/#{@template}}, new_repo_name, 
+            {owner: @orgname, private: true})
+        rescue Octokit::NotFound
+          print_error "Template not found."
+        rescue Octokit::UnprocessableEntity
+          new_repo = @client.repo(%Q{#{orgname}/#{new_repo_name}})
         end
+        @client.add_collab(new_repo['full_name'], mem.login)
+        @client.add_team_repository(gsiteam_id, new_repo['full_name'], {permission: 'admin'})
       end
     end
 
@@ -303,16 +303,18 @@ end
       @client.team_members(childteam.id).each do |mem|
         if !mem.login.nil? && self_user_name != mem.login
           new_repo_name = %Q{#{@semester}-#{mem.login}-#{@assignment}}
-          if !@client.repository? %Q{#{@orgname}/#{new_repo_name}}
-            begin
-              new_repo = @client.create_repository_from_template(%Q{#{@orgname}/#{@template}}, new_repo_name, 
-                {owner: @orgname, private: true})
-            rescue Octokit::NotFound
-              print_error "Template not found."
-            end
-            @client.add_collab(new_repo['full_name'], mem.login)
-            @client.add_team_repository(gsiteam_id, new_repo['full_name'], {permission: 'admin'})
+
+          begin
+            new_repo = @client.create_repository_from_template(%Q{#{@orgname}/#{@template}}, new_repo_name, 
+              {owner: @orgname, private: true})
+          rescue Octokit::NotFound
+            print_error "Template not found."
+          rescue Octokit::UnprocessableEntity
+            new_repo = @client.repo(%Q{#{orgname}/#{new_repo_name}})
           end
+          @client.add_collab(new_repo['full_name'], mem.login)
+          @client.add_team_repository(gsiteam_id, new_repo['full_name'], {permission: 'admin'})
+
         end
       end
     end
@@ -326,16 +328,16 @@ end
     child_teams.each do |team|
       team_num = team.slug.match(/-(\d+)$/)[1]
       new_repo_name = %Q{#{@semester}-#{@assignment}-#{team_num}}
-      if !@client.repository? %Q{#{@orgname}/#{new_repo_name}}
-        begin
-          new_repo = @client.create_repository_from_template(%Q{#{@orgname}/#{@template}}, new_repo_name, 
-            {owner: @orgname, private: true})
-        rescue Octokit::NotFound
-          print_error "Template not found."
-        end
-        @client.add_team_repository(team.id, new_repo['full_name'], {permission: 'push'})
-        @client.add_team_repository(gsiteam_id, new_repo['full_name'], {permission: 'admin'})
+      begin
+        new_repo = @client.create_repository_from_template(%Q{#{@orgname}/#{@template}}, new_repo_name, 
+          {owner: @orgname, private: true})
+      rescue Octokit::NotFound
+        print_error "Template not found."
+      rescue Octokit::UnprocessableEntity
+        new_repo = @client.repo(%Q{#{orgname}/#{new_repo_name}})
       end
+      @client.add_team_repository(team.id, new_repo['full_name'], {permission: 'push'})
+      @client.add_team_repository(gsiteam_id, new_repo['full_name'], {permission: 'admin'})
     end
 
   end
