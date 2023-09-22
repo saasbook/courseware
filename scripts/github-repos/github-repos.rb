@@ -3,8 +3,9 @@
 require 'optparse'
 require 'octokit'
 require 'csv'
+require 'tqdm'
 
-ENV['GITHUB_ORG_API_KEY'] = "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"
+ENV['GITHUB_ORG_API_KEY'] = "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"
 
 def main()
   puts "Script start."
@@ -190,7 +191,7 @@ end
         parentteam_id = @client.create_team(@orgname, {name: @parentteam, privacy: 'closed'})['id']
       end
 
-      @users.each do |username|
+      @users.tqdm.each do |username|
         begin 
           @client.put(%Q{/orgs/#{@orgname}/teams/#{to_slug(@parentteam)}/memberships/#{username}})
         rescue Octokit::UnprocessableEntity
@@ -208,8 +209,8 @@ end
       end
 
       # create groups and invite students to the groups
-      # this is for Fa23, will delete in the future. 
-      @childteams.each_key do |team|
+      # this is for Fa23, delete in the future. 
+      @childteams.tqdm.each_key do |team|
         childteam_name = %Q{#{@semester}-#{team}}
         begin
           childteam = @client.team_by_name(@orgname, to_slug(childteam_name))
@@ -217,7 +218,7 @@ end
           childteam = @client.create_team(@orgname, {name: %Q{#{@semester}-#{team}}, parent_team_id: parentteam_id})
         end
         childteam_id = childteam['id']
-        @childteams[team].each do |member|
+        @childteams[team].tqdm.each do |member|
           # Try no check invitations before create one.
           # send invitation
           begin
@@ -245,7 +246,7 @@ end
     failed_username = []
 
     # create groups and add students to their groups
-    @childteams.each_key do |team|
+    @childteams.tqdm.each_key do |team|
       childteam_name = %Q{#{@semester}-#{team}}
       begin
         childteam = @client.team_by_name(@orgname, to_slug(childteam_name))
@@ -253,7 +254,7 @@ end
         childteam = @client.create_team(@orgname, {name: %Q{#{@semester}-#{team}}, parent_team_id: parentteam_id})
       end
       childteam_id = childteam['id']
-      @childteams[team].each do |username|
+      @childteams[team].tqdm.each do |username|
         begin
           @client.add_team_member(childteam_id, username)
         rescue Octokit::UnprocessableEntity
@@ -282,7 +283,7 @@ end
 
     gsiteam_id =  @client.team_by_name(@orgname, to_slug(@gsiteam)).id
     self_user_name = @client.user.login
-    @client.team_members(parentteam_id).each do |mem|
+    @client.team_members(parentteam_id).tqdm.each do |mem|
       if self_user_name != mem.login
         new_repo_name = %Q{#{@semester}-#{mem.login}-#{@assignment}}
         begin
@@ -300,7 +301,7 @@ end
 
 
     # can remove the below loop because in the future, there should not be groups while we assigning the indiv repos. 
-    @client.child_teams(parentteam_id).each do |childteam|
+    @client.child_teams(parentteam_id).tqdm.each do |childteam|
       @client.team_members(childteam.id).each do |mem|
         if !mem.login.nil? && self_user_name != mem.login
           new_repo_name = %Q{#{@semester}-#{mem.login}-#{@assignment}}
@@ -326,7 +327,7 @@ end
 
     child_teams = @client.child_teams(@client.team_by_name(@orgname, to_slug(@parentteam)).id)
     gsiteam_id = @client.team_by_name(@orgname, to_slug(@gsiteam))['id']
-    child_teams.each do |team|
+    child_teams.tqdm.each do |team|
       group_num = team.slug.match(/-(\d+)$/)[1]
       new_repo_name = %Q{#{@semester}-#{@assignment}-#{group_num}}
       begin
@@ -347,7 +348,7 @@ end
     print_error "org name, assignment name, semester prefix are needed." unless remove_valid?
 
     repos = @client.org_repos(@orgname, {:type => 'private'})
-    repos.each do |repo|
+    repos.tqdm.each do |repo|
       if repo.name =~ /^#{Regexp.escape(@semester)}-(.*)-#{Regexp.escape(@assignment)}$/
         @client.delete_repository(repo.full_name)
       end
@@ -358,7 +359,7 @@ end
     print_error "org name, assignment name, semester prefix are needed." unless remove_valid?
 
     repos = @client.org_repos(@orgname, {:type => 'private'})
-    repos.each do |repo|
+    repos.tqdm.each do |repo|
       if repo.name =~ /^#{Regexp.escape(@semester)}-#{Regexp.escape(@assignment)}-\d+$/
         @client.delete_repository(repo.full_name)
       end
@@ -377,13 +378,13 @@ end
 
     # Remove all members in the students team from org
     self_user_name = @client.user.login
-    @client.team_members(parentteam_id).each do |mem|
+    @client.team_members(parentteam_id).tqdm.each do |mem|
       if !mem.login.nil? && mem.login != self_user_name
         @client.remove_organization_member(@orgname, mem.login)
       end 
     end
 
-    @client.child_teams(parentteam_id).each do |childteam|
+    @client.child_teams(parentteam_id).tqdm.each do |childteam|
       @client.team_members(childteam.id).each do |mem|
         if !mem.login.nil? && mem.login != self_user_name
           @client.remove_organization_member(@orgname, mem.login)
@@ -399,7 +400,7 @@ end
     print_error "org name, assignment name, semester prefix are needed." unless remove_valid?
 
     repos = @client.org_repos(@orgname, {:type => 'private'})
-    repos.each do |repo|
+    repos.tqdm.each do |repo|
       match = repo.name.match(/^#{Regexp.escape(@semester)}-#{Regexp.escape(@assignment)}-(\d+)$/)
       if match
         group_num = match[1]
