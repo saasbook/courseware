@@ -4,7 +4,7 @@ require 'optparse'
 require 'octokit'
 require 'csv'
 
-ENV['GITHUB_ORG_API_KEY'] = "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"
+ENV['GITHUB_ORG_API_KEY'] = "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"
 
 def main()
   puts "Script start."
@@ -73,6 +73,7 @@ class OrgManager
     @childteams = Hash.new { |hash, key| hash[key] = [] } # teamID => [email1, email2, ...]
     print_error("GITHUB_ORG_API_KEY not defined in environment") unless (@key = ENV['GITHUB_ORG_API_KEY'])
     @client = Octokit::Client.new(access_token: @key, scopes: ['user'])
+    @client.auto_paginate = true # auto pagination on
   end
 
   private
@@ -206,7 +207,7 @@ end
         parentteam_id = @client.create_team(@orgname, {name: @parentteam, privacy: 'closed'})['id']
       end
 
-      # create child teams and invite students to the child teams
+      # create groups and invite students to the groups
       # this is for Fa23, will delete in the future. 
       @childteams.each_key do |team|
         childteam_name = %Q{#{@semester}-#{team}}
@@ -243,7 +244,7 @@ end
 
     failed_username = []
 
-    # create child teams and add students to their child teams
+    # create groups and add students to their groups
     @childteams.each_key do |team|
       childteam_name = %Q{#{@semester}-#{team}}
       begin
@@ -262,15 +263,15 @@ end
       end
     end
 
-    # print the usernames that is failed to add to child team
+    # print the usernames that is failed to add to groups
     if !failed_username.empty?
-      puts 'Failed to add these usernames to child team:'
+      puts 'Failed to add these usernames to groups:'
       puts failed_username
     end
   end
 
   def indiv_repos
-    print_error "orgname, student team name, base filename, template repo name, semester prefix, and gsi team name needed." unless repos_valid?
+    print_error "orgname, student team name, assignment name, template repo name, semester prefix, and gsi team name needed." unless repos_valid?
     
     # Looking for the STUDENTTEAM in the org, see if it is exist.
     begin
@@ -290,7 +291,7 @@ end
         rescue Octokit::NotFound
           print_error "Template not found."
         rescue Octokit::UnprocessableEntity
-          new_repo = @client.repo(%Q{#{orgname}/#{new_repo_name}})
+          new_repo = @client.repo(%Q{#{@orgname}/#{new_repo_name}})
         end
         @client.add_collab(new_repo['full_name'], mem.login)
         @client.add_team_repository(gsiteam_id, new_repo['full_name'], {permission: 'admin'})
@@ -298,7 +299,7 @@ end
     end
 
 
-    # can remove the below loop because in the future, there should not be child teams while we assigning the indiv repos. 
+    # can remove the below loop because in the future, there should not be groups while we assigning the indiv repos. 
     @client.child_teams(parentteam_id).each do |childteam|
       @client.team_members(childteam.id).each do |mem|
         if !mem.login.nil? && self_user_name != mem.login
@@ -310,7 +311,7 @@ end
           rescue Octokit::NotFound
             print_error "Template not found."
           rescue Octokit::UnprocessableEntity
-            new_repo = @client.repo(%Q{#{orgname}/#{new_repo_name}})
+            new_repo = @client.repo(%Q{#{@orgname}/#{new_repo_name}})
           end
           @client.add_collab(new_repo['full_name'], mem.login)
           @client.add_team_repository(gsiteam_id, new_repo['full_name'], {permission: 'admin'})
@@ -321,20 +322,20 @@ end
   end
 
   def group_repos
-    print_error "orgname, student team name, base filename, template repo name, semester prefix, and gsi team name needed." unless repos_valid?
+    print_error "orgname, student team name, assignment name, template repo name, semester prefix, and gsi team name needed." unless repos_valid?
 
     child_teams = @client.child_teams(@client.team_by_name(@orgname, to_slug(@parentteam)).id)
     gsiteam_id = @client.team_by_name(@orgname, to_slug(@gsiteam))['id']
     child_teams.each do |team|
-      team_num = team.slug.match(/-(\d+)$/)[1]
-      new_repo_name = %Q{#{@semester}-#{@assignment}-#{team_num}}
+      group_num = team.slug.match(/-(\d+)$/)[1]
+      new_repo_name = %Q{#{@semester}-#{@assignment}-#{group_num}}
       begin
         new_repo = @client.create_repository_from_template(%Q{#{@orgname}/#{@template}}, new_repo_name, 
           {owner: @orgname, private: true})
       rescue Octokit::NotFound
         print_error "Template not found."
       rescue Octokit::UnprocessableEntity
-        new_repo = @client.repo(%Q{#{orgname}/#{new_repo_name}})
+        new_repo = @client.repo(%Q{#{@orgname}/#{new_repo_name}})
       end
       @client.add_team_repository(team.id, new_repo['full_name'], {permission: 'push'})
       @client.add_team_repository(gsiteam_id, new_repo['full_name'], {permission: 'admin'})
@@ -343,7 +344,7 @@ end
   end
 
   def remove_indiv_repos
-    print_error "org name, base filename, semester prefix are needed." unless remove_valid?
+    print_error "org name, assignment name, semester prefix are needed." unless remove_valid?
 
     repos = @client.org_repos(@orgname, {:type => 'private'})
     repos.each do |repo|
@@ -354,7 +355,7 @@ end
   end
 
   def remove_group_repos
-    print_error "org name, base filename, semester prefix are needed." unless remove_valid?
+    print_error "org name, assignment name, semester prefix are needed." unless remove_valid?
 
     repos = @client.org_repos(@orgname, {:type => 'private'})
     repos.each do |repo|
@@ -395,15 +396,15 @@ end
   end
 
   def remove_group_repos_access
-    print_error "org name, base filename, semester prefix are needed." unless remove_valid?
+    print_error "org name, assignment name, semester prefix are needed." unless remove_valid?
 
     repos = @client.org_repos(@orgname, {:type => 'private'})
     repos.each do |repo|
       match = repo.name.match(/^#{Regexp.escape(@semester)}-#{Regexp.escape(@assignment)}-(\d+)$/)
       if match
-        team_num = match[1]
+        group_num = match[1]
         begin
-          childteam_id = @client.team_by_name(@orgname, to_slug(%Q{#{@semester}-#{team_num}}))['id'] # eg slug fa23-1
+          childteam_id = @client.team_by_name(@orgname, to_slug(%Q{#{@semester}-#{group_num}}))['id'] # eg slug fa23-1
         rescue Octokit::NotFound
           next
         end
