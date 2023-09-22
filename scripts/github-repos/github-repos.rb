@@ -5,14 +5,14 @@ require 'octokit'
 require 'csv'
 require 'tqdm'
 
-ENV['GITHUB_ORG_API_KEY'] = "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"
+ENV['GITHUB_ORG_API_KEY'] = "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"
 
 def main()
   puts "Script start."
   org = OrgManager.new
   $opts = OptionParser.new do |opt|
-    opt.banner = "Usage: #{__FILE__} [required options] [invite|create_teams|indiv_repos|group_repos|
-    remove_indiv_repos|remove_group_repos|remove_teams|remove_group_repos_access] [optional options]
+    opt.banner = "Usage: #{__FILE__} [required options] [invite|create_groups|indiv_repos|group_repos|
+    remove_indiv_repos|remove_group_repos|remove_groups|remove_group_repos_access] [optional options]
     GITHUB_ORG_API_KEY for the org must be set as an environment variable."
 
     opt.separator ""
@@ -28,7 +28,7 @@ def main()
                 Make sure groups are formed before running this command.\n"
     opt.separator "    remove_indiv_repos: Delete all repos whose names are formed like \"[PREFIX]-[username]-[ASSIGNMENT]\".\n"
     opt.separator "    remove_group_repos: Delete all repos whose names are formed like \"[PREFIX]-[ASSIGNMENT]-[GROUPNUM]\".\n"
-    opt.separator "    remove_teams: Remove all students and groups in STUDENTTEAM from the org. Remove STUDENTTEAM as well.\n"
+    opt.separator "    remove_groups: Remove all students and groups in STUDENTTEAM from the org. Remove STUDENTTEAM as well.\n"
     opt.separator "    remove_group_repos_access: Remove students access to CHIP 10.5 repos that are formed like \"[PREFIX]-[ASSIGNMENT]-[GROUPNUM]\".\n"
     opt.separator "Options:"
 
@@ -130,7 +130,7 @@ end
     true
   end
 
-  def create_teams_valid?
+  def create_groups_valid?
     if @orgname.nil? || @orgname.empty? || @csv.nil? || @parentteam.nil? || @parentteam.empty? || @semester.nil?
       return false
     end
@@ -146,7 +146,7 @@ end
     !(@orgname.nil? || @semester.nil? || @assignment.nil?)
   end
   
-  def remove_teams_valid?
+  def remove_groups_valid?
     !(@orgname.nil? || @semester.nil? || @parentteam.nil?)
   end
 
@@ -193,8 +193,10 @@ end
       @users.tqdm.each do |username|
         begin 
           @client.put(%Q{/orgs/#{@orgname}/teams/#{to_slug(@parentteam)}/memberships/#{username}})
+        rescue Octokit::Forbidden
+          print_error "Can't invite or add students if team synchronization is set up"
         rescue Octokit::UnprocessableEntity
-          next
+          print_error "Incorrect GitHub username (An org name provided)"
         end
       end
     else
@@ -213,9 +215,10 @@ end
           # send invitation
           begin
             @client.put(%Q{/orgs/#{@orgname}/teams/#{childteam.slug}/memberships/#{member}})
+          rescue Octokit::Forbidden
+            print_error "Can't invite or add students if team synchronization is set up"
           rescue Octokit::UnprocessableEntity
-            # member is already a part of org
-            next
+            print_error "Incorrect GitHub username (An org name provided)"
           end
         end
       end
@@ -223,8 +226,8 @@ end
     end
   end
 
-  def create_teams
-    print_error "csv file, students team name, semester prefix, org name are needed." unless create_teams_valid?
+  def create_groups
+    print_error "csv file, students team name, semester prefix, org name are needed." unless create_groups_valid?
 
     # Looking for the STUDENTTEAM in the org, see if it is exist.
     begin
@@ -357,8 +360,8 @@ end
     end
   end
 
-  def remove_teams
-    print_error "org name, semester prefix, students team name are needed." unless remove_teams_valid?
+  def remove_groups
+    print_error "org name, semester prefix, students team name are needed." unless remove_groups_valid?
 
     # Looking for the STUDENTTEAM in the org, see if it is exist.
     begin

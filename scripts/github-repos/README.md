@@ -1,7 +1,7 @@
 # Bulk creation/deletion of many repos and student teams
 
 ```
-Usage: ./github-repos.rb [required options] [invite|create_teams|indiv_repos|group_repos|remove_indiv_repos|remove_group_repos|remove_teams|remove_group_repos_access] [optional options]
+Usage: ./github-repos.rb [required options] [invite|create_groups|indiv_repos|group_repos|remove_indiv_repos|remove_group_repos|remove_teams|remove_group_repos_access] [optional options]
 
 GITHUB_ORG_API_KEY for the org must be set as an environment variable.
 
