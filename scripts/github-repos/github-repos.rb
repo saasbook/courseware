@@ -20,7 +20,7 @@ def main()
     opt.separator "    invite: Create a team called STUDENTTEAM under the org and send invitations to students to the team.
             If STUDENTTEAM already exists, the script will resend invitation to students.
             If PREFIX is provided, it will assume the csv file contains \"Group\" column, 
-            and create groups (child teams) under the STUDENTTEAM, and invites them to groups.(Temporary for special situations in Fa23)\n"
+            and create groups (child teams) under the STUDENTTEAM, and invites them to groups.\n"
     opt.separator "    create_groups: Assuming students are in STUDENTTEAM, create groups for students for CHIP 10.5 and add them to corresponding groups.\n"
     opt.separator "    indiv_repos: Create CHIPS repo for each stedent in STUDENTTEAM. Repos' names are form like \"[PREFIX]-[username]-[ASSIGNMENT]\"
                 [username] stands for the GitHub username.\n"
@@ -181,15 +181,14 @@ end
 
   def invite
     print_error "csv file, organization name, student team name are needed." unless invite_valid?
+    # Looking for the STUDENTTEAM in the org, see if it is exist.
+    begin
+      parentteam_id = @client.team_by_name(@orgname, to_slug(@parentteam))['id']
+    rescue Octokit::NotFound
+      parentteam_id = @client.create_team(@orgname, {name: @parentteam, privacy: 'closed'})['id']
+    end
     if @semester.nil? 
       # Semester prefix is not provided
-
-      # Looking for the STUDENTTEAM in the org, see if it is exist.
-      begin
-        parentteam_id = @client.team_by_name(@orgname, to_slug(@parentteam))['id']
-      rescue Octokit::NotFound
-        parentteam_id = @client.create_team(@orgname, {name: @parentteam, privacy: 'closed'})['id']
-      end
 
       @users.tqdm.each do |username|
         begin 
@@ -200,16 +199,7 @@ end
       end
     else
       # Semester prefix is provied
-      
-      # Looking for the STUDENTTEAM in the org, see if it is exist.
-      begin
-        parentteam_id = @client.team_by_name(@orgname, to_slug(@parentteam))['id']
-      rescue Octokit::NotFound
-        parentteam_id = @client.create_team(@orgname, {name: @parentteam, privacy: 'closed'})['id']
-      end
-
       # create groups and invite students to the groups
-      # this is for Fa23, delete in the future. 
       @childteams.tqdm.each_key do |team|
         childteam_name = %Q{#{@semester}-#{team}}
         begin
@@ -283,6 +273,8 @@ end
 
     gsiteam_id =  @client.team_by_name(@orgname, to_slug(@gsiteam)).id
     self_user_name = @client.user.login
+
+    # create individual repos and give each student in the student team write access to the repos
     @client.team_members(parentteam_id).tqdm.each do |mem|
       if self_user_name != mem.login
         new_repo_name = %Q{#{@semester}-#{mem.login}-#{@assignment}}
@@ -299,13 +291,11 @@ end
       end
     end
 
-
-    # can remove the below loop because in the future, there should not be groups while we assigning the indiv repos. 
+    # create individual repos and give each student in each group write access to the repos
     @client.child_teams(parentteam_id).tqdm.each do |childteam|
       @client.team_members(childteam.id).each do |mem|
         if !mem.login.nil? && self_user_name != mem.login
           new_repo_name = %Q{#{@semester}-#{mem.login}-#{@assignment}}
-
           begin
             new_repo = @client.create_repository_from_template(%Q{#{@orgname}/#{@template}}, new_repo_name, 
               {owner: @orgname, private: true})
@@ -316,7 +306,6 @@ end
           end
           @client.add_collab(new_repo['full_name'], mem.login)
           @client.add_team_repository(gsiteam_id, new_repo['full_name'], {permission: 'admin'})
-
         end
       end
     end
@@ -327,6 +316,8 @@ end
 
     child_teams = @client.child_teams(@client.team_by_name(@orgname, to_slug(@parentteam)).id)
     gsiteam_id = @client.team_by_name(@orgname, to_slug(@gsiteam))['id']
+
+    # create tean repos and give each team a write access 
     child_teams.tqdm.each do |team|
       group_num = team.slug.match(/-(\d+)$/)[1]
       new_repo_name = %Q{#{@semester}-#{@assignment}-#{group_num}}
@@ -376,7 +367,7 @@ end
       print_error "Please make sure students team is created."
     end
 
-    # Remove all members in the students team from org
+    # Remove students in the students team from org
     self_user_name = @client.user.login
     @client.team_members(parentteam_id).tqdm.each do |mem|
       if !mem.login.nil? && mem.login != self_user_name
@@ -384,6 +375,7 @@ end
       end 
     end
 
+    # Remove students in each group
     @client.child_teams(parentteam_id).tqdm.each do |childteam|
       @client.team_members(childteam.id).each do |mem|
         if !mem.login.nil? && mem.login != self_user_name
@@ -392,7 +384,7 @@ end
       end
     end
 
-    # Remove students team, child team will be removed as well
+    # Remove students team, groups will be removed as well
     @client.delete_team parentteam_id
   end
 

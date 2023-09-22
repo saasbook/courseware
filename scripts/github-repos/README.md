@@ -12,7 +12,7 @@ Create a team called STUDENTTEAM under the org and send invitations to students 
 If STUDENTTEAM already exists, the script will resend invitation to students.
 
 If PREFIX is provided, it will assume the csv file contains "Group" column, and create groups(child teams) under 
-the STUDENTTEAM, and invites them to groups. (Temporary for special situations in Fa23)
+the STUDENTTEAM, and invites them to groups.
 
 Required options:
     -c, --csv=CSVFILE                CSV file containing at least "Username" named columns
