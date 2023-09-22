@@ -104,7 +104,7 @@ to the students in csv file. For students NOT in STUDENTTEAM, invite them to STU
 
 **Use case:** Create groups for students for CHIP 10.5. 
 
-### Create CHIPS repo for each stedent
+### Create CHIPS repo for each student
 
 **Use case:** Create CHIP repos for each student in STUDENTTEAM.
 The repos' names are formed like  "[PREFIX]-[username]-[ASSIGNMENT]". There will 

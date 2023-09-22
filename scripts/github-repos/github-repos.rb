@@ -4,7 +4,7 @@ require 'optparse'
 require 'octokit'
 require 'csv'
 
-ENV['GITHUB_ORG_API_KEY'] = ""
+ENV['GITHUB_ORG_API_KEY'] = "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"
 
 def main()
   puts "Script start."
@@ -43,7 +43,7 @@ def main()
     opt.on('-pPREFIX', '--prefix=PREFIX', 'Semester prefix, eg fa23.') do |pfx|
       org.semester = pfx
     end
-    opt.on('-aASSIGNMENT', '--assignment=ASSIGNMENT', 'The assignment name. eg chip-10.5') do |filename|
+    opt.on('-aASSIGNMENT', '--assignment=ASSIGNMENT', 'The assignment name. eg chip-10.5') do |assignment|
       org.assignment = assignment
     end
     opt.on('-tTEMPLATE', '--template=TEMPLATE', 'The repo name within the org to use as template') do |template|
@@ -55,17 +55,7 @@ def main()
   end
   $opts.parse!
   command = ARGV.pop
-  case command
-  when 'invite' then org.invite
-  when 'create_teams' then org.create_teams
-  when 'indiv_repos' then org.indiv_repos
-  when 'group_repos' then org.group_repos
-  when 'remove_indiv_repos' then org.remove_indiv_repos
-  when 'remove_group_repos' then org.remove_group_repos
-  when 'remove_teams' then org.remove_teams
-  when 'remove_group_repos_access' then org.remove_group_repos_access
-  else org.print_error
-  end
+  org.invoke_command command
   puts "Run successfully."
   puts "Script ends."
 end
@@ -97,14 +87,14 @@ class OrgManager
     end
   end
 
-  def read_teams_and_users_from csv
+  def read_groups_and_users_from csv
     data = CSV.parse(IO.read(csv), headers: true)
     hash = data.first.to_h
-    print_error "Need at least 'Team' (int) and 'Username' (str) columns in #{csv}" unless
-      hash.has_key?('Team') && hash.has_key?('Username')
+    print_error "Need at least 'Group' (int) and 'Username' (str) columns in #{csv}" unless
+      hash.has_key?('Group') && hash.has_key?('Username')
     data.each do |row|
       username = row['Username']
-      @childteams[row['Team']] << username
+      @childteams[row['Group']] << username
     end
   end
 
@@ -133,7 +123,7 @@ end
     if @semester.nil?
       read_users_from @csv
     else
-      read_teams_and_users_from @csv
+      read_groups_and_users_from @csv
     end
     true
   end
@@ -142,7 +132,7 @@ end
     if @orgname.nil? || @orgname.empty? || @csv.nil? || @parentteam.nil? || @parentteam.empty? || @semester.nil?
       return false
     end
-    read_teams_and_users_from @csv
+    read_groups_and_users_from @csv
     true
   end
 
@@ -171,6 +161,15 @@ end
   end
 
   public
+
+  def invoke_command command
+    command = command.to_sym
+    if respond_to? command
+      send(command)
+    else
+      print_error
+    end
+  end
 
   def print_error(msg=nil)
     STDERR.puts "Error: #{msg}" if msg
