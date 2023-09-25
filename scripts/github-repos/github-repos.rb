@@ -5,8 +5,6 @@ require 'octokit'
 require 'csv'
 require 'tqdm'
 
-ENV['GITHUB_ORG_API_KEY'] = "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"
-
 def main()
   puts "Script start."
   org = OrgManager.new
