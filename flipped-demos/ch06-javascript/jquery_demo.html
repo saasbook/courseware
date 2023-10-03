@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <title>jQuery Demo</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script language="javascript" type="text/javascript">
+      const hideTest = {
+        hidePara: function() {
+          if ( $(this).is(':checked') ) {
+            $('p#hideMe').slideDown('slow');
+          } else {
+            $('p#hideMe').slideUp('slow');
+          }
+        },
+        setup: function() {
+          $('#check').change(hideTest.hidePara);
+        }
+      };
+      $(hideTest.setup);
+    </script>
+  </head>
+  <body>
+    <input type="checkbox" id="check" checked="checked"/>
+    <label for="check" id="checkLabel">Show Details</label>
+    <p id="hideMe">I'm a paragraph of details.</p>
+  </body>
+</html>
