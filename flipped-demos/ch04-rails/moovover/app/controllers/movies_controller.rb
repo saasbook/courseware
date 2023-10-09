@@ -1,5 +1,5 @@
 class MoviesController < ApplicationController
-  before_action :set_movie, only: [:show, :edit, :update, :destroy]
+  #  before_action :set_movie, only: [:show, :edit, :update, :destroy]
 
   # GET /movies
   def index
@@ -8,6 +8,7 @@ class MoviesController < ApplicationController
 
   # GET /movies/1
   def show
+    @movie = Movie.find(params[:id])
   end
 
   # GET /movies/new
@@ -21,10 +22,10 @@ class MoviesController < ApplicationController
 
   # POST /movies
   def create
-    @movie = Movie.new(movie_params)
-
+    new_movie_params = movie_params()
+    @movie = Movie.new(new_movie_params)
     if @movie.save
-      redirect_to @movie, notice: 'Movie was successfully created.'
+      redirect_to movies_path, notice: 'Movie was successfully created.'
     else
       render :new
     end
@@ -53,6 +54,6 @@ class MoviesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def movie_params
-      params.require(:movie).permit(:title, :rating)
+      params.require(:movie).permit(:title,:rating)
     end
 end
