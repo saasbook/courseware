@@ -98,22 +98,22 @@ class OrgManager
     end
   end
 
-def to_slug(input)
-  # Convert to lowercase
-  slug = input.downcase
+  def to_slug(input)
+    # Convert to lowercase
+    slug = input.downcase
 
-  # Replace characters other than 0-9, a-z, '.', '_', and '-'
-  slug.gsub!(/[^0-9a-z.\-_]+/, '-')
+    # Replace characters other than 0-9, a-z, '.', '_', and '-'
+    slug.gsub!(/[^0-9a-z.\-_]+/, '-')
 
-  # Remove leading and trailing hyphens
-  slug.gsub!(/^-+/, '')
-  slug.gsub!(/-+$/, '')
+    # Remove leading and trailing hyphens
+    slug.gsub!(/^-+/, '')
+    slug.gsub!(/-+$/, '')
 
-  # Limit the string to 63 characters
-  slug = slug[0, 63]
+    # Limit the string to 63 characters
+    slug = slug[0, 63]
 
-  return slug
-end
+    return slug
+  end
 
   def invite_valid?
     if @orgname.nil? || @orgname.empty? || @csv.nil? || @parentteam.nil? || @parentteam.empty?
