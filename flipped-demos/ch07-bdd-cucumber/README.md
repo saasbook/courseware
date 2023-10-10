@@ -1,6 +1,6 @@
 # Simple BDD feature from scratch (`students` directory)
 
-The `students` directory contains a trivial app that maintains a list of
+The `cucumber-demo` directory contains a trivial app that maintains a list of
 students, eg in a course.
 
 The livecoding demo is to stand up this app, and create a feature that
@@ -9,11 +9,11 @@ verifies that the students are listed in alphabetical order.
 We can show two different ways to do this.  The simple way is to look at
 the text of the page and use a regex to match two names such that one is
 before the other.  The more sophisticated way, which might be needed to
-do more complex tests, is to use XPath.
+do more complex tests, is to use CSS selectors and verify their ordering.
 
-* On a scratch branch, use `rails new` to create the app, or use the
-canned version on master branch.  Immediately do `git init` to set it up
-as a repo: this is a best practice!
+* On a scratch branch, use `rails new cucumber-demo --minimal` to create the app, or use the
+canned version on master branch.  
+
 * Make sure the Gemfile includes these
 lines in the test group:
 ```
@@ -24,10 +24,7 @@ group :test do
   gem 'database_cleaner'
 end
 ```
-And in the main group:
-```
-  gem 'haml'
-```
+
 * Run `bundle install --without production`, then `rails generate
 cucumber:install` to generate Cucumber dirs
 * Create (or use existing) migration to add a `students` table:
@@ -52,30 +49,56 @@ Feature: display students in alpha order
 Scenario: list students in alpha order
 
   Given student "Armando Fox" exists
-  And student "Dorthy Luu" exists
+  And student "Tyler Lam" exists
   When I visit the list of all students
-  Then "Armando Fox" should appear before "Dorthy Luu"
+  Then "Armando Fox" should appear before "Tyler Lam"
 ```
+
 * Run the feature--the steps are all undefined. Let's add them.
+
 ```ruby
 Given /^student "(.*) (.*)" exists$/ do |first,last|
   Student.create!(:first_name => first, :last_name => last)
 end
 ```
+
 This fails because there is no `Student` class, so we need to add that
 in `app/models/student.rb`
+
 * Run again; "I visit the list of students" needs implementing. This
 requires adding a route, a controller action, and a view for
 `StudentsController#index`.  These are available in master branch.
+
 * Finally, checking if one student name appears before the other.  A
 simple step def that can do this is:
+
 ```
 Then /^"(.*) (.*)" should appear before "(.*) (.*)"$/ do |first1,last1, first2,last2|
   regex = /#{last1}.*#{first1}.*#{last2}.*#{first2}/
   expect(page.text).to match(regex)
 end
 ```
+
 * However, as implemented, the step will fail, since the students will
 be retrieved in the order created.  You can fix by adding
 `.order(:last_name)` to the query in the controller method, or (not so
 good) by sorting the list in Ruby.
+
+## Part 2 (optional) - more advanced page searching
+
+* But what if the app's footer has this (uncomment this line in `application.html.erb`):
+
+`<div class="footer">App by Tyler Lam</div>`
+
+Now it's possible to get a false pass if we remove the `.order()` call
+from the controller!  The lesson is you have to be precise about what
+you are looking for.  One solution would be to scope the regex match
+to the table.  A reliable way to do this is give the table an ID (we
+already do this in `index.html.erb`) and then scope it to the table,
+by changing the step def's body to this:
+
+```ruby
+  regex = /#{last1}.*#{first1}.*#{last2}.*#{first2}/
+  table = page.find('table#students-table')
+  expect(table.text).to match(regex)
+```

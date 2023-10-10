@@ -123,6 +123,8 @@ GEM
       activesupport (>= 6.1)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
+    launchy (2.5.2)
+      addressable (~> 2.8)
     listen (3.8.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -246,6 +248,7 @@ DEPENDENCIES
   cucumber-rails
   cucumber-rails-training-wheels
   database_cleaner
+  launchy
   listen (~> 3.3)
   puma (~> 5.0)
   rails (~> 6.1.7, >= 6.1.7.6)

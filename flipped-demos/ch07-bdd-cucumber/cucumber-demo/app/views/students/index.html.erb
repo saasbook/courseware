@@ -1,10 +1,10 @@
 <h1>All Students</h1>
-<table>
+<table id="students-table">
   <thead>
     <tr>
       <th>ID num</th>
-      <th>Last</th>
       <th>First</th>
+      <th>Last</th>
     </tr>
   </thead>
   <tbody>
@@ -14,10 +14,10 @@
           <%= student.sid_number %>
         </td>
         <td>
-          <%= student.last_name %>
+          <%= student.first_name %>
         </td>
         <td>
-          <%= student.first_name %>
+          <%= student.last_name %>
         </td>
       </tr>
     <% end %>
