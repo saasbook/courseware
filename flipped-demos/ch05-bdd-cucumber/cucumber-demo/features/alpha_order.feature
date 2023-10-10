@@ -6,8 +6,8 @@ Feature: display students in alpha order
 
 Scenario: list students in alpha order
 
-  Given student "Dorthy Luu" exists
+  Given student "Tyler Lam" exists
   And   student "Armando Fox" exists
   When  I visit the list of all students
-  Then  "Armando Fox" should appear before "Dorthy Luu"
+  Then  "Armando Fox" should appear before "Tyler Lam"
 
