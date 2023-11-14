@@ -345,7 +345,7 @@ class OrgManager
   def remove_indiv_repos
     print_error "org name, assignment name, semester prefix are needed." unless remove_valid?
 
-    repos = @client.org_repos(@orgname, {:type => 'private'})
+    repos = @client.org_repos(@orgname)
     repos.tqdm.each do |repo|
       if repo.name =~ /^#{Regexp.escape(@semester)}-(.*)-#{Regexp.escape(@assignment)}$/
         @client.delete_repository(repo.full_name)
@@ -356,7 +356,7 @@ class OrgManager
   def remove_group_repos
     print_error "org name, assignment name, semester prefix are needed." unless remove_valid?
 
-    repos = @client.org_repos(@orgname, {:type => 'private'})
+    repos = @client.org_repos(@orgname)
     repos.tqdm.each do |repo|
       if repo.name =~ /^#{Regexp.escape(@semester)}-#{Regexp.escape(@assignment)}-\d+$/
         @client.delete_repository(repo.full_name)
@@ -398,7 +398,7 @@ class OrgManager
   def remove_group_repos_access
     print_error "org name, assignment name, semester prefix are needed." unless remove_valid?
 
-    repos = @client.org_repos(@orgname, {:type => 'private'})
+    repos = @client.org_repos(@orgname)
     repos.tqdm.each do |repo|
       match = repo.name.match(/^#{Regexp.escape(@semester)}-#{Regexp.escape(@assignment)}-(\d+)$/)
       if match
