@@ -51,10 +51,10 @@ def main()
     opt.on('-gGSITEAM', '--gsiteam=GSITEAM', 'The team name of staff team') do |gsiteam|
       org.gsiteam = gsiteam
     end
-    opt.on('-perm', '--permission=PERMISSION', 'The permission of the created repos, can be \'pull\', \'push\', or \'admin\'. Default: \'push\'') do |permission|
+    opt.on('-ePERMISSION', '--permission=PERMISSION', 'The permission of the created repos, can be \'pull\', \'push\', or \'admin\'. Default: \'push\'') do |permission|
       org.permission = permission
     end
-    opts.on('-u', '--public', 'Create public repository, otherwise the new repo is private.') do
+    opt.on('-u', '--public', 'Create public repository, otherwise the new repo is private.') do
       org.isPublic = true
     end
   end
@@ -145,7 +145,7 @@ class OrgManager
   end
 
   def repos_valid?
-    !(@orgname.nil? || @parentteam.nil? || @semester.nil? || @template.nil? || !gsiteam_valid? || @assignment.nil? || !['pull', 'push', 'admin'].include? (@permission))
+    !(@orgname.nil? || @parentteam.nil? || @semester.nil? || @template.nil? || !gsiteam_valid? || @assignment.nil? || !(['pull', 'push', 'admin'].include? (@permission)))
   end
 
   def remove_valid?
@@ -296,6 +296,7 @@ class OrgManager
           end
         else
           new_repo = @client.repo(%Q{#{@orgname}/#{new_repo_name}})
+          @client.update_repository(new_repo.full_name, { private: !@isPublic })
         end
         @client.add_collab(new_repo['full_name'], mem.login, permission: @permission)
         @client.add_team_repository(gsiteam_id, new_repo['full_name'], {permission: 'admin'})
@@ -316,6 +317,7 @@ class OrgManager
             end
           else
             new_repo = @client.repo(%Q{#{@orgname}/#{new_repo_name}})
+            @client.update_repository(new_repo.full_name, { private: !@isPublic })
           end
           @client.add_collab(new_repo['full_name'], mem.login, permission: @permission)
           @client.add_team_repository(gsiteam_id, new_repo['full_name'], {permission: 'admin'})
@@ -343,6 +345,7 @@ class OrgManager
         end
       else
         new_repo = @client.repo(%Q{#{@orgname}/#{new_repo_name}})
+        @client.update_repository(new_repo.full_name, { private: !@isPublic })
       end
       @client.add_team_repository(team.id, new_repo['full_name'], {permission: @permission})
       @client.add_team_repository(gsiteam_id, new_repo['full_name'], {permission: 'admin'})
