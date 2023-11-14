@@ -51,6 +51,12 @@ def main()
     opt.on('-gGSITEAM', '--gsiteam=GSITEAM', 'The team name of staff team') do |gsiteam|
       org.gsiteam = gsiteam
     end
+    opt.on('-perm', '--permission=PERMISSION', 'The permission of the created repos, can be \'pull\', \'push\', or \'admin\'. Default: \'push\'') do |permission|
+      org.permission = permission
+    end
+    opts.on('-u', '--public', 'Create public repository, otherwise the new repo is private.') do
+      org.isPublic = true
+    end
   end
   $opts.parse!
   command = ARGV.pop
@@ -60,7 +66,7 @@ def main()
 end
 
 class OrgManager
-  attr_accessor :orgname, :assignment, :semester, :template, :parentteam, :gsiteam, :csv, :users
+  attr_accessor :orgname, :assignment, :semester, :template, :parentteam, :gsiteam, :csv, :users, :permission, :isPublic
 
   def initialize
     @orgname = nil
@@ -68,6 +74,8 @@ class OrgManager
     @semester = nil
     @template = nil
     @csv = nil
+    @isPublic = false
+    @permission = 'push'
     @users = []
     @childteams = Hash.new { |hash, key| hash[key] = [] } # teamID => [email1, email2, ...]
     print_error("GITHUB_ORG_API_KEY not defined in environment") unless (@key = ENV['GITHUB_ORG_API_KEY'])
@@ -137,7 +145,7 @@ class OrgManager
   end
 
   def repos_valid?
-    !(@orgname.nil? || @parentteam.nil? || @semester.nil? || @template.nil? || !gsiteam_valid? || @assignment.nil?)
+    !(@orgname.nil? || @parentteam.nil? || @semester.nil? || @template.nil? || !gsiteam_valid? || @assignment.nil? || !['pull', 'push', 'admin'].include? (@permission))
   end
 
   def remove_valid?
@@ -263,7 +271,7 @@ class OrgManager
   end
 
   def indiv_repos
-    print_error "orgname, student team name, assignment name, template repo name, semester prefix, and gsi team name needed." unless repos_valid?
+    print_error "Missing required options or invalid options." unless repos_valid?
     
     # Looking for the STUDENTTEAM in the org, see if it is exist.
     begin
@@ -282,14 +290,14 @@ class OrgManager
         if !@client.repository? %Q{#{@orgname}/#{new_repo_name}}
           begin
             new_repo = @client.create_repository_from_template(%Q{#{@orgname}/#{@template}}, new_repo_name, 
-              {owner: @orgname, private: true})
+              {owner: @orgname, private: !@isPublic})
           rescue Octokit::NotFound
             print_error "Template not found."
           end
         else
           new_repo = @client.repo(%Q{#{@orgname}/#{new_repo_name}})
         end
-        @client.add_collab(new_repo['full_name'], mem.login)
+        @client.add_collab(new_repo['full_name'], mem.login, permission: @permission)
         @client.add_team_repository(gsiteam_id, new_repo['full_name'], {permission: 'admin'})
       end
     end
@@ -302,14 +310,14 @@ class OrgManager
           if !@client.repository? %Q{#{@orgname}/#{new_repo_name}}
             begin
               new_repo = @client.create_repository_from_template(%Q{#{@orgname}/#{@template}}, new_repo_name, 
-                {owner: @orgname, private: true})
+                {owner: @orgname, private: !@isPublic})
             rescue Octokit::NotFound
               print_error "Template not found."
             end
           else
             new_repo = @client.repo(%Q{#{@orgname}/#{new_repo_name}})
           end
-          @client.add_collab(new_repo['full_name'], mem.login)
+          @client.add_collab(new_repo['full_name'], mem.login, permission: @permission)
           @client.add_team_repository(gsiteam_id, new_repo['full_name'], {permission: 'admin'})
         end
       end
@@ -317,7 +325,7 @@ class OrgManager
   end
 
   def group_repos
-    print_error "orgname, student team name, assignment name, template repo name, semester prefix, and gsi team name needed." unless repos_valid?
+    print_error "Missing required options or invalid options." unless repos_valid?
 
     child_teams = @client.child_teams(@client.team_by_name(@orgname, to_slug(@parentteam)).id)
     gsiteam_id = @client.team_by_name(@orgname, to_slug(@gsiteam))['id']
@@ -329,14 +337,14 @@ class OrgManager
       if !@client.repository? %Q{#{@orgname}/#{new_repo_name}}
         begin
           new_repo = @client.create_repository_from_template(%Q{#{@orgname}/#{@template}}, new_repo_name, 
-            {owner: @orgname, private: true})
+            {owner: @orgname, private: !@isPublic})
         rescue Octokit::NotFound
           print_error "Template not found."
         end
       else
         new_repo = @client.repo(%Q{#{@orgname}/#{new_repo_name}})
       end
-      @client.add_team_repository(team.id, new_repo['full_name'], {permission: 'push'})
+      @client.add_team_repository(team.id, new_repo['full_name'], {permission: @permission})
       @client.add_team_repository(gsiteam_id, new_repo['full_name'], {permission: 'admin'})
     end
 

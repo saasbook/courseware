@@ -43,6 +43,10 @@ Required options:
     -g, --gsiteam=GSITEAM            The team name of staff team
     -a, --assignment=ASSIGNMENT      The assignment name
 
+Optional options:
+    -perm, --permission=PERMISSION   The permission of the created repos, can be 'pull', 'push', or 'admin'. Default: 'push'
+    -u, --public                     A flag infering to create public repository, otherwise the new repo is private.
+
 'group_repos'
 Create repos for each group. Repos' names are form like "[PREFIX]-[ASSIGNMENT]-[GROUPNUM]"
 Make sure groups are formed before running this command.
@@ -54,6 +58,10 @@ Required options:
     -a, --assignment=ASSIGNMENT      The assignment name. eg chip-10.5
     -s, --studentteam=STUDENTTEAM    The team name for students' team
     -g, --gsiteam=GSITEAM            The team name of staff team
+
+Optional options:
+    -perm, --permission=PERMISSION   The permission of the created repos, can be 'pull', 'push', or 'admin'. Default: 'push'
+    -u, --public                     A flag infering to create public repository, otherwise the new repo is private.
 
 'remove_indiv_repos'
 Delete all repos whose names are formed like "[PREFIX]-[username]-[ASSIGNMENT]".
