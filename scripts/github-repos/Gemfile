@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
-ruby '3.2.2'
+ruby '< 3.0'
 
 gem 'octokit'
 gem 'csv'
-gem 'yaml'
+gem 'tqdm'
