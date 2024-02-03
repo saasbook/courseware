@@ -72,3 +72,31 @@ Deletes all apps beginning with the common app prefix.
 Remove from the Heroku team all team members whose emails appear in
 the CSV file.  (This allows for leaving team members who are course
 staff, e.g.)
+
+## Running with Docker
+
+Instead of switching to the right Ruby version manually, you can also build and use a Docker image to run this script.
+
+### To build
+
+To create the Docker image, clone this repository, cd into the script directory, and run:
+
+```
+docker build -t saasbook-script-heroku-apps .
+```
+
+### To run
+
+Run the following, replacing the appropriate parameters.
+
+If using Windows, you may need to change the `` `pwd` `` mount. Files in the working directory will be available to the container at `/app/files`, e.g. `-c /app/files/team-info.csv`.
+
+```
+docker run \
+  -it \
+  -v `pwd`:/app/files \
+  -e HEROKU_API_KEY=[your_key] \
+  saasbook-script-heroku-apps \
+  [args] \
+  [command]
+```
