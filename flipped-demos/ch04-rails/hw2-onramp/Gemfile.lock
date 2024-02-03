@@ -121,10 +121,12 @@ GEM
     minitest (5.11.3)
     multi_json (1.13.1)
     multi_test (0.1.2)
+    nio4r (2.7.0)
     nokogiri (1.10.1)
       mini_portile2 (~> 2.4.0)
     public_suffix (3.0.3)
-    puma (3.12.0)
+    puma (5.6.8)
+      nio4r (~> 2.0)
     rack (1.6.11)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -214,7 +216,7 @@ DEPENDENCIES
   jquery-rails
   launchy
   listen (~> 3.0.5)
-  puma (~> 3.0)
+  puma (~> 5.6)
   rails (~> 4.2)
   sass-rails (~> 5.0)
   spring
