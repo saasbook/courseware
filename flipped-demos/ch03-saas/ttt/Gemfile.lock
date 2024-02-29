@@ -63,7 +63,7 @@ GEM
       racc (~> 1.4)
     public_suffix (5.0.0)
     racc (1.6.0)
-    rack (2.2.4)
+    rack (2.2.8.1)
     rack-protection (2.2.2)
       rack
     rack-test (2.0.2)
