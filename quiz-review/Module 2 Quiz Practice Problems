@@ -1,3 +1,5 @@
+# **Module 2 Problems:**
+
 Correct answers are either **bolded** or indicated with #answer. 
 
 <span style="text-decoration:underline;">Ruby Truthy:</span>
@@ -110,7 +112,7 @@ class Fruit
           @name = fruit_name
           @price = price
     end
-    
+
     def <=>(other)
         if @price == other.price
             other.name <=> @name

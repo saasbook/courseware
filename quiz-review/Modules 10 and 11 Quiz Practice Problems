@@ -1,5 +1,7 @@
 # **Module 10 Problems:**
 
+Correct answers are **bolded**.
+
 <span style="text-decoration:underline;">Git Commands Part 1:</span>
 
 You and your friend decide to collaborate on a new feature for your app. First, you make a branch for a new feature. Then, you switch to the new branch, modify a bunch of files, and save your changes to the remote shared repository. Which Git commands **could** you reasonably have used to **directly** perform one or more of these operations?

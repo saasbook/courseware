@@ -1,5 +1,7 @@
 # **Module 8 Problems:**
 
+Correct answers are **bolded**.
+
 <span style="text-decoration:underline;">FIRST Principles:</span>
 
 The RSpec testing framework conducts “test teardown” by erasing the database and reloading fixtures before a test is run. This ensures that tests stay:
