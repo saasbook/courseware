@@ -2,7 +2,7 @@
 
 Answers are **bolded**. 
 
-<span style="text-decoration:underline;">Agile vs. Waterfall: </span>
+## Agile vs. Waterfall
 
 Which statements are true regarding the Waterfall software design process?
 
@@ -16,7 +16,7 @@ Multiple prototypes and iterations are used to improve the product over time
 
 **The later that errors are found, the more costly they tend to be to fix**
 
-<span style="text-decoration:underline;">Agile & Spiral Similarities:</span>
+## Agile & Spiral Similarities
 
 What are some similarities between the Agile and Spiral methodologies?
 
@@ -28,7 +28,7 @@ Test-driven development
 
 **Improving the product over multiple iterations**
 
-<span style="text-decoration:underline;">Agile values:</span>
+## Agile Values
 
 Agile values:
 
@@ -42,7 +42,7 @@ Measuring project progress against an initial plan
 
 **Individuals and interactions**
 
-<span style="text-decoration:underline;">Productivity Mechanisms, Part 1:</span>
+## Productivity Mechanisms, Part 1
 
 In Ruby, you can write the line "attr_reader :name_of_instance_variable" inside a class. Then for any instance X of that class, you can call X.name_of_instance_variable to access the instance variable without having to define the getter method inside the class explicitly. What productivity mechanism(s) does this feature illustrate?
 
@@ -56,7 +56,7 @@ reuse
 
 none of the above
 
-<span style="text-decoration:underline;">Productivity Mechanisms, Part 2:</span>
+## Productivity Mechanisms, Part 2
 
 While creating a new piece of software, you realize that instead of repeatedly copy-pasting code, it would be more efficient if you simply defined a few helper functions. Defining and using these helper functions allows you to understand your code better and significantly reduces the total number of lines of code. Also, you find it much easier to enhance your design and add new features by using the helper functions. Which productivity mechanism(s) does this illustrate?
 
@@ -92,7 +92,7 @@ It has bugs
 
 **The code is difficult to evolve**
 
-<span style="text-decoration:underline;">Software Development With APIs</span>
+## Software Development With APIs
 
 The use of APIs in the development of software applications illustrates:
 
@@ -108,7 +108,7 @@ Functional programming
 
 Reflection
 
-<span style="text-decoration:underline;">Buggy Application:</span>
+## Buggy Application
 
 You have a bug in your application. Though it is not visible to the end-user, whenever you click the submit button on a form, it immediately purges the contents of your database. You didn’t find this bug because you didn’t write any tests (uh oh!) and the end-user is currently unable to view the database contents from the user interface. Which level(s) of testing could have helped you to isolate this issue?
 
@@ -120,6 +120,6 @@ You have a bug in your application. Though it is not visible to the end-user, wh
 
 Acceptance Testing
 
-<span style="text-decoration:underline;">Explanation: </span>
+### Explanation
 
 Unit testing for form submission logic, module/integration testing for the interaction between the form submission logic and the database operations. Acceptance testing would probably not help here because the end-user cannot see what is happening in the database.
