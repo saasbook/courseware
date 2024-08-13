@@ -70,6 +70,8 @@ automation
 
 none of the above
 
+## SaaS Priorities
+
 You are creating a SaaS application and want to ensure that your service is consistently accessible at any time of the day, regardless of the amount of incoming network traffic. Which terms BEST describe your key priorities?
 
 **scalability**
@@ -82,9 +84,11 @@ security
 
 communication
 
+## Legacy Code Characteristics
+
 What are some typical characteristics of legacy code?
 
-**It meets customer requirements **
+**It meets customer requirements**
 
 **Enhancing it constitutes the majority of software maintenance costs**
 
