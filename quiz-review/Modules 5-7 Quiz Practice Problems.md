@@ -1,8 +1,8 @@
-# **Module 5 Problems:**
+# **Module 5 Problems**
 
 Correct answers are either **bolded** or indicated with #answer. 
 
-<span style="text-decoration:underline;">Cartesian Product: </span>
+## Cartesian Product
 
 Suppose you have n tables labeled {1, 2, … n} and table j has r_j rows and c_j columns. What is the total number of rows and columns in the Cartesian product of all the tables?
 
@@ -14,7 +14,7 @@ Rows: r_1 * r_2 … * r_n,  Columns: c_1 * c_2 * … * c_n
 
 Rows: r_1 + r_2 … + r_n,  Columns: c_1 + c_2 + … + c_n
 
-<span style="text-decoration:underline;">Associations Part 1:</span>
+## Associations Part 1
 
 Suppose that the relationship between the schools and teachers database has been correctly set up so that a school has many teachers and a teacher belongs to a school in Rails. There is a foreign key **school_id** in the teachers table for this purpose and **berkeley** is an existing school in the schools database. Which of these options correctly <span style="text-decoration:underline;">saves an association to the database</span>, assuming that none of the lines of code below throw an error?
 
@@ -42,7 +42,7 @@ Both of the above
 
 Neither of the above
 
-<span style="text-decoration:underline;">Foreign Keys:</span>
+## Foreign Keys
 
 Suppose we want to model a relationship between two entities A and B in our Rails application. Which of the statements are true?
 
@@ -54,7 +54,7 @@ Implementing both the relationships A has many B and B has many A requires forei
 
 **Implementing the relationship A has many B through C requires foreign keys in C that reference both A and B**
 
-<span style="text-decoration:underline;">Nested Resource Routes:</span>
+## Nested Resource Routes
 
 Suppose we have the following code in the **routes.rb** file of a Rails application:
 
@@ -85,7 +85,7 @@ GET book_path(id: 2)
 
 # **Module 6 Problems:**
 
-<span style="text-decoration:underline;">Simplest Strategy Part 1:</span>
+## Simplest Strategy Part 1
 
 You want to implement a “Hide and Seek” button on your website. Clicking this button should immediately modify the current page so that every **button** nested inside a **div** element is immediately hidden. But whenever you click somewhere on the page, if you click on the div element surrounding an element, it reappears. What is the **simplest** strategy to implement this feature?
 
@@ -97,7 +97,7 @@ Requires JavaScript AND communication with the server after the initial page loa
 
 Requires a full page reload (can't be done by updating the page in place using AJAX)
 
-<span style="text-decoration:underline;">Simplest Strategy Part 2:</span>
+## Simplest Strategy Part 2
 
 You want to implement a “Search” feature on your bookstore’s website. When you begin typing into the search bar, you should see suggestions for books to buy with titles that match what you started typing that change as you continue typing your query (this is similar to Google’s search feature). What is the **simplest** strategy to implement this feature?
 
@@ -109,7 +109,7 @@ Requires JavaScript, but can run entirely in the Web browser (no communication w
 
 Requires a full page reload (can't be done by updating the page in place using AJAX)
 
-<span style="text-decoration:underline;">Javascript:</span>
+## Javascript
 
 Select the statements that are true about Javascript:
 
@@ -123,14 +123,14 @@ Multiple functions can be run in parallel
 
 **If your browser does not support Javascript, and you visit an application that uses Javascript, the application will behave as if the Javascript isn’t executed at all**
 
-<span style="text-decoration:underline;">Other Topics to Review for Final (but not in-scope for tomorrow’s quiz):</span>
+### Other Topics to Review for Final (but not in-scope for tomorrow’s quiz)
 
 Testing AJAX using Jasmine/RSpec
 
 
 # **Module 7 Problems:**
 
-<span style="text-decoration:underline;">Imperative vs. Declarative:</span>
+## Imperative vs. Declarative
 
 Which statements are true about imperative versus declarative scenarios?
 
@@ -144,7 +144,7 @@ Imperative scenarios tend to be simpler and less verbose than declarative scenar
 
 **Imperative scenarios are preferred for expressing the details of the user interface as they relate directly to business value or customer need**
 
-<span style="text-decoration:underline;">Agile Teams:</span>
+## Agile Teams
 
 Which are characteristic of Agile teams?
 
@@ -158,7 +158,7 @@ Each member of the team should claim and prioritize their own stories
 
 **After a user story is delivered, the customer (or product owner) decides whether that story is accepted/rejected**
 
-<span style="text-decoration:underline;">SMART Stories:</span>
+## SMART Stories
 
 Which of the following user stories can be considered SMART? Recall the criteria for a SMART user story:
 - S: Specific

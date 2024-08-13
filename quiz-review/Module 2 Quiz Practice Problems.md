@@ -1,4 +1,4 @@
-# **Module 2 Problems:**
+# **Module 2 Problems**
 
 Correct answers are either **bolded** or indicated with #answer. 
 

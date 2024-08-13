@@ -2,7 +2,7 @@
 
 Correct answers are **bolded**.
 
-<span style="text-decoration:underline;">Git Commands Part 1:</span>
+## Git Commands Part 1
 
 You and your friend decide to collaborate on a new feature for your app. First, you make a branch for a new feature. Then, you switch to the new branch, modify a bunch of files, and save your changes to the remote shared repository. Which Git commands **could** you reasonably have used to **directly** perform one or more of these operations?
 
@@ -26,9 +26,9 @@ git move
 
 **git push**
 
-<span style="text-decoration:underline;">Git Commands Part 2: </span>
+## Git Commands Part 2
 
-Your friend pulls your changes and realizes that your changes somehow broke the application. Using git commands, he identifies the specific lines that you added and removed from each file. After detailed investigation, your friend decides to undo the work of some of your previous commits so that he can effectively start working from one of your older commits on the feature branch (before stuff broke). Which Git commands **could **your friend have reasonably used to **directly** perform one or more of these operations?
+Your friend pulls your changes and realizes that your changes somehow broke the application. Using git commands, he identifies the specific lines that you added and removed from each file. After detailed investigation, your friend decides to undo the work of some of your previous commits so that he can effectively start working from one of your older commits on the feature branch (before stuff broke). Which Git commands **could** your friend have reasonably used to **directly** perform one or more of these operations?
 
 git cherry-pick
 
@@ -56,7 +56,7 @@ git rm
 
 git delete
 
-<span style="text-decoration:underline;">A Bug’s Life:</span>
+## A Bug’s Life
 
 Which of the following options are NOT typically steps in the lifecycle of a bug?
 
@@ -75,7 +75,7 @@ Reporting the bug
 
 # **Module 11 Problems:**
 
-<span style="text-decoration:underline;">Matching Designs:</span>
+## Matching Designs
 
 Match each situation to the design pattern that is being illustrated:
 
@@ -94,7 +94,7 @@ Match each situation to the design pattern that is being illustrated:
 - **Proxy**:
   - For efficiency reasons, the object returned by the `where` method in ActiveRecord doesn’t actually perform the query until you ask it for one of its elements.
 
-<span style="text-decoration:underline;">Are you SOLID?</span>
+## Are you SOLID?
 
 Match each SOLID principle with a symptom suggesting that it has been violated:
 
@@ -113,7 +113,7 @@ Match each SOLID principle with a symptom suggesting that it has been violated:
 - **Dependency Injection Principle**:
   - A constructor of one of your potentially extensible classes makes a hardcoded call to another class’s constructor rather than determining which other class to use at runtime.
 
-<span style="text-decoration:underline;">Injecting Dependencies:</span>
+## Injecting Dependencies
 
 When dependencies are injected between collaborating classes whose implementation may change at runtime, sometimes it is necessary to adapt and simplify the APIs of the classes involved. Which design patterns would <span style="text-decoration:underline;">most directly</span> help with accomplishing this?
 

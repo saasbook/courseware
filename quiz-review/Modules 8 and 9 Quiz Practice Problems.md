@@ -1,8 +1,8 @@
-# **Module 8 Problems:**
+# **Module 8 Problems**
 
 Correct answers are **bolded**.
 
-<span style="text-decoration:underline;">FIRST Principles:</span>
+## FIRST Principles
 
 The RSpec testing framework conducts “test teardown” by erasing the database and reloading fixtures before a test is run. This ensures that tests stay:
 
@@ -16,7 +16,7 @@ Self-checking
 
 Timely
 
-<span style="text-decoration:underline;">Enormous Test Suite:</span>
+## Enormous Test Suite
 
 Before running my enormous test suite of 300 Cucumber scenarios, I decide to load my app in the browser and visit the home page to confirm that it displays correctly. I find that nothing is obviously wrong with the website from my initial inspection. This was an example of:
 
@@ -30,7 +30,7 @@ Regression testing
 
 **Functional testing**
 
-<span style="text-decoration:underline;">Testing Categories:</span>
+## Testing Categories
 
 Match the test to the technique being used:
 
@@ -46,10 +46,7 @@ Match the test to the technique being used:
 - **White-box Testing**:
   - A test which ensures that every possible code path of a certain function gets traversed.
 
-
-
-
-<span style="text-decoration:underline;">Mocks, Doubles, Factories, and Fixtures:</span>
+## Mocks, Doubles, Factories, and Fixtures
 
 Which of the following statements are true about mocks, doubles, factories, and fixtures?
 
@@ -63,7 +60,7 @@ If a certain code path of a test can only be tested on one day of the entire yea
 
 **Even though RSpec doubles provide stand-ins for nonexistent methods, they would override methods that did actually exist in the code**
 
-<span style="text-decoration:underline;">Code Coverage:</span>
+## Code Coverage
 
 Which of the following are generally true about code coverage metrics?
 
@@ -77,12 +74,14 @@ C1 coverage measures how many of the available code paths have been taken in you
 
 **High C2 coverage is more difficult to achieve comparatively to C0 & C1 coverage.**
 
-<span style="text-decoration:underline;">Addendum:</span> We highly recommend doing CHIPS 8.5 PART 1 BEFORE taking the Module 8 quiz.
+### Addendum 
+
+We highly recommend doing CHIPS 8.5 PART 1 BEFORE taking the Module 8 quiz.
 
 
 # **Module 9 Problems:**
 
-<span style="text-decoration:underline;">Goals of Refactoring:</span>
+## Goals of Refactoring
 
 Which of the following are primary goals of refactoring?
 
@@ -96,7 +95,7 @@ Increasing code complexity
 
 **Eliminating code smells**
 
-<span style="text-decoration:underline;">Smelly Code:</span>
+## Smelly Code
 
 What statements are true about code smells?
 
@@ -108,7 +107,7 @@ What statements are true about code smells?
 
 **A good way to prevent repetitive pieces of code in many sections of your program is to use the _Extract Method_ refactoring strategy**
 
-<span style="text-decoration:underline;">Forms of Testing:</span>
+## Forms of Testing
 
 Which statement(s) best describe the different kinds of testing?
 
@@ -120,4 +119,6 @@ Legacy codebases are best explored using integration-level tests since the inter
 
 Characterization tests should typically only be implemented at the integration level or above since unit/module test logic is generally very complicated and difficult to understand
 
-<span style="text-decoration:underline;">Other topics to review:</span> Agile/XP from Module 7
+### Other topics to review 
+
+Agile/XP from Module 7

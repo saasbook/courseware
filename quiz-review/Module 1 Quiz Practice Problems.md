@@ -1,4 +1,4 @@
-# **Module 1 Problems:**
+# **Module 1 Problems**
 
 Answers are **bolded**. 
 

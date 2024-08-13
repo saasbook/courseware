@@ -1,8 +1,8 @@
-# **Module 4 Problems:**
+# **Module 4 Problems**
 
 Correct answers are **bolded**.
 
-<span style="text-decoration:underline;">Information control:</span>
+## Information control
 
 Match the following elements:
 
@@ -14,7 +14,7 @@ Match the following elements:
 | session[]                          | can persist information across any number of requests   |
 
 
-<span style="text-decoration:underline;">MVC:</span>
+## MVC
 
 Select all statements that are true about an MVC app:
 
@@ -26,7 +26,7 @@ It is illegal for the view to directly access the model’s data
 
 **Every valid route eventually triggers either a render or a redirect**
 
-<span style="text-decoration:underline;">Chicken Part 1:</span>
+## Chicken Part 1
 
 Suppose you write the following line in your routes.rb file in Rails:
 
@@ -45,7 +45,7 @@ This automatically generates RESTful routes for a “chicken” resource in your
 
  
 
-<span style="text-decoration:underline;">Chicken Part 2:</span>
+## Chicken Part 2
 
 Suppose that the chickens database is initially empty, and we have the Chicken ActiveRecord model defined as below:
 
@@ -82,7 +82,7 @@ What are the values of bob.age, db_bob.age, and Chicken.find_by(name: "Bob").age
 
 None of the above
 
-<span style="text-decoration:underline;">Warnings:</span>
+## Warnings
 
 In your application, you want to make sure that if your user presses a certain button on page X, then upon being redirected to page Y they see a “Warning: this page contains sensitive information” message. What is (arguably) the easiest and most appropriate way to do this in Rails?
 

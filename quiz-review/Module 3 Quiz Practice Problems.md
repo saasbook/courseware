@@ -1,8 +1,8 @@
-# **Module 3 Problems:**
+# **Module 3 Problems**
 
-Answers are **bolded**.
+Correct answers are **bolded**.
 
-<span style="text-decoration:underline;">Architectural patterns:</span>
+## Architectural patterns
 
 What are some characteristics of the client-server architectural pattern?
 
@@ -16,7 +16,7 @@ The server is typically an individual supercomputer
 
 **It is an example of a design pattern**
 
-<span style="text-decoration:underline;">HTTP:</span>
+## HTTP
 
 Which statements are true regarding the HTTP protocol?
 
@@ -30,7 +30,7 @@ Since HTTP is a stateless protocol, there is no way to keep track of information
 
 HTTP cookies are initially sent from the client to the server and sent back by the server to identify them to the client for future interactions
 
-<span style="text-decoration:underline;">Status Codes:</span>
+## Status Codes
 
 When you try to visit a website, it redirects you to a second website. But that second website never loads, and instead you see “Internal Server Error.” Which status codes were likely returned in response to your HTTP requests by the two websites that you visited?
 
@@ -42,7 +42,7 @@ When you try to visit a website, it redirects you to a second website. But that 
 
 201, 307
 
-<span style="text-decoration:underline;">TCP:</span>
+## TCP
 
 Which statements are true regarding the Transmission Control Protocol (TCP)?
 
@@ -56,7 +56,7 @@ TCP is encrypted using public-key cryptography and therefore secure against eave
 
 **For a TCP connection to be accepted, some program has to be listening on the requested port**
 
-<span style="text-decoration:underline;">Visiting A Random Website:</span>
+## Visiting A Random Website
 
 You type the following URL into the browser:
 
@@ -74,7 +74,7 @@ A connection was opened on a random port number from 1 to 65535
 
 If instead a GET request had been to the resource at the path /random_stuff/random_function without any query terms, then the website would not have displayed an image of a chicken nugget
 
-<span style="text-decoration:underline;">REST:</span>
+## REST 
 
 Select the statements that are true regarding RESTful APIs:
 
@@ -88,7 +88,7 @@ The information from previous requests is often used as implicit information to 
 
 **Many servers providing RESTful APIs specify a base URI which serves as the API endpoint**
 
-<span style="text-decoration:underline;">SOA Pros/Cons:</span>
+## SOA Pros/Cons 
 
 Which statements are true about the pros/cons of using a service-oriented architecture (SOA)?
 
@@ -102,7 +102,7 @@ Which statements are true about the pros/cons of using a service-oriented archit
 
 **Developers frequently have to learn how to operate each independent service**
 
-<span style="text-decoration:underline;">URI Time</span>
+## URI Components
 
 Consider the following URI:
 
