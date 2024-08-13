@@ -2,7 +2,7 @@
 
 Correct answers are either **bolded** or indicated with #answer. 
 
-<span style="text-decoration:underline;">Ruby Truthy:</span>
+## Ruby Truthy 
 
 Consider the following Ruby code:
 
@@ -20,7 +20,7 @@ a[-4]
 
 **a.include?(:CHEESE)**
 
-<span style="text-decoration:underline;">Ruby Errors:</span>
+## Ruby Errors 
 
 Suppose that a and b are objects of arbitrary types in Ruby. Which of the following lines of code would definitely not result in a runtime error?
 
@@ -34,7 +34,7 @@ a.each{ |x| puts x}
 
 **a.respond_to?(:to_s)**
 
-<span style="text-decoration:underline;">Ruby Iteration:</span>
+## Ruby Iteration 
 
 Suppose x is an array of integers in Ruby, and you want to destructively increment each element of x by 1. Select all of the choices that accomplish this without error:
 
@@ -59,7 +59,7 @@ x.map {|element| element + 1}
 x.map! {|element| element + 1} #answer
 ```
 
-<span style="text-decoration:underline;">Ruby Regex:</span>
+## Ruby Regex 
 
 You want to write a regex pattern that validates someone’s first name. The name must begin with an uppercase letter, be followed by lowercase letters, and be at least 2 characters long. Which of the following regex patterns accomplishes this in Ruby?
 
@@ -73,7 +73,7 @@ You want to write a regex pattern that validates someone’s first name. The nam
 
 [A-Z][a-z]?[a-z]*
 
-<span style="text-decoration:underline;">Ruby Arithmetic:</span>
+## Ruby Arithmetic
 
 Suppose a, b, and c are integers in Ruby. Which of the following are equivalent to the expression (a + b) / c?
 
@@ -87,7 +87,7 @@ a./(c).+(b./(c))
 
 a.send(:-, -b).send(:*, 1/c)
 
-<span style="text-decoration:underline;">Pair programming:</span>
+## Pair programming 
 
 Pair programming tends to:
 
@@ -101,7 +101,7 @@ Work effectively when both collaborators are thinking about different issues in 
 
 **Work effectively when the pair takes turns switching between roles of driver and observer**
 
-<span style="text-decoration:underline;">Fruits Part 1:</span>
+## Fruits Part 1
 
 Consider this Ruby code:
 
@@ -145,7 +145,7 @@ attr_writer :name #does not work (attr_writer does not give read access)
 attr_accessor :price
 ```
 
-<span style="text-decoration:underline;">Fruits Part 2:</span>
+## Fruits Part 2
 
 Consider this Ruby code:
 
@@ -187,7 +187,7 @@ fruits.map {|x| x.name} == [:banana, :orange, :apple]
 
 banana &lt; apple 
 
-<span style="text-decoration:underline;">Vegetables Part 1:</span>
+## Vegetables Part 1
 
 ```ruby
 class Vegetable
@@ -234,3 +234,34 @@ def initialize #answer
     @name = :carrot
 end
 ```
+
+## Vegetables Part 2
+
+After declaring the vegetables class, we run the following lines:
+
+```ruby
+#declare vegetables 
+anonymous = Vegetable.new 
+potato = Vegetable.new(:potato) 
+
+#set some random values 
+val = anonymous.name or potato.name 
+val_2 = !anonymous.name && potato.name
+ 
+#modify vegetables 
+anonymous.name = :carrot 
+potato.name = :zucchini
+```
+
+Which of the following are true?
+
+potato.name == :zucchini
+
+**anonymous.name == :carrot**
+
+val == :potato
+
+**val_2 == :potato**
+
+**!(val and val_2)**
+
