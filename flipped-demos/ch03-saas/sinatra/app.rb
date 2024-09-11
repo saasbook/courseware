@@ -10,5 +10,4 @@ class DemoApp < Sinatra::Base
     @something = params[:something]
     erb :hello
   end
-
 end

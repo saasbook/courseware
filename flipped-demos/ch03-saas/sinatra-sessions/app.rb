@@ -8,11 +8,11 @@ class DemoApp < Sinatra::Base
     @someone = session[:thing]
     erb :hello
   end
-  
+
   get '/set/:something' do
     session[:thing] = params[:something]
     redirect '/'
   end
-  
-  
+
+
 end
