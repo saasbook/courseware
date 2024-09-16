@@ -115,6 +115,7 @@ GEM
       nokogiri (~> 1.8)
 
 PLATFORMS
+  arm64-darwin-23
   x86_64-darwin-24
 
 DEPENDENCIES
