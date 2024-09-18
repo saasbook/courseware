@@ -3,8 +3,8 @@
     <%= session[:message] %>
   </div>
 <% end %>
-<div id="board">
 
+<div id="board">
   <% row = col = 0 %>
   <% 0.upto(2) do |row| %>
   <div class="row">
@@ -20,9 +20,17 @@
   <% end %>
 </div>
 
-<form method="post" action="/move">
-  <p><%= @game.turn %>'s move</p>
-  <p>Enter square 0-8</p>
-  <input type="text" name="square">
-  <input type="submit" value="Make Move">
+<!-- Try adjusting the addtributes like class, required, etc. to see how the HTML changes -->
+<form method="post" action="/move" class="col-4">
+  <h2><%= @game.turn %>'s move</h2>
+  <label for="square" class="form-control-label">Enter square 0-8</label>
+  <input
+    min="0"
+    max="8"
+    required="true"
+    type="number"
+    name="square"
+    id="square"
+    class="form-control mb-2">
+  <input type="submit" value="Make Move" class="btn btn-primary">
 </form>

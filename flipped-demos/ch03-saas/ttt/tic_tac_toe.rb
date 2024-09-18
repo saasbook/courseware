@@ -2,7 +2,7 @@ class TicTacToe
 
   attr_reader :board
   attr_reader :turn
-  
+
   def initialize(first_player = 'x')
     # board is array: top row=0,1,2, middle=3,4,5, bottom=6,7,8
     # a square's value is either '' (empty), 'x', or 'o'
@@ -34,6 +34,21 @@ class TicTacToe
     wins?('x') or wins?('o') or board_full
   end
 
+  def x_wins?
+    wins?('x')
+  end
+
+  def o_wins?
+    wins?('o')
+  end
+
+  def winner
+    return 'x' if x_wins?
+    return 'o' if o_wins?
+
+    nil
+  end
+
   def wins?(player)
     win_patterns = [
       [0,1,2], [3,4,5], [6,7,8],
@@ -43,4 +58,10 @@ class TicTacToe
     win_patterns.any? { |pat| pat.all? { |square| @board[square] == player }}
   end
 
+  def to_json
+    {
+      board: @board.each_slice(3).to_a,
+      turn: @turn
+    }.to_json
+  end
 end
