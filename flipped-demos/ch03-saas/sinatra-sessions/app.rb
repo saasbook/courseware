@@ -1,5 +1,4 @@
 require 'sinatra'
-
 class DemoApp < Sinatra::Base
 
   enable :sessions
@@ -13,6 +12,5 @@ class DemoApp < Sinatra::Base
     session[:thing] = params[:something]
     redirect '/'
   end
-
 
 end
