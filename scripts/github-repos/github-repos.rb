@@ -89,10 +89,21 @@ class OrgManager
         data = CSV.parse(IO.read(csv), headers: true)
         hash = data.first.to_h
         print_error "Need at least 'Team' (int) and 'Email' (str) columns in #{csv}" unless
-          hash.has_key?('Team') && hash.has_key?('Email')
+            hash.has_key?('Team') && hash.has_key?('Email')
         data.each do |row|
-          username = row['Email']
-          @childteams[row['Team']] << username
+            user = { 'email' => row['Email'] }
+            if hash.has_key?('GitHub Username')
+                username = row['GitHub Username']
+                if !(username.nil? || username.empty?)
+                    user['username'] = username
+                    begin
+                        user['uid'] = @client.user(username).id
+                    rescue Octokit::NotFound
+                        user['username'] = nil
+                    end
+                end
+            end
+            @childteams[row['Team']] << user
         end
     end
 
@@ -119,8 +130,9 @@ class OrgManager
             parentteam_id = parentteam_obj['id']
             old_team_members = @client.team_members(parentteam_id)
             old_team_members.each do |member|
-                if @client.organization_membership(@orgname, :user => member['login'])['role'] == 'member'
-                    @client.remove_organization_member(@orgname, member['login'])
+                username = member['login']
+                if @client.organization_membership(@orgname, :user => username)['role'] == 'member'
+                    @client.remove_organization_member(@orgname, username)
                 end
             end
             @client.delete_team parentteam_id
@@ -136,10 +148,21 @@ class OrgManager
             end
             childteam_id = childteam['id']
             @childteams[team].each do |member|
-                if !@client.team_invitations(childteam_id).any? {|invitations| invitations.email == member}
+                if !@client.team_invitations(childteam_id).any? do |invitation|
+                    email_invite_exists = invitation.email == member['email']
+                    uid_invite_exists = member['uid'] && invitation.login == member['username']
+                    email_invite_exists || uid_invite_exists
+                end
                     # send invitation
+                    payload = {org: @orgname, role: 'direct_member', team_ids: [childteam_id]}
+                    if member['uid']
+                        payload[:invitee_id] = member['uid']
+                    else
+                        payload[:email] = member['email']
+                    end
+
                     begin
-                        @client.post(%Q{/orgs/#{@orgname}/invitations}, {org: @orgname, email: member, role: 'direct_member', team_ids: [childteam_id]})
+                        @client.post(%Q{/orgs/#{@orgname}/invitations}, payload)
                     rescue Octokit::UnprocessableEntity
                         # member is already a part of org
                         next
@@ -164,7 +187,7 @@ class OrgManager
                     new_repo = @client.create_repository_from_template(%Q{#{@orgname}/#{@template}}, new_repo_name,
                         {owner: @orgname, private: true})
                 rescue Octokit::NotFound
-                    print_error "Template not found."
+                    print_error "failed to create repo: template not found."
                 end
                 @client.add_team_repository(team_id, new_repo['full_name'], {permission: 'push'})
                 @client.add_team_repository(gsiteam_id, new_repo['full_name'], {permission: 'admin'})
