@@ -4,15 +4,13 @@ require 'optparse'
 require 'octokit'
 require 'csv'
 
-ENV['GITHUB_ORG_API_KEY'] = ""
-
 def main()
     puts "Script start."
     org = OrgManager.new
     $opts = OptionParser.new do |opt|
         opt.banner = "Usage: #{__FILE__} [required options] [invite|repos|remove]
     GITHUB_ORG_API_KEY for the org must be set as an environment variable.
-    'invite' invites students provided in .csv file and creates teams, 
+    'invite' invites students provided in .csv file and creates teams,
     'repos' creates team repos, 'remove' remove students, repos, teams from the org."
         opt.on('-cCSVFILE', '--csv=CSVFILE', 'CSV file containing at least "Team" and "Email" named columns') do |csv|
         org.read_teams_and_emails_from csv
@@ -40,7 +38,7 @@ def main()
     command = ARGV.pop
     case command
     when 'invite' then org.invite
-    when 'repos' then org.create_repos 
+    when 'repos' then org.create_repos
     when 'remove' then org.remove
     when 'remove_access' then org.remove_access
     else org.print_error
@@ -66,7 +64,7 @@ class OrgManager
 
     def gsiteam_valid?
         gsiteam_obj = nil
-        if !@gsiteam.nil? && @gsiteam.length > 0 
+        if !@gsiteam.nil? && @gsiteam.length > 0
             begin
                 gsiteam_obj = @client.team_by_name(@orgname, @gsiteam)
             rescue Octokit::NotFound
@@ -157,13 +155,13 @@ class OrgManager
             begin
                 team_id = @client.team_by_name(@orgname, %Q{#{@semester}-#{team}})['id']
             rescue Octokit::NotFound
-                print_error "Students teams information mismatched."
+                print_error "students teams information mismatched - could not find team '#{@semester}-#{team}' in org '#{@orgname}'"
             end
             gsiteam_id = @client.team_by_name(@orgname, @gsiteam)['id']
             new_repo_name = %Q{#{@semester}-#{@base_filename}-#{team}}
             if !@client.repository? %Q{#{@orgname}/#{new_repo_name}}
                 begin
-                    new_repo = @client.create_repository_from_template(%Q{#{@orgname}/#{@template}}, new_repo_name, 
+                    new_repo = @client.create_repository_from_template(%Q{#{@orgname}/#{@template}}, new_repo_name,
                         {owner: @orgname, private: true})
                 rescue Octokit::NotFound
                     print_error "Template not found."
