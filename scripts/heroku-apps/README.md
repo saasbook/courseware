@@ -37,8 +37,8 @@ during the course.  That student is the only collaborator on the app
 (so other students cannot pull their source code from the Heroku
 remote).  The apps are named by prepending the prefix you supply to a
 sanitized (all nonalphanumeric characters replaced with hyphens) email
-username.  So, for example, app prefix `fa23-` (you must include the
-hyphen) and student emails `john+q.public@berkeley.edu` and
+username.  So, for example, app prefix `fa23` (you should not include the
+terminating hyphen) and student emails `john+q.public@berkeley.edu` and
 `jane_adams@berkeley.edu` will create app containers
 `fa23-john-q-public` and `fa23-jane-adams`.
 
