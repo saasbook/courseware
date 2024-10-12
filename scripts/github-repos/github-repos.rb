@@ -8,10 +8,11 @@ def main()
     puts "Script start."
     org = OrgManager.new
     $opts = OptionParser.new do |opt|
-        opt.banner = "Usage: #{__FILE__} [required options] [invite|repos|remove]
-    GITHUB_ORG_API_KEY for the org must be set as an environment variable.
-    'invite' invites students provided in .csv file and creates teams,
-    'repos' creates team repos, 'remove' remove students, repos, teams from the org."
+        opt.banner = "Usage: #{__FILE__} [required options] [invite|team_repos|individual_repos|remove|remove_access]
+            GITHUB_ORG_API_KEY for the org must be set as an environment variable.
+            'invite' invites students provided in .csv file and creates teams,
+            'team_repos' creates team repos, 'individual_repos' creates individual repos,
+            'remove' remove students, repos, teams from the org."
         opt.on('-cCSVFILE', '--csv=CSVFILE', 'CSV file containing at least "Team" and "Email" named columns') do |csv|
         org.read_teams_and_emails_from csv
         end
@@ -41,7 +42,9 @@ def main()
     when 'repos' then org.create_repos
     when 'remove' then org.remove
     when 'remove_access' then org.remove_access
-    else org.print_error
+    else
+        STDERR.puts $opts
+        exit 1
     end
     puts "Run successfully."
     puts "Script ends."
@@ -55,8 +58,8 @@ class OrgManager
         @base_filename = nil
         @semester = nil
         @template = nil
-        @childteams = Hash.new { |hash, key| hash[key] = [] } # teamID => [email1, email2, ...]
-        print_error("GITHUB_ORG_API_KEY not defined in environment") unless (@key = ENV['GITHUB_ORG_API_KEY'])
+        @childteams = Hash.new { |hash, key| hash[key] = [] }
+        log("GITHUB_ORG_API_KEY not defined in environment", :fatal) unless (@key = ENV['GITHUB_ORG_API_KEY'])
         @client = Octokit::Client.new(access_token: @key)
     end
 
@@ -80,21 +83,16 @@ class OrgManager
     end
 
     def log(msg, type=:info, output_file=nil)
-        output_file ||= STDERR if type === :error
+        output_file ||= STDERR if type === :error || type === :fatal
         output_file ||= STDOUT
         output_file.puts "[#{type.upcase}]: #{msg}"
-    end
-
-    def print_error(msg=nil)
-        log(msg, :error) if !msg.nil?
-        STDERR.puts $opts
-        exit 1
+        exit 1 if type === :fatal
     end
 
     def read_teams_and_emails_from csv
         data = CSV.parse(IO.read(csv), headers: true)
         hash = data.first.to_h
-        print_error "Need at least 'Team' (int) and 'Email' (str) columns in #{csv}" unless
+        log("Need at least 'Team' (int) and 'Email' (str) columns in #{csv}", :fatal) unless
             hash.has_key?('Team') && hash.has_key?('Email')
         log "geting GitHub users.  Please wait..."
         data.each do |row|
@@ -107,7 +105,7 @@ class OrgManager
                         user['uid'] = @client.user(username).id
                     rescue Octokit::NotFound
                         user['username'] = nil
-                        log("GitHub Account '#{username}' does not exist.  Using '#{row['email']}' instead")
+                        log("GitHub Account '#{username}' does not exist.  Using '#{row['Email']}' instead")
                     end
                 else
                     log "no gh username for user #{row['Email']}; using email instead"
@@ -118,7 +116,7 @@ class OrgManager
     end
 
     def invite
-        print_error "csv file, base filename, template repo name, semester prefix, students team name, and gsi team name needed." unless valid?
+        log("csv file, base filename, template repo name, semester prefix, students team name, and gsi team name needed.", :fatal) unless valid?
         first_child_team_name = %Q{#{@semester}-#{@childteams.keys[0]}}
 
         begin
@@ -190,28 +188,31 @@ class OrgManager
         end
     end
 
-    def create_repos
-        print_error "csv file, base filename, template repo name, semester prefix, students team name, and gsi team name needed." unless valid?
+    def create_team_repos
+        log("csv file, base filename, template repo name, semester prefix, students team name, and gsi team name needed.", :fatal) unless valid?
         @childteams.each_key do |team|
             begin
                 team_id = @client.team_by_name(@orgname, %Q{#{@semester}-#{team}})['id']
             rescue Octokit::NotFound
-                print_error "students teams information mismatched - could not find team '#{@semester}-#{team}' in org '#{@orgname}'"
+                log("students teams information mismatched - could not find team '#{@semester}-#{team}' in org '#{@orgname}'", :fatal)
             end
             gsiteam_id = @client.team_by_name(@orgname, @gsiteam)['id']
             new_repo_name = %Q{#{@semester}-#{@base_filename}-#{team}}
             if !@client.repository? %Q{#{@orgname}/#{new_repo_name}}
                 begin
-                    new_repo = @client.create_repository_from_template(%Q{#{@orgname}/#{@template}}, new_repo_name,
-                        {owner: @orgname, private: true})
+                    new_repo = @client.create_repository_from_template(
+                        @template,
+                        new_repo_name,
+                        {owner: @orgname, private: true},
+                    )
                         log "created repo '#{new_repo_name}' from template '#{@template}' in org '#{@orgname}'"
                 rescue Octokit::NotFound
-                    print_error "failed to create repo: template not found."
+                    log("failed to create repo: template not found.", :fatal)
                 end
                 if @client.add_team_repository(team_id, new_repo['full_name'], {permission: 'push'})
                     log "added repo '#{new_repo_name}' to team '#{@semester}-#{team}' with permission 'push' in org '#{@orgname}'"
                 else
-                    log("failed to add repo '#{new_repo_name}' to team '#{@semester}-#{team}' with permission 'push' in org '#{@orgname}'", :warn)
+                    log("failed to add repo '#{new_repo_name}' to team '#{@semester}-#{team}' with permission 'push' in org '#{@orgname}'", :error)
                 end
                 if @client.add_team_repository(gsiteam_id, new_repo['full_name'], {permission: 'admin'})
                     log "added repo '#{new_repo_name}' to team '#{@gsiteam}' with permission 'admin' in org '#{@orgname}'"
@@ -223,7 +224,7 @@ class OrgManager
     end
 
     def remove
-        print_error "csv file, base filename, template repo name, semester prefix, students team name, and gsi team name needed." unless valid?
+        log("csv file, base filename, template repo name, semester prefix, students team name, and gsi team name needed.", :fatal) unless valid?
         # remove and delete all repos from the students team, delete all child teams
         # also cancel all pending invitaions
         @childteams.each_key do |team|
@@ -231,7 +232,7 @@ class OrgManager
             if @client.delete_repository(repo_name)
                 log "deleted repo '#{@semester}-#{@base_filename}-#{team}' from org #{@orgname}"
             else
-                log("failed to delete repo '#{@semester}-#{@base_filename}-#{team}' from org '#{@orgname}'", :warn)
+                log("failed to delete repo '#{@semester}-#{@base_filename}-#{team}' from org '#{@orgname}'", :error)
             end
             begin
                 childteam_id = @client.team_by_name(@orgname, %Q{#{@semester}-#{team}})['id'] # eg slug fa23-01
