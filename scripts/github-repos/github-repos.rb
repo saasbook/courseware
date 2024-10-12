@@ -105,8 +105,7 @@ class OrgManager
                     begin
                         user['uid'] = @client.user(username).id
                     rescue Octokit::NotFound
-                        user['username'] = nil
-                        log("GitHub Account '#{username}' does not exist.  Using '#{row['Email']}' instead")
+                        log("GitHub Account '#{username}' does not exist.  Using '#{row['Email']}' instead", :warn)
                     end
                 else
                     log "no gh username for user #{row['Email']}; using email instead"
@@ -238,20 +237,27 @@ class OrgManager
             begin
                 curr_repo = @client.repository "#{@orgname}/#{curr_repo_name}"
             rescue Octokit::NotFound
-                begin
-                    curr_repo = @client.create_repository_from_template(
-                        @template,
-                        curr_repo_name,
-                        {owner: @orgname, private: true},
-                    )
-                    if curr_repo
-                        log "created repo '#{curr_repo_name}' from template '#{@template}' in org '#{@orgname}'"
-                    else
-                        log("failed to creat repo '#{curr_repo_name}' from template '#{@template}' in org '#{@orgname}'", :error)
-                        next
+                if !curr_repo
+                    begin
+                        curr_repo ||= @client.create_repository_from_template(
+                            @template,
+                            curr_repo_name,
+                            {owner: @orgname, private: true},
+                        )
+                        if curr_repo
+                            log "created repo '#{curr_repo_name}' from template '#{@template}' in org '#{@orgname}'"
+                        else
+                            log("failed to create repo '#{curr_repo_name}' from template '#{@template}' in org '#{@orgname}'", :error)
+                            next
+                        end
+                    rescue Octokit::NotFound
+                        log("failed to create repo: template not found.", :fatal)
+                    # apparently they don't know what 429 errors are, so they just 422 instead?
+                    rescue Octokit::UnprocessableEntity
+                        log("rate limited.  The script will resume in one minute", :warn)
+                        sleep 60
+                        retry
                     end
-                rescue Octokit::NotFound
-                    log("failed to create repo: template not found.", :fatal)
                 end
             end
             if @client.add_team_repository(gsiteam_id, curr_repo['full_name'], {permission: 'admin'})
