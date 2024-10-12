@@ -39,7 +39,8 @@ def main()
     command = ARGV.pop
     case command
     when 'invite' then org.invite
-    when 'repos' then org.create_repos
+    when 'team_repos' then org.create_team_repos
+    when 'individual_repos' then org.create_individual_repos
     when 'remove' then org.remove
     when 'remove_access' then org.remove_access
     else
@@ -221,6 +222,54 @@ class OrgManager
                 end
             end
         end
+    end
+
+    def create_individual_repos
+        log("csv file, base filename, template repo name, semester prefix, students team name, and gsi team name needed.", :fatal) unless valid?
+        gsiteam_id = @client.team_by_name(@orgname, @gsiteam)['id']
+        users = @childteams.values.flatten
+        log("all users must have GitHub usernames to create individual repos", :fatal) unless users.all? { |user| user['username'] }
+        did_fail_to_add_all_users = false
+        users.each do |user|
+            # their email username after replacing non-alphanumeric chars with '-'
+            email_username_sanitized = user['email'][/^.*(?=@)/].gsub(/\W|_/, '-')
+            curr_repo_name = "#{@semester}-#{email_username_sanitized}-#{@base_filename}"
+            curr_repo = nil
+            begin
+                curr_repo = @client.repository "#{@orgname}/#{curr_repo_name}"
+            rescue Octokit::NotFound
+                begin
+                    curr_repo = @client.create_repository_from_template(
+                        @template,
+                        curr_repo_name,
+                        {owner: @orgname, private: true},
+                    )
+                    if curr_repo
+                        log "created repo '#{curr_repo_name}' from template '#{@template}' in org '#{@orgname}'"
+                    else
+                        log("failed to creat repo '#{curr_repo_name}' from template '#{@template}' in org '#{@orgname}'", :error)
+                        next
+                    end
+                rescue Octokit::NotFound
+                    log("failed to create repo: template not found.", :fatal)
+                end
+            end
+            if @client.add_team_repository(gsiteam_id, curr_repo['full_name'], {permission: 'admin'})
+                log "added repo '#{curr_repo_name}' to team '#{@gsiteam}' with permission 'admin' in org '#{@orgname}'"
+            else
+                log("failed to add repo '#{curr_repo_name}' to team '#{@gsiteam}' with permission 'admin' in org '#{@orgname}'", :warn)
+            end
+            begin
+                @client.invite_user_to_repository(curr_repo['full_name'], user['username'])
+                log "invited user '#{user['username']}' to repo '#{curr_repo['full_name']}' in org '#{@orgname}'"
+            rescue Octokit::Forbidden
+                did_fail_to_add_all_users = true
+                log("Could find GitHub user '#{user['username']}' in org '#{@orgname}' to add to repo '#{curr_repo_name}'", :error)
+            end
+        end
+        log("Could not add all users.  See error logs", :fatal) if did_fail_to_add_all_users
+        puts @client.say "Let the CHIPs begin"
+        return
     end
 
     def remove
