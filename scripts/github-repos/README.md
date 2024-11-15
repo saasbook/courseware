@@ -1,11 +1,11 @@
 # Bulk creation/deletion of many repos and cs169a-team
 
 ```text
-Usage: ./github-repos.rb [required options] [invite|repos|remove|remove_access]
+Usage: ./github-repos.rb [required options] [invite|team_repos|remove|remove_access]
 
 GITHUB_ORG_API_KEY for the org must be set as an environment variable.
 
-'invite' invites students provided in .csv file and creates teams, 'repos' creates team repos, 'remove' remove students, repos, teams from the org
+'invite' invites students provided in .csv file and creates teams, 'team_repos' creates team repos, 'remove' remove students, repos, teams from the org
 
 It's safe to run multiple times.
 
@@ -14,7 +14,7 @@ Required arguments:
     -o, --orgname=ORGNAME            The name of the org eg org_name
     -f, --filename=FILENAME          The base filename for repos, eg "fa23-actionmap-04", actionmap is the base file name of the repo
     -p, --prefix=PREFIX              Semester prefix, eg "fa23" create a repos prefix, "fa23-actionmap-04", etc.
-    -t, --template=TEMPLATE          The repo name within the org to use as template eg repo_name (Assume the repo own by org)
+    -t, --template=TEMPLATE          The repo template to use to generate individual or team repos (should be of format org/repo-name), eg saasbook/chips-3.5
     -s, --studentteam=STUDENTTEAM    The team name of all the students team
     -g, --gsiteam=GSITEAM            The team name of all the staff team
 ```
