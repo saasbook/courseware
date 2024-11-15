@@ -1,14 +1,13 @@
 Report for Quiz 3
 ==================================================
 
-Total students in gradebook: 9
-Students who have not taken Quiz 3: 2
+Total students in gradebook: 8
+Students who have not taken Quiz 3: 1
 Anomalies (in quiz scores but not in gradebook): 3
 
 List of students who have not taken the quiz:
 SIS Login ID         Student                            
 -------------------- -----------------------------------
-nan                      Points Possible                
 Login_3017           Student 8                          
 
 Anomalies (students in quiz scores but not in gradebook):

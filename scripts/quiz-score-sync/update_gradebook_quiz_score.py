@@ -9,8 +9,7 @@ import re
 
 
 def setup_logging(log_file='script.log'):
-    """
-    Configures the logging settings to log messages to both a file and the console.
+    """Configures the logging settings to log messages to both a file and the console.
     """
     logging.basicConfig(
         level=logging.INFO,
@@ -23,8 +22,7 @@ def setup_logging(log_file='script.log'):
 
 
 def parse_arguments():
-    """
-    Parses command-line arguments provided by the user.
+    """Parses command-line arguments provided by the user.
     """
     parser = argparse.ArgumentParser(
         description='Upload PrairieLearn quiz scores to bCourses and generate reports.'
@@ -49,19 +47,35 @@ def parse_arguments():
 
 
 def load_csv(file_path, required_columns=None):
-    """
-    Loads a CSV file into a pandas DataFrame, ensuring required columns are present.
+    """Loads a CSV file into a pandas DataFrame, ensuring required columns are present
+    and removing rows with missing essential data.
     """
     if not os.path.exists(file_path):
         logging.error(f'File not found: {file_path}')
         sys.exit(1)
     try:
         df = pd.read_csv(file_path, dtype=str)  # Ensure all data is read as strings
+
+        # Strip whitespace from all string columns
+        df = df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
+
         if required_columns:
             missing = set(required_columns) - set(df.columns)
             if missing:
                 logging.error(f'Missing columns {missing} in {file_path}')
                 sys.exit(1)
+
+            # Replace empty strings with NaN to identify missing data
+            df.replace('', pd.NA, inplace=True)
+
+            # Drop rows where any of the required columns have missing values
+            initial_row_count = df.shape[0]
+            df.dropna(subset=required_columns, inplace=True)
+            final_row_count = df.shape[0]
+            rows_dropped = initial_row_count - final_row_count
+            if rows_dropped > 0:
+                logging.info(f'Dropped {rows_dropped} empty or incomplete rows from {file_path}.')
+
         return df
     except Exception as e:
         logging.error(f'Error reading {file_path}: {e}')
@@ -69,8 +83,7 @@ def load_csv(file_path, required_columns=None):
 
 
 def validate_quiz_scores_df(df):
-    """
-    Validates the structure of the quiz scores DataFrame.
+    """Validates the structure of the quiz scores DataFrame.
     Ensures required columns are present and only one quiz score column exists.
     """
     required_columns = {'UIN', 'UID'}
@@ -91,8 +104,7 @@ def validate_quiz_scores_df(df):
 
 
 def detect_gradebook_quiz_column(gradebook_df, quiz_name):
-    """
-    Detects the corresponding quiz column in the gradebook DataFrame using regex.
+    """Detects the corresponding quiz column in the gradebook DataFrame using regex.
     Only matches columns with the exact format: Quiz X (number)
     """
     # Define regex pattern to match "Quiz X (number)" exactly
@@ -116,8 +128,7 @@ def detect_gradebook_quiz_column(gradebook_df, quiz_name):
 
 
 def update_gradebook(gradebook_df, quiz_scores_df, quiz_name, gradebook_quiz_column):
-    """
-    Merges the quiz scores into the gradebook DataFrame and updates the relevant quiz grade column.
+    """Merges the quiz scores into the gradebook DataFrame and updates the relevant quiz grade column.
     """
     # Clean column names by stripping whitespace
     quiz_scores_df = quiz_scores_df.rename(columns=lambda x: x.strip())
@@ -176,20 +187,31 @@ def update_gradebook(gradebook_df, quiz_scores_df, quiz_name, gradebook_quiz_col
 
     # Update the quiz grade column in the gradebook
     merged_df[gradebook_quiz_column] = merged_df[quiz_name]
-    logging.info(f'Updated column "{gradebook_quiz_column}" with quiz scores.')
 
-    # Drop unnecessary columns used for merging
+    # Track which students have taken the quiz before filling NaN
+    merged_df['quiz_taken'] = merged_df[quiz_name].notna()
+
+    # Update the quiz grade column in the gradebook with quiz scores
+    merged_df[gradebook_quiz_column] = merged_df[quiz_name]
+
+    # Assign 0 to students not present in the quiz CSV
+    merged_df[gradebook_quiz_column].fillna(0, inplace=True)
+    logging.info(f'Assigned 0 to "{gradebook_quiz_column}" for students missing in quiz scores.')
+
+    # Optionally, convert the quiz scores to numeric (if not already)
+    merged_df[gradebook_quiz_column] = pd.to_numeric(merged_df[gradebook_quiz_column], errors='coerce').fillna(0)
+
+    # Drop unnecessary columns used for merging, but keep 'quiz_taken' for reporting
     merged_df.drop(columns=['UIN', quiz_name], inplace=True)
 
     return merged_df
 
 
 def generate_reports(merged_df, quiz_scores_df, gradebook_quiz_column, output_dir, quiz_name):
+    """Generates a report detailing students who haven't taken the quiz and any anomalies.
     """
-    Generates a report detailing students who haven't taken the quiz and any anomalies.
-    """
-    # Students who haven't taken the quiz
-    not_taken = merged_df[merged_df[gradebook_quiz_column].isna()]
+    # Students who haven't taken the quiz (quiz_taken is False)
+    not_taken = merged_df[~merged_df['quiz_taken']]
     num_not_taken = not_taken.shape[0]
     logging.info(f'Number of students who have not taken {quiz_name}: {num_not_taken}')
 
@@ -245,13 +267,22 @@ def generate_reports(merged_df, quiz_scores_df, gradebook_quiz_column, output_di
     logging.info(f'Report generated at {report_path}')
 
 
-def save_updated_gradebook(updated_df, output_dir):
+def save_updated_gradebook(updated_df, output_dir, gradebook_quiz_column):
+    """Saves the updated gradebook DataFrame to a CSV file in the specified output directory,
+    including only important columns and the specific quiz column.
     """
-    Saves the updated gradebook DataFrame to a CSV file in the specified output directory.
-    """
+    important_columns = ["Student", "ID", "SIS User ID", "SIS Login ID", "Section"]
+    # Ensure the quiz column exists in the DataFrame
+    if gradebook_quiz_column not in updated_df.columns:
+        logging.error(f'Quiz column "{gradebook_quiz_column}" not found in the updated gradebook.')
+        sys.exit(1)
+
+    # Select only the important columns and the quiz column
+    output_df = updated_df[important_columns + [gradebook_quiz_column]]
+
     output_path = os.path.join(output_dir, 'updated_gradebook_with_quiz_score.csv')
     try:
-        updated_df.to_csv(output_path, index=False)
+        output_df.to_csv(output_path, index=False)
         logging.info(f'Updated gradebook saved to {output_path}')
     except Exception as e:
         logging.error(f'Failed to save updated gradebook: {e}')
@@ -290,7 +321,7 @@ def main():
     generate_reports(updated_gradebook, quiz_scores_df, gradebook_quiz_column, args.output_dir, quiz_name)
 
     logging.info('Saving updated gradebook...')
-    save_updated_gradebook(updated_gradebook, args.output_dir)
+    save_updated_gradebook(updated_gradebook, args.output_dir, gradebook_quiz_column)
 
     logging.info('Process completed successfully.')
 

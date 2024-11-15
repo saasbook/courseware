@@ -4,9 +4,9 @@ A script to upload CS169A PrairieLearn quiz scores to bCourses and generate insi
 
 ## Features
 - **Gradebook Update**: Merges the existing bCourses gradebook with PrairieLearn quiz scores using a left join to create an updated gradebook.
+- **Post Processing**: Filling out 0 scores for students who haven't taken quizzes. And clean up unnecessary columns.
 - **Quiz Participation Report**: Generates a report listing students who haven't taken quizzes.
 - **Anomaly Detection**: Identifies inconsistencies, such as students present in quiz scores but missing from bCourses due to mismatched email addresses.
-- **Separate Logging**: Logs are saved to a `script.log` file, ensuring that reports remain clean and free from log entries.
 - **Automated Testing**: Includes a test script to verify the correctness of report generation and gradebook updates without affecting your working directories.
 
 ## Requirements
