@@ -2,23 +2,61 @@
 
 Correct answers are either **bolded** or indicated with #answer. 
 
-## Ruby Truthy 
+## Ruby Calls 1
 
 Consider the following Ruby code:
 
-Which of the following can fill in the blank to print out “yay!”
+``` ruby
+class Integer
+  def divisible_by_3?
+    self % 3 == 0
+  end
+end
+```
 
-**a[3]['yummy']**
+Which of the following calls are correct?
 
-**a[4]**
+**6.divisible_by_3?**
 
-**a[1]**
+divisible_by_3?(6)
 
-a[-1]
+6.divisible_by_3
 
-a[-4]
+Integer.divisible_by_3?(6)
 
-**a.include?(:CHEESE)**
+## Ruby Calls 2
+
+Consider the following Ruby code:
+
+``` ruby
+class Vehicle
+  def drive(speed = 60)
+    "Driving at #{speed} km/h"
+  end
+end
+
+class Car < Vehicle
+  def drive(speed = 100)
+    "Driving a car at #{speed} km/h"
+  end
+end
+
+class Motorcycle < Vehicle
+  def drive(speed = 80)
+    "Riding a motorcycle at #{speed} km/h"
+  end
+end
+```
+
+Which of the following calls will return the string "Riding a motorcycle at 120 km/h"?
+
+Vehicle.new.drive(120)
+
+Car.new.drive(120)
+
+**Motorcycle.new.drive(120)**
+
+Motorcycle.new.drive
 
 ## Ruby Errors 
 
