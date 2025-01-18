@@ -23,7 +23,7 @@ class DateCalculator
   end
   
   def add_leap_year
-    if (@days > 366) 
+    if (@days >= 366) 
       @days -= 366
       @year += 1
     end
