@@ -22,8 +22,12 @@ It's safe to run multiple times, since existing apps/collaborators are left alon
     opt.on('-pPREFIX', '--prefix=PREFIX', 'App name prefix, eg "fa23" gives apps "fa23-01", "fa23-02", etc.') do |pfx|
       h.app_prefix = pfx
     end
-    opt.on('-xEMAILS' '--extra-users=EMAILS', 'Comma-separated list of emails that should also be collaborators on apps') do |extra_users|
+    opt.on('-xEMAILS', '--extra-users=EMAILS', 'Comma-separated list of emails that should also be collaborators on apps') do |extra_users|
       h.extra_users = extra_users.split(/,/)
+    end
+    opt.on('-n', '--dry-run', "Print what would be done, but don't actually do anything") do
+      h.dry_run = true
+      STDERR.puts "Dry run mode: no changes will be made on Heroku, even if you confirm by typing YES"
     end
   end
   $opts.parse!
@@ -39,11 +43,12 @@ It's safe to run multiple times, since existing apps/collaborators are left alon
 end
 
 class HerokuAppManager
-  attr_accessor :heroku_team, :app_prefix, :extra_users
+  attr_accessor :heroku_team, :app_prefix, :extra_users, :dry_run
   def initialize
     @heroku_team = nil
     @app_prefix = nil
     @extra_users = []
+    @dry_run = false
     @users = {} # email => sanitized leader part of email (eg: 'john.q+public@gmail.com' => 'johnqpublic')
     @teams = Hash.new {|hsh, key| hsh[key] = [] } # teamID => [email1, email2, ...]
     print_help_and_exit("HEROKU_API_KEY not defined in environment") unless (@key = ENV['HEROKU_API_KEY'])
@@ -103,7 +108,7 @@ class HerokuAppManager
     confirm(%Q{In Heroku team '#{@heroku_team}', delete #{apps_to_delete.length} apps named #{@app_prefix}*})
     apps_to_delete.each do |app|
       puts "delete #{app}"
-      @heroku.app.delete(app)
+      @heroku.app.delete(app) unless dry_run
     end
   end
 
@@ -113,7 +118,7 @@ class HerokuAppManager
     @users.keys.each do |user|
       if existing_team_users.include?(user)
         puts "remove #{user}"
-        @heroku.team_member.delete(@heroku_team, user)
+        @heroku.team_member.delete(@heroku_team, user) unless dry_run
       else
         puts "  skip #{user}"
       end
@@ -141,17 +146,19 @@ class HerokuAppManager
         puts "  exists collaborator #{email}"
       else
         puts "  create collaborator #{email}"
-        @heroku.collaborator.create(appname, { user: email, silent: true })
+        @heroku.collaborator.create(appname, { user: email, silent: true }) unless dry_run
       end
     end
   end
 
   def create_app_and_add_collaborators(appname, emails)
     puts "create #{appname}"
-    @heroku.team_app.create(name: appname, team: @heroku_team, locked: true)
+    @heroku.team_app.create(name: appname, team: @heroku_team, locked: true) unless dry_run
     puts "  create collaborators #{emails.join(', ')}"
-    emails.each do |email|
-      @heroku.collaborator.create(appname, { user: email, silent: true })
+    unless dry_run
+      emails.each do |email|
+        @heroku.collaborator.create(appname, { user: email, silent: true }) 
+      end
     end
   end
 
@@ -162,7 +169,7 @@ class HerokuAppManager
 
   def confirm(description)
     puts description
-    puts "\nType YES to continue, anything else to abort:"
+    puts "\nType YES (case-sensitive) to continue, anything else to abort:"
     exit 1 unless (STDIN.gets.chomp == "YES")
   end
 
