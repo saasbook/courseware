@@ -10,9 +10,11 @@ class TicTacToeApp < Sinatra::Base
     session[:game] ||= TicTacToe.new('x') # if no existing game, start new one
     @game = session[:game]
     @message = session[:message] # in case there was any message to show
-    session[:message] = nil      # ...it shouldn't persist after this request
+    session[:message] = nil # ...it shouldn't persist after this request
     if @game.over?
       erb :lose
+      # TODO: handle :win
+      # TODO: handle new_game
     else
       erb :game
     end
@@ -22,7 +24,7 @@ class TicTacToeApp < Sinatra::Base
   post '/move' do
     @game = session[:game] or raise RuntimeError.new("No game found!")
     square = params[:square].to_i
-    if @game.move(@game.turn,square) # legal move
+    if @game.move(@game.turn, square) # legal move
       session[:game] = @game
     else
       session[:message] = "Player #{@game.turn} cannot play square #{square}!"
@@ -33,4 +35,8 @@ class TicTacToeApp < Sinatra::Base
     redirect '/'
   end
 
+  post '/new_game' do
+    # Complete this action to start a new game.
+    # What needs to go here?
+  end
 end

@@ -90,7 +90,7 @@ check_heroku() {
     ## is Heroku CLI installed?
     source $HOME/.rvm/scripts/rvm
     echo -n "Checking for Heroku CLI..."
-    if [[ `rvm use ; heroku --version` = *'heroku/7'* ]]; then
+    if [[ $(heroku --version | sed 's/heroku\/\([[:digit:]]\).*/\1/') -ge 7 ]]; then
         echo "OK"
     else
         quit "Heroku CLI >=7.0.0 is not installed. See devcenter.heroku.com/articles/heroku-cli"

@@ -1,8 +1,12 @@
 class Account
 end
 
-class SavingsAccount < Account    # inheritance
-  # constructor used when SavingsAccount.new(...) called 
+class SavingsAccount < Account
+  INSTEREST_RATE = 0.07
+
+
+  # inheritance
+  # constructor used when SavingsAccount.new(...) called
   def initialize(starting_balance=0) # optional argument
     @balance = starting_balance
   end
@@ -15,7 +19,7 @@ class SavingsAccount < Account    # inheritance
   def deposit(amount)
     @balance += amount
   end
-  @@bank_name = "MyBank.com"    # class (static) variable  
+  @@bank_name = "MyBank.com"    # class (static) variable
   # A class method
   def self.bank_name   # note difference in method def
     @@bank_name
