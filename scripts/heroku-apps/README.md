@@ -28,7 +28,8 @@ values in the Team columns should be nonnegative integers identifying teams.
 **Assumption:** You have a Heroku "instructor account" and have
 created a Heroku Team to manage the apps in your course.
 
-**Assumption:** You have a Heroku API key.
+**Assumption:** You have a Heroku API token.  You can generate one
+from the command line (after doing `heroku login`) with `heroku auth:token`.
 
 ### Create individual student app containers within your Heroku team
 
@@ -66,6 +67,12 @@ should have access.
 ### Delete all apps associated with the semester
 
 Deletes all apps beginning with the common app prefix.
+
+Note that a team member who has access to only one app will be removed
+from the team automatically if the app is deleted (or if they are
+removed as collaborators from it manually).  Therefore, deleting all
+the apps associated with the semester will generally also delete all
+the associated students.
 
 ### Remove all team members from team
 
