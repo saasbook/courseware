@@ -5,6 +5,16 @@ quit() {
     exit 1
 }
 
+pass() {
+    echo "✅ $1"
+    return 1
+}
+
+fail() {
+    echo "❌ $1"
+    return -1
+}
+
 check_bash() {
     ## is bash the current shell?
 
@@ -24,7 +34,7 @@ check_curl() {
         quit 'cURL is not installed. See the assignment for options.'
     fi
 }
- 
+
 check_git() {
     ## is git installed?
 
@@ -38,7 +48,6 @@ check_git() {
 
 check_git_ssh() {
     ## is git configured?
-
     echo -n 'Checking Git ssh access...'
     if [[ `ssh -T git@github.com 2>&1` = *'successfully authenticated'* ]]; then
         echo "OK"
@@ -49,26 +58,67 @@ check_git_ssh() {
 
 check_rvm_ruby() {
     ## is there a recent ruby version using rvm?
-
     echo -n 'Checking for recent rvm-installed Ruby version...'
     rubies=`rvm list 2>&1`
     if [[ $rubies = *'not found'* ]]; then
-        quit "rvm is not installed or not in the $PATH"
+        fail "rvm is not installed or not in you PATH"
     elif [[ $rubies = *'2.'* ]] || [[ $rubies = *'3.'* ]]; then
-        echo "OK"
+        pass "rvm is installed"
+        return 0;
     else
-        quit "rvm is installed, but you need Ruby 2.6.x or 2.7.x"
+        fail "rvm is installed, but you need Ruby 2.6.x or 2.7.x"
+    fi
+}
+
+check_asdf() {
+    echo -n 'Checking if asdf is installed...'
+    # TODO: Check asdf plugins to see if Ruby is installed
+    if command -v asdf >/dev/null 2>&1; then
+        pass "asdf is installed";
+        return 0;
+    else
+        fail "asdf is not installed. See https://asdf-vm.com/ for instructions."
+    fi
+}
+
+check_mise() {
+    echo -n 'Checking if mise is installed...'
+    if command -v mise >/dev/null 2>&1; then
+        pass "mise is installed"
+        return 1;
+    else
+        fail "mise is not installed."
+    fi
+}
+
+check_ruby_version() {
+    echo -n 'Checking if Ruby is set up correctly...'
+    if [[ `ruby -v` = *'ruby '* ]]; then
+        pass "Ruby is set up correctly"
+    else
+        fail "Ruby is not set up correctly."
+    fi
+}
+
+check_version_manager() {
+    if check_rvm_ruby || check_asdf || check_mise; then
+        pass "One of rvm, asdf, or mise is set up"
+    else
+        echo "You should have a version manager in your PARTH"
+        echo "We recommend using rvm, asdf, or mise"
+        echo $PATH
+        quit "None of rvm, asdf, or mise is set up. Please install one of them."
     fi
 }
 
 check_rails() {
     ## is Rails 6 installed?
-    source $HOME/.rvm/scripts/rvm
+    # source $HOME/.rvm/scripts/rvm
     echo -n 'Checking for Rails 6.x...'
-    if [[ `rvm use ; gem list -i rails -v '~> 6'` = *'true' ]]; then
+    if [[ `gem list -i rails -v '~> 6'` = *'true' ]]; then
         echo "OK"
     else
-        quit "you need to \`rvm use <ruby-version>\` then \`gem install rails -v '~> 6'\`"
+        quit "you need to setup Ruby 3.0+ then \`gem install rails -v '~> 6'\`"
     fi
 }
 
@@ -88,9 +138,9 @@ check_node() {
 
 check_heroku() {
     ## is Heroku CLI installed?
-    source $HOME/.rvm/scripts/rvm
+    # source $HOME/.rvm/scripts/rvm
     echo -n "Checking for Heroku CLI..."
-    if [[ $(heroku --version | sed 's/heroku\/\([[:digit:]]\).*/\1/') -ge 7 ]]; then
+    if [[ $(heroku --version | sed -E 's/^heroku\/([0-9]+)\..*/\1/') -ge 7 ]]; then
         echo "OK"
     else
         quit "Heroku CLI >=7.0.0 is not installed. See devcenter.heroku.com/articles/heroku-cli"
@@ -98,9 +148,9 @@ check_heroku() {
 }
 
 check_heroku_login() {
-    source $HOME/.rvm/scripts/rvm
+    # source $HOME/.rvm/scripts/rvm
     echo -n 'Checking Heroku login...'
-    if [[ `rvm use ; heroku apps 2>&1` = *'==='*'Apps'* ]]; then
+    if [[ `heroku apps 2>&1` = *'==='*'Apps'* ]]; then
         echo 'OK'
     else
         quit 'Heroku CLI installed, but you must use `heroku login` to authenticate'
@@ -110,10 +160,9 @@ check_heroku_login() {
 if [[ $1 != '' ]]; then
     check_$1 ; exit 0
 else
-    for thing in bash curl git git_ssh rvm_ruby rails node heroku heroku_login
+    for thing in bash curl git git_ssh version_manager ruby_version rails node heroku heroku_login
     do
         check_$thing
     done
-    echo "Congratulations! You're good to go."
+    echo "🎉 Congratulations! You're good to go."
 fi
-
