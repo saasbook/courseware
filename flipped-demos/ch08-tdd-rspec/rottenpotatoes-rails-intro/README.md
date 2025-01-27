@@ -14,18 +14,18 @@ Add to `app/views/movies/index.html.erb` a form above the table:
 ```
 
 What happens when form submit?  Error because no route matches
-`search_tmdb_path` helper, so add a route to config/routes.rb: 
+`search_tmdb_path` helper, so add a route to config/routes.rb:
 
-  `get '/movies/search_tmdb', :as => 'search_tmdb` 
+  `get '/movies/search_tmdb', :as => 'search_tmdb`
 
 Now submission fails because no controller action, so add empty method
-in `movies_controller.rb`: `def search_tmdb ; end` 
+in `movies_controller.rb`: `def search_tmdb ; end`
 
 Now fails because there is no view to render, so create an empty view:
-`touch app/views/movies/search_tmdb.html.erb` 
+`touch app/views/movies/search_tmdb.html.erb`
 
 Now we can start writing tests.  Create
-`spec/controllers/movies_controller_spec.rb` containing 
+`spec/controllers/movies_controller_spec.rb` containing
 
 ```
 require 'rails_helper'
@@ -37,7 +37,7 @@ describe MoviesController do
       get 'search', {"utf8"=>"✓", "search_terms"=>"Bodies Bodies Bodies", "commit"=>"Search TMDb"}
     end
     it 'selects the Search Results template for rendering'
-    it 'makes the TMDb search results available to that template' 
+    it 'makes the TMDb search results available to that template'
   end
 end
 ```
