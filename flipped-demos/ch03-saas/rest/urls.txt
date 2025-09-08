@@ -17,4 +17,4 @@ coco = JSON.parse(`curl https://api.themoviedb.org/3/movie/354912?api_key=cc4b67
 coco.keys
 coco["vote_count"]
 coco["genres"]
-
+```
