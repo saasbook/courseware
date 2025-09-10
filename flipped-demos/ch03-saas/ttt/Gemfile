@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '>= 2.7.8'
 
 gem 'sinatra', '~> 4.0'
-gem 'rackup'
+# gem 'rackup'
 
 group :development, :test do
   gem 'cucumber'

@@ -10,13 +10,13 @@ def main()
   $opts = OptionParser.new do |opt|
     opt.banner = "Usage: #{__FILE__} [required options] [individual|team|delapps|delusers]
 'individual' creates individual apps, 'team' creates team apps, 'delapps' deletes any apps with given prefix,
-'delusers' deletes all users in CSV file from the team. 
+'delusers' deletes all users in CSV file from the team.
 Heroku team name and app prefix are always required.
 CSV file is required when creating individual or team apps or deleting users.
 It's safe to run multiple times, since existing apps/collaborators are left alone.
 
 If HEROKU_API_KEY is set, it is used as the API token.
-Otherwise, if you have logged into the Heroku CLI with 'heroku login', 
+Otherwise, if you have logged into the Heroku CLI with 'heroku login',
 the token returned by 'heroku auth:token' is used.  Otherwise, error.
 "
     opt.on('-cCSVFILE', '--csv=CSVFILE', 'CSV file containing at least "Team" and "Email" named columns') do |csv|
@@ -41,7 +41,7 @@ the token returned by 'heroku auth:token' is used.  Otherwise, error.
   rescue OptionParser::ParseError => e
     h.print_help_and_exit(e.message)
   end
-  
+
   command = ARGV.pop
   case command
   when 'individual' then h.create_individual_apps
@@ -152,7 +152,7 @@ class HerokuAppManager
       end
     end
   end
-  
+
   def print_help_and_exit(msg=nil)
     STDERR.puts "Error: #{msg}" if msg
     STDERR.puts $opts
@@ -185,7 +185,7 @@ class HerokuAppManager
     puts "  create collaborators #{emails.join(', ')}"
     unless dry_run
       emails.each do |email|
-        @heroku.collaborator.create(appname, { user: email, silent: true }) 
+        @heroku.collaborator.create(appname, { user: email, silent: true })
       end
     end
   end
