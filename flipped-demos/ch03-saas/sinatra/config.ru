@@ -1,4 +1,2 @@
 require './app'
 run DemoApp
-
-
