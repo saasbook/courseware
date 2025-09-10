@@ -9,10 +9,16 @@ def main()
   h = HerokuAppManager.new
   $opts = OptionParser.new do |opt|
     opt.banner = "Usage: #{__FILE__} [required options] [individual|team|delapps|delusers]
-HEROKU_API_KEY must be set as an environment variable.
 'individual' creates individual apps, 'team' creates team apps, 'delapps' deletes any apps with given prefix,
-'delusers' deletes all users in CSV file from the team. All options are required except --extra-users.
-It's safe to run multiple times, since existing apps/collaborators are left alone."
+'delusers' deletes all users in CSV file from the team. 
+Heroku team name and app prefix are always required.
+CSV file is required when creating individual or team apps or deleting users.
+It's safe to run multiple times, since existing apps/collaborators are left alone.
+
+If HEROKU_API_KEY is set, it is used as the API token.
+Otherwise, if you have logged into the Heroku CLI with 'heroku login', 
+the token returned by 'heroku auth:token' is used.  Otherwise, error.
+"
     opt.on('-cCSVFILE', '--csv=CSVFILE', 'CSV file containing at least "Team" and "Email" named columns') do |csv|
       h.read_teams_and_emails_from_csv(csv)
     end
@@ -30,8 +36,12 @@ It's safe to run multiple times, since existing apps/collaborators are left alon
       STDERR.puts "Dry run mode: no changes will be made on Heroku, even if you confirm by typing YES"
     end
   end
-  $opts.parse!
-  h.print_help_and_exit unless h.valid?
+  begin
+    $opts.parse!
+  rescue OptionParser::ParseError => e
+    h.print_help_and_exit(e.message)
+  end
+  
   command = ARGV.pop
   case command
   when 'individual' then h.create_individual_apps
@@ -44,21 +54,39 @@ end
 
 class HerokuAppManager
   attr_accessor :heroku_team, :app_prefix, :extra_users, :dry_run
+  attr_reader :error
   def initialize
+    @error = ''
     @heroku_team = nil
     @app_prefix = nil
     @extra_users = []
     @dry_run = false
     @users = {} # email => sanitized leader part of email (eg: 'john.q+public@gmail.com' => 'johnqpublic')
     @teams = Hash.new {|hsh, key| hsh[key] = [] } # teamID => [email1, email2, ...]
-    print_help_and_exit("HEROKU_API_KEY not defined in environment") unless (@key = ENV['HEROKU_API_KEY'])
+    print_help_and_exit("Can't find an API token") unless (@key = HerokuAppManager.get_api_token)
     @heroku = PlatformAPI.connect_oauth(@key)
   end
 
   public
 
+  def self.get_api_token
+    if (key = ENV['HEROKU_API_KEY'])
+      puts "Using HEROKU_API_KEY value as API token"
+      return key
+    end
+    key = `heroku auth:token 2>/dev/null`.chomp
+    if $?.exitstatus == 0
+      puts "Using value of 'heroku auth:token' as API token"
+      return key
+    end
+    STDERR.puts 'No HEROKU_API_KEY and not logged into Heroku CLI (try `heroku login`)'
+    nil
+  end
+
   def valid?
-    @heroku_team && @app_prefix 
+    @error << "Heroku team name is required\n" unless @heroku_team
+    @error << "App prefix is required\n" unless @app_prefix
+    @error == ''
   end
 
   def read_teams_and_emails_from_csv(csv)
