@@ -4,10 +4,6 @@ class DemoApp < Sinatra::Base
 
   get '/' do
     # "hello cs169A!"
-    puts session
-    @someone = session[:thing]
-    # @data = ['CS169A', 'CS168', 'CS162']
-    erb(:hello)
   end
 
   get '/set/:something' do
