@@ -1,6 +1,6 @@
 require 'sinatra'
 class DemoApp < Sinatra::Base
-  enable :sessions
+  # enable :sessions
 
   get '/' do
     # "hello cs169A!"
