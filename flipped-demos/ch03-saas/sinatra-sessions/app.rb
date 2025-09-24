@@ -3,7 +3,6 @@ class DemoApp < Sinatra::Base
   # enable :sessions
 
   get '/' do
-    # "hello cs169A!"
   end
 
   get '/set/:something' do
