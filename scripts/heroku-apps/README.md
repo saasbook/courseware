@@ -35,10 +35,11 @@ from the command line (after doing `heroku login`) with `heroku auth:token`.
 
 **Note:** You need to be on Ruby 2.7.x.
 
-Grab the latext 2.x Ruby version with:
+Grab the latext 2.x Ruby version, and then login:
 
-```
+```sh
 mise shell ruby@2
+heroku login
 ```
 
 
@@ -48,6 +49,7 @@ export HEROKU_API_KEY=$(heroku auth:token)
 ./heroku-apps individual --team=esaas --prefix=fa25 -n --extra-users='...' --csv=compsci-169a-2025-D_rosters.csv
 # Then do the actual run:
 ./heroku-apps individual --team=esaas --prefix=fa25 --extra-users='...' --csv=compsci-169a-2025-D_rosters.csv
+./heroku-apps team --team=esaas --prefix=fa25 --csv=teams.csv
 ```
 
 **CalCentral Rosters:** Change `'Email Address'` to `'Email'` in the CSV file. Change `'Waitlist Postion'` to `'Team'` when creating individual apps.

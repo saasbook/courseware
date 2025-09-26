@@ -2,6 +2,8 @@ GEM
   remote: https://rubygems.org/
   specs:
     base64 (0.3.0)
+    byebug (11.1.3)
+    coderay (1.1.3)
     csv (3.3.5)
     erubis (2.7.0)
     excon (1.2.5)
@@ -14,12 +16,19 @@ GEM
       multi_json (>= 1.9.2)
       webrick
     logger (1.7.0)
+    method_source (1.1.0)
     moneta (1.0.0)
     multi_json (1.15.0)
     platform-api (3.8.0)
       heroics (~> 0.1.1)
       moneta (~> 1.0.0)
       rate_throttle_client (~> 0.1.0)
+    pry (0.15.2)
+      coderay (~> 1.1)
+      method_source (~> 1.0)
+    pry-byebug (3.8.0)
+      byebug (~> 11.0)
+      pry (~> 0.10)
     rate_throttle_client (0.1.2)
     webrick (1.9.1)
     yaml (0.4.0)
@@ -30,6 +39,8 @@ PLATFORMS
 DEPENDENCIES
   csv
   platform-api
+  pry
+  pry-byebug
   yaml
 
 RUBY VERSION
