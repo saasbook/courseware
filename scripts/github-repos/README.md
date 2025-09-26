@@ -73,3 +73,19 @@ Remove all students and subteams in STUDENTTEAM from the org.
 
 **Use case:** Only remove the access of students teams, repos still can be accessed by
 gsi team.
+
+## Exampls
+
+```bash
+export GITHUB_ORG_API_KEY=$(gh auth token)
+# Create a team for all students in the same semester, for CHIPS 4.8
+./github-repos.rb \
+    team_repos \
+    --csv=team.csv \
+    --orgname=cs169 \
+    --filename=fa25-chips-4.8 \
+    --prefix=fa25 \
+    --template=saasbook/hw-rails-intro \
+    --studentteam=fa25-students \
+    --gsiteam=fa25-gsis \
+```

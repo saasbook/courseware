@@ -5,6 +5,9 @@ require 'platform-api'
 require 'yaml'
 require 'csv'
 
+# Until we upgrade to Ruby 3.0
+require 'pry'
+
 def main()
   h = HerokuAppManager.new
   $opts = OptionParser.new do |opt|
@@ -180,12 +183,17 @@ class HerokuAppManager
   end
 
   def create_app_and_add_collaborators(appname, emails)
-    puts "create #{appname}"
+    puts "create #{appname} with emails #{emails.join(', ')}"
+    # binding.pry
     @heroku.team_app.create(name: appname, team: @heroku_team, locked: true) unless dry_run
+    # unless dry_run
+    #   puts `heroku apps:create #{appname} --team #{@heroku_team} -n`
+    # end
     puts "  create collaborators #{emails.join(', ')}"
     unless dry_run
       emails.each do |email|
-        @heroku.collaborator.create(appname, { user: email, silent: true })
+        # `heroku access:add #{email} --app #{appname}`
+        @heroku.collaborator.create(appname, { user: email, silent: false })
       end
     end
   end

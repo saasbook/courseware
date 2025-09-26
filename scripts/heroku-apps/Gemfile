@@ -5,3 +5,7 @@ ruby '< 3.0'
 gem 'platform-api'
 gem 'csv'
 gem 'yaml'
+
+# Until we upgrade to Ruby 3.0
+gem 'pry'
+gem 'pry-byebug'
