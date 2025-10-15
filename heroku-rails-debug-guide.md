@@ -2,6 +2,11 @@
 
 A debugging reference for deploying Rails applications to Heroku, designed for students unfamiliar with Rails or Heroku.
 
+> [!NOTE]
+> This is a generic version of a guide for all ESaaS assignments.
+> Not every bit of advice applies to every Rails or Heroku app.
+> Use your own judgement and _ask questions_ if you're unsure.
+
 **References:**
 - [Heroku Dev Center](https://devcenter.heroku.com/)
 - [Getting Started with Rails on Heroku](https://devcenter.heroku.com/articles/getting-started-with-rails7)
@@ -32,14 +37,13 @@ A debugging reference for deploying Rails applications to Heroku, designed for s
 
 When you're stuck and need help from instructors, TAs, or classmates, **how you ask makes a huge difference**. A good question gets you help faster.
 
-### The Golden Rules
+### Basic Structure
 
 **1. Show what you've tried**
 
 Bad: "My app doesn't work on Heroku"
 Good: "My app crashes on Heroku. I've tried checking the logs and DATABASE_URL is set. Here's what I'm seeing..."
 
-**Why this matters:** It shows you've made an effort and helps others avoid suggesting things you've already tried.
 
 **2. Include the entire log output**
 
@@ -84,7 +88,7 @@ Look for:
 
 ### A Good Help Request Template
 
-```
+````
 **What I'm trying to do:**
 Deploy my Rails app to Heroku
 
@@ -106,15 +110,16 @@ https://github.com/username/project
 
 **Heroku app name:**
 my-app-staging
-```
+````
 
 ### When to Include Links
 
 **Always include:**
-- Link to your GitHub repo (if public)
+- Link to your GitHub repo (if public, or accessible to the course staff reading the question)
 - Link to Heroku app (if accessible)
 - Links to documentation you've read
 - Links to related Stack Overflow questions
+- Links to ChatGPT / Claude chat sessions if using them.
 
 **Example:**
 "I followed this guide [link] but I'm getting a different error than what's shown..."
@@ -161,11 +166,34 @@ Heroku is a **Platform as a Service (PaaS)**. Instead of managing your own Linux
 
 **Ephemeral filesystem:** Each dyno has its own filesystem, but it's **temporary**. Files written during runtime disappear when the dyno restarts.
 
-**Why this matters for debugging:** Don't store uploaded files on the filesystem. Use S3 or similar. Database is persistent, filesystem is not.
+**Why this matters for debugging:** Don't store uploaded files on the filesystem. Use S3 or similar. Database is persistent, filesystem is not. Your application probably doesn't rely on the filesystem for this course.
 
 **The Git-based workflow:** You deploy by pushing to a special Git remote. Heroku detects your app type and builds it.
 
 **Why this matters for debugging:** If you can't push, check your Git remote configuration. If the build fails, check the build logs (not runtime logs).
+
+### Heroku Git Remote Format
+
+Heroku uses a special Git remote URL for deployment:
+
+```
+https://git.heroku.com/<your-app-name>.git
+```
+
+When you run `heroku create`, this remote is automatically added to your repository as `heroku`. You can view it with:
+
+```bash
+git remote -v
+```
+
+To manually add or update the Heroku remote:
+
+```bash
+heroku git:remote -a <your-app-name>
+```
+
+> [!TIP]
+> Always verify you're pushing to the correct remote before deploying.
 
 ---
 
@@ -362,7 +390,7 @@ heroku local web
 ### Quick Checklist Before First Deploy
 
 - [ ] `pg` gem in production group
-- [ ] `sqlite3` gem in development/test groups only  
+- [ ] `sqlite3` gem in development/test groups only
 - [ ] `Procfile` exists with `web:` process
 - [ ] Database configured to read `DATABASE_URL` in production
 - [ ] `.env` file in `.gitignore` (never commit secrets!)
@@ -717,7 +745,7 @@ heroku pg:reset DATABASE_URL -a your-app-name --confirm your-app-name
    ```
    **If this fails:** Database might be provisioning (wait a few minutes) or credentials are invalid (rotate them)
 
-**Reference:** 
+**Reference:**
 - [Heroku Postgres](https://devcenter.heroku.com/articles/heroku-postgresql)
 - [Managing Heroku Postgres with CLI](https://devcenter.heroku.com/articles/managing-heroku-postgres-using-cli)
 - [Connecting to Heroku Postgres](https://devcenter.heroku.com/articles/connecting-heroku-postgres)
@@ -1062,7 +1090,7 @@ heroku logs --remote production
 > ```
 > This prevents accidentally deploying to production when you meant staging.
 
-**Reference:** 
+**Reference:**
 - [Deploying with Git](https://devcenter.heroku.com/articles/git)
 - [Managing Multiple Environments](https://devcenter.heroku.com/articles/multiple-environments)
 
@@ -1338,7 +1366,7 @@ heroku addons -a your-app-name
 ```
 
 **Expected:** See `heroku-postgresql`
-**If missing:** 
+**If missing:**
 ```bash
 heroku addons:create heroku-postgresql:essential-0 -a your-app-name
 ```
@@ -1528,7 +1556,3 @@ heroku restart -a app-name              # Restart app
 heroku pg:psql -a app-name              # Database console
 git push heroku main                    # Deploy
 ```
-
----
-
-**End of guide. Keep this as a reference and update it with your own debugging discoveries!**
