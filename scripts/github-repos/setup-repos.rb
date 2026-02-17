@@ -5,16 +5,17 @@ require 'date'
 REPOS = [
   'cs169/flextensions',
   'cs169/lamorinda-spirit-van',
-  'cs169/berkeley-reentry-student-program'
+  'cs169/snapcon',
+  'cs169/BJC-Teacher-Tracker',
 ]
 
 MILESTONES = [
-  { title: 'Iteration 1', due_on: '2024-02-21' },
-  { title: 'Iteration 2', due_on: '2024-03-07' },
-  { title: 'Iteration 3', due_on: '2024-03-21' },
-  { title: 'Iteration 4', due_on: '2024-04-11' },
-  { title: 'Iteration 5', due_on: '2024-04-25' },
-  { title: 'Iteration 6', due_on: '2024-05-09' }
+  { title: 'Iteration 1', due_on: '2026-02-20' },
+  { title: 'Iteration 2', due_on: '2026-03-06' },
+  { title: 'Iteration 3', due_on: '2026-03-20' },
+  { title: 'Iteration 4', due_on: '2026-04-10' },
+  { title: 'Iteration 5', due_on: '2026-04-24' },
+  { title: 'Iteration 6', due_on: '2026-05-08' }
 ]
 
 LABELS = [
@@ -22,7 +23,8 @@ LABELS = [
   { name: '💡research needed', color: '004AAE' },
   { name: '🏗️ infrastructure', color: '8236C7' },
   { name: '💎 testing', color: '018943' },
-  { name: '👀 accessibility', color: 'E7115E' }
+  { name: '👀 accessibility', color: 'E7115E' },
+  { name: '⚒️ spike', color: '314AEC' }
 ]
 
 def setup_repository(repo)
