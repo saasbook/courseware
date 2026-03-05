@@ -49,7 +49,7 @@ None.
 ### Golden Repo
 
 - [ ] I have made a PR to the Golden Repo, or will make one soon
-- [ ] If this is a PR to the Golden Repo, I have tagged @cycomachead or @armandofox
+- [ ] If this is a PR to the Golden Repo, I have tagged `@cycomachead` or `@armandofox`
 
 ---
 
