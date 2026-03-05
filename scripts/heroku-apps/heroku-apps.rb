@@ -20,7 +20,7 @@ It's safe to run multiple times, since existing apps/collaborators are left alon
       h.heroku_team = team
     end
     opt.on('-pPREFIX', '--prefix=PREFIX', 'App name prefix, eg "fa23" gives apps "fa23-01", "fa23-02", etc.') do |pfx|
-      h.app_prefix = pfx
+      h.app_prefix = if pfx.end_with? '-' then pfx else "#{pfx}-" end
     end
     opt.on('-xEMAILS' '--extra-users=EMAILS', 'Comma-separated list of emails that should also be collaborators on apps') do |extra_users|
       h.extra_users = extra_users.split(/,/)
