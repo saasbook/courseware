@@ -5,10 +5,17 @@ require 'optparse'
 
 ORG = 'cs169'
 
+pattern = ARGV[0]
+if pattern.nil? || pattern.empty?
+  STDERR.puts "Error: Please provide a repo name pattern to match"
+  STDERR.puts "Usage: delete_repos.rb [--dry-run] <pattern>"
+  exit 1
+end
+
 # Parse command line arguments
 options = { dry_run: false }
 OptionParser.new do |opts|
-  opts.banner = "Usage: delete_repos.rb [options]"
+  opts.banner = "Usage: delete_repos.rb [options] <pattern>"
 
   opts.on("--dry-run", "Show what would be deleted without actually deleting") do
     options[:dry_run] = true
@@ -56,7 +63,7 @@ all_repos = get_org_repos(ORG)
 
 # Filter repos matching pattern: fa25-XXX-chips-4.8 but NOT fa25-team-X-chips-4.8
 repos_to_delete = all_repos.select do |repo|
-  repo.match?(/^fa25-.*-chips-4\.8$/) && !repo.match?(/^fa25-team-\d+-chips-4\.8$/)
+  repo.match?(pattern)
 end
 
 puts "\nRepositories matching deletion criteria:"
@@ -71,9 +78,9 @@ puts "\nTotal to delete: #{repos_to_delete.length}"
 if options[:dry_run]
   puts "\n🔍 DRY RUN MODE - No repositories will be deleted\n\n"
 else
-  puts "\n⚠️  WARNING: This will permanently delete #{repos_to_delete.length} repositories!"
+  puts "\n⚠️ WARNING: This will permanently delete #{repos_to_delete.length} repositories!"
   print "Type 'DELETE' to confirm: "
-  confirmation = gets.chomp
+  confirmation = $stdin.gets.chomp
 
   unless confirmation == 'DELETE'
     puts "Aborted"
