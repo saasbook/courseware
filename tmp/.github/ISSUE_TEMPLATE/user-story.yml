@@ -1,0 +1,61 @@
+name: User Story
+description: A feature request written as a Connextra user story
+title: "[Story] "
+labels: ["story"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Writing a good user story
+        Use the **Connextra format**:
+        > *As a* **[role]**, *I want* **[goal]** *so that* **[benefit]**
+
+        Example: *As a* **student**, *I want* **to filter courses by subject** *so that* **I can find relevant classes quickly**.
+
+        Keep it from the user's perspective — describe *what* and *why*, not *how*.
+
+  - type: dropdown
+    id: story-type
+    attributes:
+      label: Story Type
+      options:
+        - "Feature – new user-facing functionality"
+        - "Bug Fix – correcting unintended behavior"
+        - "Chore – maintenance, refactor, or dev tooling (no user impact)"
+        - "Spike – research or investigation to reduce uncertainty"
+
+  - type: textarea
+    id: user-story
+    attributes:
+      label: User Story
+      description: Write your story in Connextra format.
+      placeholder: "As a [role], I want [goal] so that [benefit]."
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: What must be true for this story to be considered done? Use "Given / When / Then" if helpful.
+      placeholder: |
+        - [ ] Given ... when ... then ...
+        - [ ] ...
+
+  - type: dropdown
+    id: story-points
+    attributes:
+      label: Story Points
+      description: Estimate complexity. 4–5 points is a signal to consider splitting the story.
+      options:
+        - "1 – Trivial (quick fix or config change)"
+        - "2 – Small (straightforward, well-understood)"
+        - "3 – Medium (some unknowns or integration work)"
+        - "4 – Large (consider splitting)"
+        - "5 – Too large, please split before starting"
+        - "? – Needs discussion before estimating"
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional Notes
+      description: Mockups, related issues, technical constraints, out-of-scope items, etc.
+      placeholder: "Optional — link to designs, flag dependencies, or note what's explicitly out of scope."
