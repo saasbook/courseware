@@ -57,18 +57,14 @@ class Course
 end
 
 # ---------------------------------------------------------------------------
-# Discussion: `attr_reader :students` is weaker than it looks.  It protects the
-# instance *variable* (you can't repoint it at a different array), but it hands
-# out the array itself, so the caller can mutate it and sail right past #enroll:
+# Discussion: `attr_reader :students`. Does it prevent modification?
+# Try the following in a console. How does this relate to other languages you know?
 #
 #   course = Course.new("CS 169A", 12345, 2)
-#   course.students << "Priya Raghunathan"   # works, bypasses enroll
-#   course.students << "Diego Ferreira"
-#   course.students << "Wei Zhang"           # 3 students, cap of 2
-#   course.students = []                     # NoMethodError: undefined method 'students='
-#
-# (On Ruby 3.3 that last message uses a backquote, `students='; 3.4 switched to
-# a straight quote.  Same error either way.)
+#   course.students << Student.new("Priya Raghunathan", 100)
+#   course.students << Student.new("Diego Ferreira", 200)
+#   course.students << Student.new("Wei Zhang", 300)
+#   course.students = [] 
 #
 # So how do we hand out the roster without handing out the right to change it?
 # Two things to try live, in place of `attr_reader :students`:
