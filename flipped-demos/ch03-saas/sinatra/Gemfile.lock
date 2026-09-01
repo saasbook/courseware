@@ -1,40 +1,74 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    base64 (0.2.0)
-    mustermann (3.0.3)
-      ruby2_keywords (~> 0.0.1)
-    rack (3.1.7)
-    rack-protection (4.0.0)
+    base64 (0.3.0)
+    ffi (1.17.4)
+    ffi (1.17.4-aarch64-linux-gnu)
+    ffi (1.17.4-aarch64-linux-musl)
+    ffi (1.17.4-arm-linux-gnu)
+    ffi (1.17.4-arm-linux-musl)
+    ffi (1.17.4-arm64-darwin)
+    ffi (1.17.4-x86-linux-gnu)
+    ffi (1.17.4-x86-linux-musl)
+    ffi (1.17.4-x86_64-darwin)
+    ffi (1.17.4-x86_64-linux-gnu)
+    ffi (1.17.4-x86_64-linux-musl)
+    listen (3.10.0)
+      logger
+      rb-fsevent (~> 0.10, >= 0.10.3)
+      rb-inotify (~> 0.9, >= 0.9.10)
+    logger (1.7.0)
+    mustermann (3.1.1)
+    rack (3.2.7)
+    rack-protection (4.2.1)
       base64 (>= 0.1.0)
+      logger (>= 1.6.0)
       rack (>= 3.0.0, < 4)
-    rack-session (2.0.0)
+    rack-session (2.1.2)
+      base64 (>= 0.1.0)
       rack (>= 3.0.0)
-    rackup (2.1.0)
+    rackup (2.3.1)
       rack (>= 3)
-      webrick (~> 1.8)
-    ruby2_keywords (0.0.5)
-    sinatra (4.0.0)
+    rb-fsevent (0.11.2)
+    rb-inotify (0.11.1)
+      ffi (~> 1.0)
+    rerun (0.14.0)
+      listen (~> 3.0)
+    sinatra (4.2.1)
+      logger (>= 1.6.0)
       mustermann (~> 3.0)
       rack (>= 3.0.0, < 4)
-      rack-protection (= 4.0.0)
+      rack-protection (= 4.2.1)
       rack-session (>= 2.0.0, < 3)
       tilt (~> 2.0)
     sinatra-flash (0.3.0)
       sinatra (>= 1.0.0)
-    tilt (2.4.0)
-    webrick (1.8.1)
+    tilt (2.9.0)
+    webrick (1.9.2)
 
 PLATFORMS
+  aarch64-linux-gnu
+  aarch64-linux-musl
+  arm-linux-gnu
+  arm-linux-musl
+  arm64-darwin
   ruby
+  x86-linux-gnu
+  x86-linux-musl
+  x86_64-darwin
+  x86_64-linux
+  x86_64-linux-gnu
+  x86_64-linux-musl
 
 DEPENDENCIES
   rackup
+  rerun
   sinatra (~> 4.0)
   sinatra-flash
+  webrick
 
 RUBY VERSION
-   ruby 2.7.8p225
+   ruby 3.3.12p206
 
 BUNDLED WITH
-   2.1.4
+   2.5.22

@@ -1,8 +1,9 @@
 source 'https://rubygems.org'
-ruby '>= 2.7.8'
+ruby '>= 3.3.0'
 
 gem 'sinatra', '~> 4.0'
 gem 'rackup'
+gem 'webrick'   # rackup 2.2+ no longer bundles a web server
 gem 'sinatra-flash'
 
 group :development, :test do
