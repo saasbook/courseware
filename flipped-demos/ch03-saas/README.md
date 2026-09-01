@@ -1,5 +1,9 @@
 # SaaS/Sinatra demos
 
+These demos are tested against Ruby 3.3.x and 3.4.x.  In each app
+directory (`sinatra`, `sinatra-sessions`, `ttt`), run `bundle install`
+once before the first demo.
+
 ## HTML and CSS (directory `html-css`)
 
 The file `simplified-bootstrap-template.html` is based on a simplified

@@ -49,7 +49,7 @@ Give exampes of "expression oriented" tasks:
 
 * International bank account demo: adding individual methods to Numeric to allow conversions like `3.euros`
 * Use of `method_missing` to create a DRYer more general solution
-  * Note use of mixin: we put our stuff in a module to keep it self-contained, then include (mix in) the module into `Numeric`, which is the ancestor of the various numeric classes `Fixnum`, `Float`, etc.
+  * Note use of mixin: we put our stuff in a module to keep it self-contained, then include (mix in) the module into `Numeric`, which is the ancestor of the various numeric classes `Integer`, `Float`, etc.
 
 ## Yield
 

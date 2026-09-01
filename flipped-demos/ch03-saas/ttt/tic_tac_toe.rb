@@ -1,3 +1,5 @@
+require 'json'
+
 class TicTacToe
 
   attr_reader :board
