@@ -3,6 +3,19 @@ class Color
 #  attr_writer :r, :g, :b
   # define setters and getters
   attr_accessor :r, :g, :b
+  # def r
+  #   @r
+  # end
+  # def g
+  #   @g
+  # end
+  # def b
+  #   @b
+  # end
+  # def r=(value)
+  #   @r = value
+  # end
+
   # define getters only
   #  attr_reader :r, :g, :b
 
