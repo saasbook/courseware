@@ -1,0 +1,31 @@
+<% if @message %>
+  <div class="alert alert-danger">
+    <%= @message %>
+  </div>
+<% end %>
+
+<form method="post" action="/move" id="board" class="col-6">
+  <% 0.upto(2) do |row| %>
+  <div class="row">
+    <% 0.upto(2) do |col| %>
+    <% square_num = row * 3 + col %>
+    <% val = @game.board[square_num] %>
+    <div class="col-4 text-center h1">
+      <div class="border-primary <%= 'border-bottom' if row!=2 %> <%= 'border-left' if col!=0 %>">
+        <% if val.empty? %>
+          <button type="submit" name="square" value="<%= square_num %>"
+                  class="btn btn-link h1 text-decoration-none"><%= square_num %></button>
+        <% else %>
+          <span class="btn h1 disabled"><%= val %></span>
+        <% end %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+  <% end %>
+  <h2><%= @game.turn %>'s move</h2>
+</form>
+
+<form method="post" action="/new_game" class="col-4">
+  <input type="submit" value="New Game" class="btn btn-secondary">
+</form>
