@@ -2,3 +2,7 @@
 .bundle
 .byebug_history
 **/*.env
+
+# Student rosters (PII)
+scripts/github-repos/*teams.csv
+scripts/github-repos/*teams.tsv
