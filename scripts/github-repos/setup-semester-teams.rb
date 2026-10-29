@@ -40,9 +40,9 @@ OptionParser.new do |opts|
   opts.on('--parent-team SLUG', "Parent team slug (default #{options[:parent_team]})") { |v| options[:parent_team] = v }
   opts.on('--semester PREFIX', "Prefix for team/repo names (default #{options[:semester]})") { |v| options[:semester] = v }
   opts.on('--assignment NAME', "Repo suffix (default #{options[:assignment]})") { |v| options[:assignment] = v }
-  opts.on('--template OWNER/REPO', "Template repo (default #{options[:template]})") { |v| options[:template] = v }
+  opts.on('--template OWNER/REPO', "Template repo, or 'none' for an empty (bare) repo (default #{options[:template]})") { |v| options[:template] = v }
   opts.on('--repo-permission PERM', "Team permission on its repo: pull|triage|push|maintain|admin (default #{options[:repo_permission]})") { |v| options[:repo_permission] = v }
-  opts.on('--staff-team SLUG', 'Optional staff team to grant admin on every repo') { |v| options[:staff_team] = v }
+  opts.on('--staff-team SLUGS', 'Optional comma list of staff teams to grant admin on every repo') { |v| options[:staff_team] = v }
   opts.on('--only STEPS', 'Comma list of steps: teams,invite,repos (default all)') { |v| options[:steps] = v.split(',') }
   opts.on('--apply', 'Actually make changes (default is dry run)') { options[:apply] = true }
 end.parse!
@@ -160,15 +160,17 @@ end
 if options[:steps].include?('repos')
   puts "\n== Repos"
   existing_repos = gh('repo', 'list', ORG, '--limit', '5000', '--json', 'name', '--jq', '.[].name').split("\n").to_set
-  staff = options[:staff_team]
+  staff_teams = options[:staff_team].to_s.split(',').map(&:strip).reject(&:empty?)
   teams_sorted.each do |team|
     name = repo_name(options, team)
     slug = team_slug(options, team)
     if existing_repos.include?(name)
       puts "  exists: #{name}"
     else
-      act("create #{ORG}/#{name} from #{options[:template]} (private)") do
-        gh('repo', 'create', "#{ORG}/#{name}", '--template', options[:template], '--private', '--clone=false')
+      bare = options[:template].to_s.downcase == 'none'
+      act("create #{ORG}/#{name} #{bare ? 'as an empty repo' : "from #{options[:template]}"} (private)") do
+        template_args = bare ? [] : ['--template', options[:template]]
+        gh('repo', 'create', "#{ORG}/#{name}", *template_args, '--private', '--clone=false')
         puts "  created: #{name}"
         sleep 2
       end
@@ -176,9 +178,10 @@ if options[:steps].include?('repos')
     act("grant #{slug} #{options[:repo_permission]} on #{name}") do
       gh('api', "orgs/#{ORG}/teams/#{slug}/repos/#{ORG}/#{name}", '-X', 'PUT', '-f', "permission=#{options[:repo_permission]}")
     end
-    next unless staff
-    act("grant #{staff} admin on #{name}") do
-      gh('api', "orgs/#{ORG}/teams/#{staff}/repos/#{ORG}/#{name}", '-X', 'PUT', '-f', 'permission=admin')
+    staff_teams.each do |staff|
+      act("grant #{staff} admin on #{name}") do
+        gh('api', "orgs/#{ORG}/teams/#{staff}/repos/#{ORG}/#{name}", '-X', 'PUT', '-f', 'permission=admin')
+      end
     end
   end
 end
